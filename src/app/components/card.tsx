@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Pet } from "../models/pet";
 
 interface props {
@@ -10,11 +11,11 @@ const Card = (cardProps: props) => {
     backgroundImage: `url(${pet.img})`,
   };
   return (
-    <div className="bg-white rounded-lg w-72">
+    <div className="group bg-white rounded-lg w-72 hover:cursor-pointer ">
       <div
         className="w-full h-96 bg-cover bg-center rounded-t-lg" style={imageStyle}
       ></div>
-      <h2 className="text-black text-center">{pet.name}</h2>
+      <h2 className="text-black text-center text-xl py-2 group-hover:underline underline-offset-4 decoration-lime-400">{pet.name}</h2>
     </div>
   );
 };

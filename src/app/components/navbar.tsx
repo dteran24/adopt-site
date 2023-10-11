@@ -1,4 +1,4 @@
-'use client' 
+"use client";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
@@ -7,9 +7,7 @@ import {
   CursorArrowRaysIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon, MagnifyingGlassIcon
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
 const animals = [
   {
@@ -24,7 +22,6 @@ const animals = [
     href: "#",
     icon: CursorArrowRaysIcon,
   },
-
 ];
 
 function classNames(...classes: string[]) {
@@ -117,8 +114,13 @@ export default function Example() {
           </a>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
+          <a
+            href="/about"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            <button className="flex items-center bg-lime-400 p-2 rounded-lg hover:bg-lime-500">
+              <UserCircleIcon className="w-5 h-5 me-1" /> Log in
+            </button>
           </a>
         </div>
       </nav>

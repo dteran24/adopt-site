@@ -16,10 +16,10 @@ const SearchBar = () => {
       placeholder="Enter City, State or ZIP"
     />
     <button
-      className="rounded p-2 hover:cursor-pointer border-hidden bg-lime-400 m-2"
+      className="rounded p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 m-2 flex items-center text-black font-semibold"
       type="submit"
     >
-      <MagnifyingGlassIcon className="text-black w-6 h-6" />
+      <MagnifyingGlassIcon className="text-black w-5 h-5 me-1" /> Search
     </button>
   </form>
   
