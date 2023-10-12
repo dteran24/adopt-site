@@ -16,19 +16,22 @@ const names = [
 ];
 const CardGroup = () => {
   return (
-    <section className="">
-      <h1 className="text-3xl text-center">Pets Nearby!</h1>
-      <ul className="flex justify-around py-10">
+    <section className="bg-white">
+      <div className="pt-10">
+      <h1 className="text-lg text-center text-lime-500 font-medium">Pets Nearby</h1>
+      <h2 className="text-2xl text-center text-black font-medium">Quickly take a look at available pets in your area</h2>
+      </div>
+        <ul className="flex py-10 justify-center">
         {names.map((name, index) => (
-          <li className="" key={index}>
+          <li className="mx-4" key={index}>
             <Card pet={name} />
           </li>
         ))}
-        <div className="flex items-center">
-          <div className="hover:cursor-pointer hover:text-lime-400">
+        <li className="flex items-center">
+          <div className="hover:cursor-pointer hover:text-lime-600 text-lime-500 text-lg ps-10">
             <ArrowRightIcon /> View More
           </div>
-        </div>
+        </li>
       </ul>
     </section>
   );

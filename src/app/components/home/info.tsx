@@ -36,11 +36,11 @@ const Info = () => {
       <h1 className="text-4xl text-center text-black">
         Questions for adoption?
       </h1>
-      <ul className="flex justify-around py-8 items-center">
+      <ul className="flex justify-center py-8 items-center">
         {cardInfo.map((info, index) => {
           return (
             <div key={index} className="text-black">
-              <div className="flex flex-col gap-y-6 text-center hover:cursor-pointer ">
+              <div className="flex flex-col gap-y-6 text-center hover:cursor-pointer mx-12">
                 <div className="m-auto">{iconMapping[info.icon]}</div>
                 <h2 className="text-lime-500 text-2xl">{info.title}</h2>
                       <span>{info.subtitle}</span>
