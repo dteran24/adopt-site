@@ -8,6 +8,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const animals = [
   {
@@ -105,10 +106,12 @@ export default function Example() {
               </Popover.Panel>
             </Transition>
           </Popover>
-
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            href="/about"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             About
-          </a>
+          </Link>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Contact
           </a>
