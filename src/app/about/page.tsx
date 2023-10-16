@@ -1,4 +1,5 @@
 import { stat } from "fs";
+import Image from "next/image";
 
 const About = () => {
   const stats = [
@@ -7,13 +8,13 @@ const About = () => {
     { stat: "5", sub: "Years of helping find homes" },
   ];
   return (
-    <main className="bg-white px-8">
+    <main className="bg-white px-8 pt-6">
       <section className="text-black flex mb-6">
         <div className="flex flex-col max-w-2xl">
-          <h1 className="text-6xl font-bold mb-6">
+          <h1 className="text-6xl font-bold mb-16">
             We're helping find homes for animals all over the United States.
           </h1>
-          <p className="text-slate-400">
+          <p className="text-slate-500">
             Welcome to [Your Adoption Site Name], where we're dedicated to
             connecting loving families with pets in need of forever homes. With
             years of experience in animal welfare, we're committed to ensuring a
@@ -25,12 +26,44 @@ const About = () => {
             Adoption Site Name] as your partner in this journey.
           </p>
         </div>
-        <div className="">Images here</div>
+        <div className="mx-auto">
+          <div className="flex justify-between mb-6">
+            <Image
+              className="rounded"
+              src="https://images.pexels.com/photos/5122188/pexels-photo-5122188.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="dog"
+              width={150}
+              height={150}
+            />
+            <Image
+              className="rounded "
+              src="https://images.pexels.com/photos/977935/pexels-photo-977935.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="dog"
+              width={150}
+              height={150}
+            />
+
+            <Image
+              className="rounded"
+              src="https://images.pexels.com/photos/1634838/pexels-photo-1634838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              alt="dog"
+              width={150}
+              height={150}
+            />
+          </div>
+          <Image
+            className="rounded mx-auto w-full"
+            src="https://images.pexels.com/photos/8498519/pexels-photo-8498519.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="dog"
+            width={500}
+            height={500}
+          />
+        </div>
       </section>
       <section className="text-black mb-6 flex flex-row justify-between">
         <div className="flex flex-col max-w-2xl">
           <h1 className="text-3xl font-bold mb-6">Our Mission</h1>
-          <p className="text-slate-400">
+          <p className="text-slate-500">
             Our Mission at [Your Adoption Site Name] is simple yet profound: to
             provide every pet with a second chance and every family with an
             opportunity to experience the unconditional love and joy that comes
@@ -44,21 +77,28 @@ const About = () => {
             Together, we can make a difference, one adoption at a time.
           </p>
         </div>
-        <div className="flex flex-col me-20 mt-8">
-          <ul>
+        <div className="flex flex-col justify-center w-full">
+          <ul className="mt-14 mx-auto">
             {stats.map((stat, index) => {
               return (
                 <li key={index} className="mb-4">
                   <h2 className="text-4xl font-bold mb-2">{stat.stat}</h2>
-                  <span className="text-slate-400">{stat.sub}</span>
+                  <span className="text-slate-500">{stat.sub}</span>
                 </li>
               );
             })}
           </ul>
         </div>
       </section>
-      <section>
-
+      <section className="w-full pb-10">
+        <Image
+          className="rounded text-center w-1/2 mx-auto"
+          src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          alt=""
+          width={1000}
+          height={500}
+          
+        />
       </section>
     </main>
   );
