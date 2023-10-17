@@ -1,4 +1,4 @@
-import Card from "../card";
+import Card from "./card";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 const names = [
   {
@@ -16,12 +16,16 @@ const names = [
 ];
 const CardGroup = () => {
   return (
-    <section className="bg-white">
+    <section className="bg-slate-100">
       <div className="pt-10">
-      <h1 className="text-lg text-center text-lime-500 font-medium">Pets Nearby</h1>
-      <h2 className="text-2xl text-center text-black font-medium">Quickly take a look at available pets in your area</h2>
+        <h1 className="text-lg text-center text-lime-500 font-medium">
+          Pets Nearby
+        </h1>
+        <h2 className="text-2xl text-center text-black font-medium">
+          Quickly take a look at available pets in your area
+        </h2>
       </div>
-        <ul className="flex py-10 justify-center">
+      <ul className="flex py-10 justify-center">
         {names.map((name, index) => (
           <li className="mx-4" key={index}>
             <Card pet={name} />

@@ -1,10 +1,8 @@
-import Card from "./components/card";
+import Footer from "./components/footer";
 import CardGroup from "./components/home/cardGroup";
 import Info from "./components/home/info";
 import SearchBar from "./components/searchbar";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
 const Home = () => {
-  
   return (
     <main className="flex flex-col bg-white">
       <div className="w-full h-96 bg-cover bg-center bg-[url(https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)]">
@@ -17,9 +15,9 @@ const Home = () => {
             Browse pets and find one best for you.
           </span>
         </div>
-        <CardGroup />
-        <Info/>
       </div>
+      <CardGroup />
+      <Info />
     </main>
   );
 };

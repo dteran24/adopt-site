@@ -32,7 +32,7 @@ const Info = () => {
     faq: <AiOutlineQuestionCircle className="text-lime-500 text-8xl"/>,
   };
   return (
-    <section className="bg-slate-100 py-10">
+    <section className=" py-10">
       <h1 className="text-4xl text-center text-black">
         Questions for adoption?
       </h1>
