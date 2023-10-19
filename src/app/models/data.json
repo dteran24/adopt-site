@@ -1,0 +1,142 @@
+[
+  {
+    "img": "pet1.jpg",
+    "name": "Buddy",
+    "age": 3,
+    "color": "Brown",
+    "breed": "Labrador"
+  },
+  {
+    "img": "pet2.jpg",
+    "name": "Whiskers",
+    "age": 2,
+    "color": "Gray",
+    "breed": "Siamese"
+  },
+  {
+    "img": "pet3.jpg",
+    "name": "Max",
+    "age": 5,
+    "color": "Black",
+    "breed": "German Shepherd"
+  },
+  {
+    "img": "pet4.jpg",
+    "name": "Misty",
+    "age": 1,
+    "color": "White",
+    "breed": "Ragdoll"
+  },
+  {
+    "img": "pet5.jpg",
+    "name": "Rocky",
+    "age": 4,
+    "color": "Brown",
+    "breed": "Golden Retriever"
+  },
+  {
+    "img": "pet6.jpg",
+    "name": "Luna",
+    "age": 2,
+    "color": "Gray",
+    "breed": "Siberian Husky"
+  },
+  {
+    "img": "pet7.jpg",
+    "name": "Charlie",
+    "age": 3,
+    "color": "Black",
+    "breed": "Beagle"
+  },
+  {
+    "img": "pet8.jpg",
+    "name": "Tiger",
+    "age": 6,
+    "color": "Orange",
+    "breed": "Tabby"
+  },
+  {
+    "img": "pet9.jpg",
+    "name": "Bella",
+    "age": 2,
+    "color": "White",
+    "breed": "Maine Coon"
+  },
+  {
+    "img": "pet10.jpg",
+    "name": "Cooper",
+    "age": 4,
+    "color": "Black",
+    "breed": "Poodle"
+  },
+  {
+    "img": "pet11.jpg",
+    "name": "Simba",
+    "age": 3,
+    "color": "Orange",
+    "breed": "Lion"
+  },
+  {
+    "img": "pet12.jpg",
+    "name": "Lucy",
+    "age": 2,
+    "color": "Brown",
+    "breed": "Dachshund"
+  },
+  {
+    "img": "pet13.jpg",
+    "name": "Oscar",
+    "age": 5,
+    "color": "Gray",
+    "breed": "Scottish Fold"
+  },
+  {
+    "img": "pet14.jpg",
+    "name": "Lola",
+    "age": 3,
+    "color": "Black",
+    "breed": "Persian"
+  },
+  {
+    "img": "pet15.jpg",
+    "name": "Max",
+    "age": 4,
+    "color": "White",
+    "breed": "Himalayan"
+  },
+  {
+    "img": "pet16.jpg",
+    "name": "Molly",
+    "age": 1,
+    "color": "Black",
+    "breed": "Rottweiler"
+  },
+  {
+    "img": "pet17.jpg",
+    "name": "Toby",
+    "age": 2,
+    "color": "Golden",
+    "breed": "Cavalier King Charles Spaniel"
+  },
+  {
+    "img": "pet18.jpg",
+    "name": "Chloe",
+    "age": 3,
+    "color": "White",
+    "breed": "Siamese"
+  },
+  {
+    "img": "pet19.jpg",
+    "name": "Leo",
+    "age": 1,
+    "color": "Gray",
+    "breed": "Bengal"
+  },
+  {
+    "img": "pet20.jpg",
+    "name": "Daisy",
+    "age": 2,
+    "color": "Golden",
+    "breed": "Labrador"
+  }
+]

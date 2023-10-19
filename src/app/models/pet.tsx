@@ -1,4 +1,7 @@
-export interface Pet{
-    name: string;
-    img: string;
+export interface Pet {
+  img: string;
+  name: string;
+  age: number;
+  color: string;
+  breed: string;
 }

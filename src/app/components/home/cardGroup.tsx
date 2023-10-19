@@ -1,4 +1,4 @@
-import Card from "./card";
+import Card from "../card";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 const names = [
   {
@@ -28,7 +28,7 @@ const CardGroup = () => {
       <ul className="flex py-10 justify-center">
         {names.map((name, index) => (
           <li className="mx-4" key={index}>
-            <Card pet={name} />
+            <Card pet={name} data={false} />
           </li>
         ))}
         <li className="flex items-center">

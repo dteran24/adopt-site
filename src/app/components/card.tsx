@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pet } from "../../models/pet";
+import { Pet } from "../models/pet";
 
 interface props {
   pet: Pet;
