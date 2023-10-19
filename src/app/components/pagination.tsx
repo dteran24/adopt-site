@@ -37,16 +37,18 @@ const Items = (props: Pets) => {
       <ul className="flex justify-center text-xl">
         {pageNumbers.map((number) => (
           <li key={number} className="me-5">
-            <button
-              className={`${
-                number === currentPage
-                  ? "bg-lime-500 text-white"
-                  : "bg-gray-300 text-gray-800" 
-              } py-2 px-3 rounded`}
-              onClick={() => paginate(number)}
-            >
-              {number}
-            </button>
+            <a href="#">
+              <button
+                className={`${
+                  number === currentPage
+                    ? "bg-lime-500 text-white"
+                    : "bg-gray-300 text-gray-800"
+                } py-2 px-3 rounded`}
+                onClick={() => paginate(number)}
+              >
+                {number}
+              </button>
+            </a>
           </li>
         ))}
       </ul>
