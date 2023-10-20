@@ -13,8 +13,12 @@ const Search = () => {
     breed: "",
     age: "",
     size: "",
-    color:""
-  })
+    color: "",
+  });
+  const handleDropdownChange = (category: string, value: string) => {
+    setFilter({ ...filter, [category]: value });
+  };
+  
   let selectedData;
   switch (animal) {
     case "Dog":
@@ -27,7 +31,8 @@ const Search = () => {
   const filterData = () => {
     return data.filter((item) => item.type === animal.toLowerCase());
   };
-
+  console.log(animal);
+  console.log(filter);
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
@@ -40,7 +45,11 @@ const Search = () => {
             {selectedData?.map((filter, index) => (
               <li className="flex flex-col mb-20" key={index}>
                 <span className="mb-3 text-lg font-bold">{filter.title}</span>
-                <Dropdown items={filter.item} />
+                <Dropdown
+                  items={filter.item}
+                  category={filter.title.toLowerCase()}
+                  handleDropdownChange={handleDropdownChange}
+                />
               </li>
             ))}
           </ul>

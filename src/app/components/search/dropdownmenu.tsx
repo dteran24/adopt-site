@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type DropdownProps = {
   items: string[];
   setAnimal?: React.Dispatch<React.SetStateAction<string>>;
+  animal?: string;
+  category?: string;
+  handleDropdownChange?: (category: string, value: string) => void;
 };
 
 const Dropdown = (props: DropdownProps) => {
-  const { items, setAnimal } = props;
+  const { items, setAnimal, category, handleDropdownChange, animal } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("Any");
 
@@ -19,6 +22,9 @@ const Dropdown = (props: DropdownProps) => {
     setValue(e.value);
     if (setAnimal) {
       setAnimal(e.value);
+    }
+    if (category && handleDropdownChange) {
+      handleDropdownChange(category, e.value);
     }
   };
   return (

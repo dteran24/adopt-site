@@ -6,6 +6,7 @@ import Dropdown from "./dropdownmenu";
 type ActiveFilterProps = {
   animal: string;
   setAnimal?: React.Dispatch<React.SetStateAction<string>>;
+  
 };
 
 const ActiveFilter = (props: ActiveFilterProps) => {
@@ -23,7 +24,7 @@ const ActiveFilter = (props: ActiveFilterProps) => {
     <div className="text-black flex justify-around w-full items-center mt-3">
       <div className="flex items-center gap-x-5">
         {selectedIcon}
-        <Dropdown items={animals} setAnimal={setAnimal} />
+        <Dropdown items={animals} setAnimal={setAnimal} animal={animal} />
       </div>
     </div>
   );
