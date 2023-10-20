@@ -9,7 +9,7 @@ interface Pets {
 
 const Items = (props: Pets) => {
   const { pets } = props;
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -34,7 +34,7 @@ const Items = (props: Pets) => {
           </div>
         ))}
       </div>
-      <ul className="flex justify-center text-xl">
+      <ul className="flex justify-center text-xl pt-10">
         {pageNumbers.map((number) => (
           <li key={number} className="me-5">
             <a href="#">

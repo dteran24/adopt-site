@@ -1,16 +1,26 @@
 "use client";
 import React, { useState } from "react";
 
-interface DropdownProps {}
+type DropdownProps = {
+  items: string[];
+  setAnimal?: React.Dispatch<React.SetStateAction<string>>;
+};
 
 const Dropdown = (props: DropdownProps) => {
+  const { items, setAnimal } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("Any");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
+  const selectValue = async (e: HTMLOptionElement) => {
+    toggleDropdown();
+    setValue(e.value);
+    if (setAnimal) {
+      setAnimal(e.value);
+    }
+  };
   return (
     <div className="relative inline-block text-left text-center">
       <button
@@ -36,24 +46,18 @@ const Dropdown = (props: DropdownProps) => {
       {isOpen && (
         <div className="absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
           <div className="py-1">
-            <a
-              href="#"
-              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-            >
-              Item 1
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-            >
-              Item 2
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-            >
-              Item 3
-            </a>
+            {items.map((value, index) => {
+              return (
+                <option
+                  key={index}
+                  value={value}
+                  className="text-black text-left hover:cursor-pointer hover:bg-slate-100"
+                  onClick={(e) => selectValue(e.currentTarget)}
+                >
+                  {value}
+                </option>
+              );
+            })}
           </div>
         </div>
       )}

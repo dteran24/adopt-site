@@ -1,0 +1,40 @@
+{
+  "dogs": [
+    {
+      "title": "breed",
+      "item": [
+        "Labrador",
+        "German Shepherd",
+        "Golden Retriever",
+        "Poodle",
+        "Dachshund"
+      ]
+    },
+    { "title": "age", "item": ["Puppy", "Young", "Adult", "Senior"] },
+    { "title": "size", "item": ["Small", "Medium", "Large"] },
+    { "title": "gender", "item": ["Male", "Female"] },
+    { "title": "color", "item": ["Black", "White", "Brown", "Gray", "Spotted"] }
+  ],
+  "cats": [
+    {
+      "title": "breed",
+      "item": ["Siamese", "Persian", "Maine Coon", "Sphynx", "Ragdoll"]
+    },
+    {
+      "title": "age",
+      "item": ["Kitten", "Young", "Adult", "Senior"]
+    },
+    {
+      "title": "size",
+      "item": ["Small", "Medium", "Large"]
+    },
+    {
+      "title": "gender",
+      "item": ["Male", "Female"]
+    },
+    {
+      "title": "color",
+      "item": ["White", "Gray", "Black", "Orange", "Calico"]
+    }
+  ]
+}

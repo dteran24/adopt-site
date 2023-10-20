@@ -1,142 +1,163 @@
 [
   {
-    "img": "pet1.jpg",
+    "img": "/pet1.jpg",
     "name": "Buddy",
     "age": 3,
     "color": "Brown",
-    "breed": "Labrador"
+    "breed": "Labrador",
+    "type": "dog"
   },
   {
-    "img": "pet2.jpg",
+    "img": "/pet2.jpg",
     "name": "Whiskers",
     "age": 2,
     "color": "Gray",
-    "breed": "Siamese"
+    "breed": "Siamese",
+    "type": "cat"
   },
   {
-    "img": "pet3.jpg",
+    "img": "/pet3.jpg",
     "name": "Max",
     "age": 5,
     "color": "Black",
-    "breed": "German Shepherd"
+    "breed": "German Shepherd",
+    "type": "dog"
   },
   {
-    "img": "pet4.jpg",
+    "img": "/pet4.jpg",
     "name": "Misty",
     "age": 1,
     "color": "White",
-    "breed": "Ragdoll"
+    "breed": "Ragdoll",
+    "type": "cat"
   },
   {
-    "img": "pet5.jpg",
+    "img": "/pet5.jpg",
     "name": "Rocky",
     "age": 4,
     "color": "Brown",
-    "breed": "Golden Retriever"
+    "breed": "Golden Retriever",
+    "type": "dog"
   },
   {
-    "img": "pet6.jpg",
+    "img": "/pet6.jpg",
     "name": "Luna",
     "age": 2,
     "color": "Gray",
-    "breed": "Siberian Husky"
+    "breed": "Siberian Husky",
+    "type": "dog"
   },
   {
-    "img": "pet7.jpg",
+    "img": "/pet7.jpg",
     "name": "Charlie",
     "age": 3,
     "color": "Black",
-    "breed": "Beagle"
+    "breed": "Beagle",
+    "type": "dog"
   },
   {
-    "img": "pet8.jpg",
+    "img": "/pet8.jpg",
     "name": "Tiger",
     "age": 6,
     "color": "Orange",
-    "breed": "Tabby"
+    "breed": "Tabby",
+    "type": "cat"
   },
   {
-    "img": "pet9.jpg",
+    "img": "/pet9.jpg",
     "name": "Bella",
     "age": 2,
     "color": "White",
-    "breed": "Maine Coon"
+    "breed": "Maine Coon",
+    "type": "cat"
   },
   {
-    "img": "pet10.jpg",
+    "img": "/pet10.jpg",
     "name": "Cooper",
     "age": 4,
     "color": "Black",
-    "breed": "Poodle"
+    "breed": "Poodle",
+    "type": "dog"
   },
   {
-    "img": "pet11.jpg",
+    "img": "/pet11.jpg",
     "name": "Simba",
     "age": 3,
     "color": "Orange",
-    "breed": "Lion"
+    "breed": "Lion",
+    "type": "cat"
   },
   {
-    "img": "pet12.jpg",
+    "img": "/pet12.jpg",
     "name": "Lucy",
     "age": 2,
     "color": "Brown",
-    "breed": "Dachshund"
+    "breed": "Dachshund",
+    "type": "dog"
   },
   {
-    "img": "pet13.jpg",
+    "img": "/pet13.jpg",
     "name": "Oscar",
     "age": 5,
     "color": "Gray",
-    "breed": "Scottish Fold"
+    "breed": "Scottish Fold",
+    "type": "cat"
   },
   {
-    "img": "pet14.jpg",
+    "img": "/pet14.jpg",
     "name": "Lola",
     "age": 3,
     "color": "Black",
-    "breed": "Persian"
+    "breed": "Persian",
+    "type": "cat"
   },
   {
-    "img": "pet15.jpg",
+    "img": "/pet15.jpg",
     "name": "Max",
     "age": 4,
     "color": "White",
-    "breed": "Himalayan"
+    "breed": "Himalayan",
+    "type": "cat"
   },
   {
-    "img": "pet16.jpg",
+    "img": "/pet16.jpg",
     "name": "Molly",
     "age": 1,
     "color": "Black",
-    "breed": "Rottweiler"
+    "breed": "Rottweiler",
+    "type": "dog"
   },
   {
-    "img": "pet17.jpg",
+    "img": "/pet17.jpg",
     "name": "Toby",
     "age": 2,
     "color": "Golden",
-    "breed": "Cavalier King Charles Spaniel"
+    "breed": "Cavalier King Charles Spaniel",
+    "type": "dog"
   },
   {
-    "img": "pet18.jpg",
+    "img": "/pet18.jpg",
     "name": "Chloe",
     "age": 3,
     "color": "White",
-    "breed": "Siamese"
+    "breed": "Siamese",
+    "type": "cat"
   },
   {
-    "img": "pet19.jpg",
+    "img": "/pet19.jpg",
     "name": "Leo",
     "age": 1,
     "color": "Gray",
-    "breed": "Bengal"
+    "breed": "Bengal",
+    "type": "cat"
   },
   {
-    "img": "pet20.jpg",
+    "img": "/pet20.jpg",
     "name": "Daisy",
     "age": 2,
     "color": "Golden",
-    "breed": "Labrador"
+    "breed": "Labrador",
+    "type": "dog"
   }
 ]
+

@@ -1,4 +1,3 @@
-import Footer from "./components/footer";
 import CardGroup from "./components/home/cardGroup";
 import Info from "./components/home/info";
 import SearchBar from "./components/searchbar";
