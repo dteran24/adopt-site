@@ -9,16 +9,20 @@ import ActiveFilter from "../components/search/activefilters";
 const Search = () => {
   const [animal, setAnimal] = useState("Dog");
 
-  const [filter, setFilter] = useState({
-    breed: "",
-    age: "",
-    size: "",
-    color: "",
+  const [categoryValues, setCategoryValues] = useState({
+    breed: "Any",
+    age: "Any",
+    size: "Any",
+    color: "Any",
+    gender:"Any"
   });
+
   const handleDropdownChange = (category: string, value: string) => {
-    setFilter({ ...filter, [category]: value });
+    setCategoryValues({ ...categoryValues, [category]: value });
   };
-  
+  const handleValue = (category: keyof typeof categoryValues) => {
+    return categoryValues[category];
+  };
   let selectedData;
   switch (animal) {
     case "Dog":
@@ -29,10 +33,20 @@ const Search = () => {
       break;
   }
   const filterData = () => {
-    return data.filter((item) => item.type === animal.toLowerCase());
+    return data.filter((item) => {
+      return (
+        item.type === animal.toLowerCase() &&
+        (categoryValues.breed === "Any" ||
+          item.breed === categoryValues.breed) &&
+        (categoryValues.age === "Any" || item.age === categoryValues.age) &&
+        (categoryValues.size === "Any" || item.size === categoryValues.size) &&
+        (categoryValues.color === "Any" || item.color === categoryValues.color) &&
+        (categoryValues.gender === "Any" || item.gender === categoryValues.gender)
+      );
+    });
   };
-  console.log(animal);
-  console.log(filter);
+  console.log(categoryValues)
+
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
@@ -47,7 +61,7 @@ const Search = () => {
                 <span className="mb-3 text-lg font-bold">{filter.title}</span>
                 <Dropdown
                   items={filter.item}
-                  category={filter.title.toLowerCase()}
+                  category={filter.title}
                   handleDropdownChange={handleDropdownChange}
                 />
               </li>
