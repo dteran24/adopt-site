@@ -14,15 +14,24 @@ const Search = () => {
     age: "Any",
     size: "Any",
     color: "Any",
-    gender:"Any"
+    gender: "Any",
   });
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
   };
-  const handleValue = (category: keyof typeof categoryValues) => {
-    return categoryValues[category];
+  const setDefaultCategoryValues = () => {
+    console.log("default fucntion called");
+    const defaultValues = {
+      breed: "Any",
+      age: "Any",
+      size: "Any",
+      color: "Any",
+      gender: "Any",
+    };
+    setCategoryValues(defaultValues);
   };
+
   let selectedData;
   switch (animal) {
     case "Dog":
@@ -40,13 +49,14 @@ const Search = () => {
           item.breed === categoryValues.breed) &&
         (categoryValues.age === "Any" || item.age === categoryValues.age) &&
         (categoryValues.size === "Any" || item.size === categoryValues.size) &&
-        (categoryValues.color === "Any" || item.color === categoryValues.color) &&
-        (categoryValues.gender === "Any" || item.gender === categoryValues.gender)
+        (categoryValues.color === "Any" ||
+          item.color === categoryValues.color) &&
+        (categoryValues.gender === "Any" ||
+          item.gender === categoryValues.gender)
       );
     });
   };
-  console.log(categoryValues)
-
+console.log(categoryValues)
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
@@ -63,6 +73,8 @@ const Search = () => {
                   items={filter.item}
                   category={filter.title}
                   handleDropdownChange={handleDropdownChange}
+                  setDefaultCategoryValues={setDefaultCategoryValues}
+                  animal={animal}
                 />
               </li>
             ))}

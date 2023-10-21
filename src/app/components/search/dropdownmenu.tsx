@@ -7,17 +7,32 @@ type DropdownProps = {
   animal?: string;
   category?: string;
   handleDropdownChange?: (category: string, value: string) => void;
+  setDefaultCategoryValues?: () => void;
 };
 
 const Dropdown = (props: DropdownProps) => {
-  const { items, setAnimal, category, handleDropdownChange, animal } = props;
+  const {
+    items,
+    setAnimal,
+    category,
+    handleDropdownChange,
+    animal,
+    setDefaultCategoryValues,
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState("Any");
+  const [value, setValue] = useState(category ? "Any" : animal);
+
+  useEffect(() => {
+    if (animal && setDefaultCategoryValues) {
+      setDefaultCategoryValues();
+      setValue(category ? "Any" : animal);
+    }
+  }, [animal]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  const selectValue = async (e: HTMLOptionElement) => {
+  const selectValue = (e: HTMLOptionElement) => {
     toggleDropdown();
     setValue(e.value);
     if (setAnimal) {
