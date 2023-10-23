@@ -1,7 +1,7 @@
 import Image from "next/image";
 const Login = () => {
   return (
-    <main className="flex">
+    <main className="lg:flex bg-white">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -144,8 +144,9 @@ const Login = () => {
         </div>
       </div>
       <Image
+        className="invisible lg:visible"
         width={750}
-        height={100}
+        height={500}
         src="https://cdn.stocksnap.io/img-thumbs/960w/man-dog_KOEZ5EORMG.jpg"
         alt=""
       />

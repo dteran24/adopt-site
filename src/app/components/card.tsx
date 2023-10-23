@@ -12,8 +12,8 @@ const Card = (cardProps: props) => {
   //   backgroundImage: `url(${pet.img})`,
   // };
   return (
-    <div className="group bg-white rounded-lg w-72 hover:cursor-pointer">
-      <Image src={pet.img} width={500} height={500} alt="pet" />
+    <div className="group bg-white rounded-lg w-full lg:w-72 hover:cursor-pointer">
+      <Image className="rounded-t-lg" src={pet.img} width={500} height={500} alt="pet" />
       {/* <div
         className="w-full h-80 bg-cover bg-center rounded-t-lg"
         style={imageStyle}

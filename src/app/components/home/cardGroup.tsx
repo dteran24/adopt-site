@@ -25,16 +25,16 @@ const CardGroup = () => {
           Quickly take a look at available pets in your area
         </h2>
       </div>
-      <ul className="flex py-10 justify-center">
+      <ul className="flex flex-col lg:flex-row lg:justify-center py-10 px-5">
         {names.map((name, index) => (
-          <li className="mx-4" key={index}>
+          <li className="mx-auto mb-4 lg:mb-0 px-5" key={index}>
             <Card pet={name} data={false} />
           </li>
         ))}
-        <li className="flex items-center">
-          <div className="hover:cursor-pointer hover:text-lime-600 text-lime-500 text-lg ps-10">
-            <ArrowRightIcon /> View More
-          </div>
+        <li className="flex items-center mx-auto xl:ms-5">
+          <button className="hover:cursor-pointer hover:text-lime-600 text-white lg:text-lime-500 text-lg bg-lime-500 lg:bg-slate-100 rounded-lg lg:rounded-none p-4 lg:p-0">
+            <ArrowRightIcon className="hidden lg:block"/> View More
+          </button>
         </li>
       </ul>
     </section>
