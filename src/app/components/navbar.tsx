@@ -120,14 +120,14 @@ export default function Example() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="/about"
+          <Link
+            href="/login"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             <button className="flex items-center bg-white border-2 border-lime-500 p-2 rounded-lg hover:bg-lime-500 text-black ">
               <UserCircleIcon className="w-5 h-5 me-1" /> Log in
             </button>
-          </a>
+          </Link>
         </div>
       </nav>
       <Dialog
