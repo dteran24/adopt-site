@@ -32,14 +32,14 @@ const Info = () => {
     faq: <AiOutlineQuestionCircle className="text-lime-500 text-8xl"/>,
   };
   return (
-    <section className=" py-10">
+    <section className="mt-10">
       <h1 className="text-4xl text-center text-black">
         Questions for adoption?
       </h1>
-      <ul className="flex justify-center py-8 items-center">
+      <div className="flex flex-col md:flex-row justify-center py-8 items-center">
         {cardInfo.map((info, index) => {
           return (
-            <div key={index} className="text-black">
+            <div key={index} className="text-black mb-10">
               <div className="flex flex-col gap-y-6 text-center hover:cursor-pointer mx-12">
                 <div className="m-auto">{iconMapping[info.icon]}</div>
                 <h2 className="text-lime-500 text-2xl">{info.title}</h2>
@@ -49,7 +49,7 @@ const Info = () => {
             </div>
           );
         })}
-      </ul>
+      </div>
     </section>
   );
 };
