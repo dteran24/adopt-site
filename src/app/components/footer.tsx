@@ -30,7 +30,7 @@ const Footer = () => {
   };
   return (
     <footer className="flex flex-col bg-slate-100 text-black py-5">
-      <ul className="sm:w-1/2 sm:mx-auto flex justify-around  py-5">
+      <ul className="sm:w-1/2 sm:mx-auto flex justify-around  my-5">
         {sections.map((item, index) => {
           return (
             <Link href={item.url} key={index}>
@@ -41,7 +41,7 @@ const Footer = () => {
           );
         })}
       </ul>
-      <ul className="sm:w-1/4 sm:mx-auto flex justify-around py-5">
+      <ul className="sm:w-1/4 sm:mx-auto flex justify-around my-5">
         {icons.map((icon, index) => {
           return (
             <li
@@ -53,7 +53,7 @@ const Footer = () => {
           );
         })}
       </ul>
-      <span className="text-center mt-1">
+      <span className="text-center mt-5">
         © 2020 Your Company, Inc. All rights reserved.
       </span>
     </footer>

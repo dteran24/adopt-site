@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
-import { Pet } from "../models/pet";
+import React, { useEffect, useState } from "react";
+import { PetInfo } from "../models/pet";
 import Card from "./card";
 
 interface Pets {
-  pets: Pet[];
+  pets: PetInfo[];
 }
 
 const Items = (props: Pets) => {
@@ -24,13 +24,15 @@ const Items = (props: Pets) => {
   for (let i = 1; i <= Math.ceil(pets.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
-
+  useEffect(() => {
+  
+})
   return (
     <div className="bg-slate-100 text-black w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5">
-        {currentItems.map((pet, index) => (
+        {currentItems.map((animal, index) => (
           <div key={index} className="flex justify-center">
-            <Card pet={pet} />
+            <Card animal={animal} />
           </div>
         ))}
       </div>

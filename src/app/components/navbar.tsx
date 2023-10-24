@@ -14,13 +14,13 @@ const animals = [
   {
     name: "Dogs",
     description: "Get a better understanding of your traffic",
-    href: "#",
+    href: "/search",
     icon: ChartPieIcon,
   },
   {
     name: "Cats",
     description: "Speak directly to your customers",
-    href: "#",
+    href: "/search",
     icon: CursorArrowRaysIcon,
   },
 ];
@@ -91,13 +91,13 @@ export default function Example() {
                         />
                       </div>
                       <div className="flex-auto">
-                        <a
+                        <Link
                           href={item.href}
                           className="block font-semibold text-gray-900"
                         >
                           {item.name}
                           <span className="absolute inset-0" />
-                        </a>
+                        </Link>
                         <p className="mt-1 text-gray-600">{item.description}</p>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ export default function Example() {
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
-            href="/login"
+            href="/account/login"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             <button className="flex items-center bg-white border-2 border-lime-500 p-2 rounded-lg hover:bg-lime-500 text-black ">
@@ -139,14 +139,14 @@ export default function Example() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=lime&shade=500"
                 alt=""
               />
-            </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -208,7 +208,7 @@ export default function Example() {
               </div>
               <div className="py-6">
                 <Link
-                  href="/login"
+                  href="/account/login"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Log in

@@ -21,7 +21,6 @@ const Search = () => {
     setCategoryValues({ ...categoryValues, [category]: value });
   };
   const setDefaultCategoryValues = () => {
-    console.log("default fucntion called");
     const defaultValues = {
       breed: "Any",
       age: "Any",
