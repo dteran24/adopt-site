@@ -56,19 +56,23 @@ const Search = () => {
       );
     });
   };
-console.log(categoryValues)
+  const upperCase = (word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
       id="items"
     >
       <ActiveFilter setAnimal={setAnimal} animal={animal} />
-      <div className="flex">
-        <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0">
+      <div className="flex flex-col sm:flex-row">
+        <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
           <ul className="px-5 pt-5 text-center">
             {selectedData?.map((filter, index) => (
-              <li className="flex flex-col mb-20" key={index}>
-                <span className="mb-3 text-lg font-bold">{filter.title}</span>
+              <li className="flex flex-col mb-5 lg:mb-20" key={index}>
+                <span className="mb-3 text-lg font-bold">
+                  {upperCase(filter.title)}
+                </span>
                 <Dropdown
                   items={filter.item}
                   category={filter.title}

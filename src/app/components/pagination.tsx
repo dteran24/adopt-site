@@ -27,14 +27,14 @@ const Items = (props: Pets) => {
 
   return (
     <div className="bg-slate-100 text-black w-full">
-      <div className="grid grid-cols-3 gap-y-10 px-5 mx-auto mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5">
         {currentItems.map((pet, index) => (
           <div key={index} className="flex justify-center">
             <Card pet={pet} />
           </div>
         ))}
       </div>
-      <ul className="flex justify-center text-xl pt-10">
+      <ul className="flex justify-center text-xl my-10 sm:mb-0">
         {pageNumbers.map((number) => (
           <li key={number} className="me-5">
             <a href="#">

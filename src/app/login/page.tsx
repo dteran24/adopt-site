@@ -144,7 +144,7 @@ const Login = () => {
         </div>
       </div>
       <Image
-        className="invisible lg:visible"
+        className="invisible lg:visible object-cover object-center"
         width={750}
         height={500}
         src="https://cdn.stocksnap.io/img-thumbs/960w/man-dog_KOEZ5EORMG.jpg"
