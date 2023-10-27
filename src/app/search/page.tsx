@@ -1,5 +1,5 @@
 "use client";
-import Items from "../components/pagination";
+import Items from "../components/search/pagination";
 import Dropdown from "../components/search/dropdownmenu";
 import data from "../models/data.json";
 import combinedPetsData from "../models/combinedPetsData.json";

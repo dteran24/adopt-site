@@ -1,7 +1,19 @@
 import CardGroup from "./components/home/cardGroup";
 import Info from "./components/home/info";
-import SearchBar from "./components/searchbar";
-const Home = () => {
+import SearchBar from "./components/home/searchbar";
+import { PetInfo } from "./models/pet";
+import { getPictures, getToken } from "./util";
+
+const fetchCloseAnimals = async () => {
+  const token = await getToken();
+  if (token) {
+    const animals = await getPictures(token);
+    return animals;
+  }
+};
+const Home = async () => {
+  const pictures = await fetchCloseAnimals();
+
   return (
     <main className="flex flex-col bg-white">
       <div className="w-full h-96 bg-cover bg-center bg-[url(https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)]">
@@ -15,7 +27,8 @@ const Home = () => {
           </span>
         </div>
       </div>
-      <CardGroup />
+
+      {pictures ? <CardGroup pictures={pictures} /> : ""}
       <Info />
     </main>
   );
