@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import Card from "../card";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { getPictures, getToken } from "@/app/util";
 import { PetInfo } from "@/app/models/pet";
-import { useToken } from "@/app/util";
+
 
 type cardGroupProps = {
   pictures: PetInfo[];

@@ -1,19 +1,14 @@
 import CardGroup from "./components/home/cardGroup";
 import Info from "./components/home/info";
 import SearchBar from "./components/home/searchbar";
+import { getPictures, getToken } from "./actions";
 import { PetInfo } from "./models/pet";
-import { getPictures, getToken } from "./util";
+import { cookies } from 'next/headers'
 
-const fetchCloseAnimals = async () => {
-  const token = await getToken();
-  if (token) {
-    const animals = await getPictures(token);
-    return animals;
-  }
-};
 const Home = async () => {
-  const pictures = await fetchCloseAnimals();
-
+  const token = cookies().get("token")?.value;
+  const pictures = await getPictures(token!)
+ 
   return (
     <main className="flex flex-col bg-white">
       <div className="w-full h-96 bg-cover bg-center bg-[url(https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)]">

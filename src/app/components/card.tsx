@@ -9,14 +9,13 @@ interface props {
 
 const Card = (cardProps: props) => {
   const { animal, fakeAnimal } = cardProps;
-  // const imageStyle = {
-  //   backgroundImage: `url(${pet.img})`,
-  // };
+
+  const photo = photoHandler(animal);
   return (
     <div className="group bg-white rounded-lg w-full lg:w-72 hover:cursor-pointer">
       <Image
         className="rounded-t-lg h-80 object-cover object-center"
-        src={animal.photos[0].full}
+        src={photo}
         width={500}
         height={500}
         alt="pet"
@@ -32,3 +31,18 @@ const Card = (cardProps: props) => {
   );
 };
 export default Card;
+const photoHandler = (animalData: PetInfo) => {
+  if (animalData.photos) {
+    if (animalData.photos[0].full) {
+      return animalData.photos[0].full;
+    } else if (animalData.photos[0].large) {
+      return animalData.photos[0].large;
+    } else if (animalData.photos[0].medium) {
+      return animalData.photos[0].medium;
+    } else if (animalData.photos[0].small) {
+      return animalData.photos[0].small;
+    }
+  }
+  // Handle the case where there are no photos or none of the sizes are available.
+  return "default-image.jpg"; // Replace with a default image URL or handle it according to your use case.
+};

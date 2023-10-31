@@ -78,10 +78,10 @@ export interface PetInfo {
 }
 
 export interface FilterOptions {
-  Breed: string[];
-  Age: string[];
-  Size: string[];
-  Gender: string[];
-  Color: string[];
+  breed: string;
+  age: string;
+  size: string;
+  gender: string;
+  color: string;
 }
 

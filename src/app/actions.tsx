@@ -1,4 +1,8 @@
-import { PetInfo } from "./models/pet";
+
+
+import { FilterOptions, PetInfo } from "./models/pet";
+
+
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID; // Replace with your actual client ID
 const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET; // Replace with your actual client secret
@@ -42,6 +46,64 @@ export const getPictures = async (bearerToken: string): Promise<PetInfo[]> => {
       },
     });
     const petData = await response.json();
+    if (petData) {
+      return petData.animals;
+    } else {
+      console.error("Error: Inavlid response");
+      return Promise.reject(
+        `Error: Request failed with status ${response.status}`
+      );
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return Promise.reject(error);
+  }
+};
+export const getAnimals = async (
+  bearerToken: string,
+  filter?: FilterOptions,
+  type?: string,
+  location?: string
+) => {
+  try {
+    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}`;
+
+    const queryParams = [];
+
+    // Check if the 'filter' object contains values and add them to the query parameters.    if (filter.breed) {
+
+    if (filter) {
+      queryParams.push(`breed=${filter.breed}`);
+
+      if (filter.age) {
+        queryParams.push(`age=${filter.age}`);
+      }
+      if (filter.size) {
+        queryParams.push(`size=${filter.size}`);
+      }
+      if (filter.gender) {
+        queryParams.push(`gender=${filter.gender}`);
+      }
+      if (filter.color) {
+        queryParams.push(`color=${filter.color}`);
+      }
+    }
+
+    const fullURL =
+      queryParams.length > 0
+        ? `${BASE_URL}&${queryParams.join("&")}`
+        : BASE_URL;
+
+    const response = await fetch(fullURL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+    const petData = await response.json();
+    console.log("BASE", BASE_URL);
+    console.log("FULL", fullURL);
+    console.log("DATA", petData);
     if (petData) {
       return petData.animals;
     } else {
