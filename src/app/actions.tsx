@@ -1,8 +1,4 @@
-
-
 import { FilterOptions, PetInfo } from "./models/pet";
-
-
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID; // Replace with your actual client ID
 const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET; // Replace with your actual client secret
@@ -62,29 +58,31 @@ export const getPictures = async (bearerToken: string): Promise<PetInfo[]> => {
 export const getAnimals = async (
   bearerToken: string,
   filter?: FilterOptions,
-  type?: string,
-  location?: string
+  type: string = "dog",
+  location: string = "dallas, texas",
+  page: number = 1
 ) => {
   try {
-    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}`;
+    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&=page${page}`;
 
     const queryParams = [];
 
     // Check if the 'filter' object contains values and add them to the query parameters.    if (filter.breed) {
-
+console.log("token in actions: ", bearerToken)
     if (filter) {
-      queryParams.push(`breed=${filter.breed}`);
-
-      if (filter.age) {
+      if (filter.breed != "Any") {
+        queryParams.push(`breed=${filter.breed}`);
+      }
+      if (filter.age != "Any") {
         queryParams.push(`age=${filter.age}`);
       }
-      if (filter.size) {
+      if (filter.size != "Any") {
         queryParams.push(`size=${filter.size}`);
       }
-      if (filter.gender) {
+      if (filter.gender != "Any") {
         queryParams.push(`gender=${filter.gender}`);
       }
-      if (filter.color) {
+      if (filter.color != "Any") {
         queryParams.push(`color=${filter.color}`);
       }
     }
@@ -100,6 +98,7 @@ export const getAnimals = async (
         Authorization: `Bearer ${bearerToken}`,
       },
     });
+
     const petData = await response.json();
     console.log("BASE", BASE_URL);
     console.log("FULL", fullURL);

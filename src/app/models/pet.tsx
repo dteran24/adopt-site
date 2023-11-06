@@ -85,3 +85,13 @@ export interface FilterOptions {
   color: string;
 }
 
+export interface URLParameters{
+  token: string;
+  filter?: FilterOptions;
+  type: string;
+  location?: string;
+  page?: number;
+  limit?: number;
+  
+}
+

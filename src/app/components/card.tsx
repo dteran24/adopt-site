@@ -32,7 +32,8 @@ const Card = (cardProps: props) => {
 };
 export default Card;
 const photoHandler = (animalData: PetInfo) => {
-  if (animalData.photos) {
+
+  if (animalData.photos.length !== 0) {
     if (animalData.photos[0].full) {
       return animalData.photos[0].full;
     } else if (animalData.photos[0].large) {
@@ -42,7 +43,9 @@ const photoHandler = (animalData: PetInfo) => {
     } else if (animalData.photos[0].small) {
       return animalData.photos[0].small;
     }
+  } else {
+    return "https://cdn.stocksnap.io/img-thumbs/960w/husky-animal_GF7YFWSR88.jpg";
   }
   // Handle the case where there are no photos or none of the sizes are available.
-  return "default-image.jpg"; // Replace with a default image URL or handle it according to your use case.
+  // Replace with a default image URL or handle it according to your use case.
 };
