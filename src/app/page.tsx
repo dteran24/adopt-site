@@ -4,7 +4,6 @@ import Info from "./components/home/info";
 import SearchBar from "./components/home/searchbar";
 import { getPictures, getToken } from "./actions";
 import { PetInfo } from "./models/pet";
-import { cookies } from "next/headers";
 import { useEffect, useState } from "react";
 
 const Home = () => {

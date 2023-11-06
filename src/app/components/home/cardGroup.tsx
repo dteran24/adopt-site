@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import Card from "../card";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";

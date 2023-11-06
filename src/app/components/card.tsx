@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { PetInfo } from "../models/pet";
+import Link from "next/link";
 
 interface props {
   animal: PetInfo;
@@ -8,14 +9,15 @@ interface props {
 }
 
 const Card = (cardProps: props) => {
-  const { animal, fakeAnimal } = cardProps;
+  const { animal } = cardProps;
 
   const photo = photoHandler(animal);
   return (
+    <Link href={`search/${animal.id}`}>
     <div className="group bg-white rounded-lg w-full lg:w-72 hover:cursor-pointer">
       <Image
         className="rounded-t-lg h-80 object-cover object-center"
-        src={photo}
+        src={photo!}
         width={500}
         height={500}
         alt="pet"
@@ -27,7 +29,8 @@ const Card = (cardProps: props) => {
       <h2 className="text-black text-center text-xl font-bold py-2 group-hover:underline underline-offset-4 decoration-lime-400">
         {animal.name}
       </h2>
-    </div>
+      </div>
+      </Link>
   );
 };
 export default Card;

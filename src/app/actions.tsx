@@ -68,7 +68,7 @@ export const getAnimals = async (
     const queryParams = [];
 
     // Check if the 'filter' object contains values and add them to the query parameters.    if (filter.breed) {
-console.log("token in actions: ", bearerToken)
+    console.log("token in actions: ", bearerToken);
     if (filter) {
       if (filter.breed != "Any") {
         queryParams.push(`breed=${filter.breed}`);
@@ -100,9 +100,6 @@ console.log("token in actions: ", bearerToken)
     });
 
     const petData = await response.json();
-    console.log("BASE", BASE_URL);
-    console.log("FULL", fullURL);
-    console.log("DATA", petData);
     if (petData) {
       return petData.animals;
     } else {
@@ -114,5 +111,32 @@ console.log("token in actions: ", bearerToken)
   } catch (error) {
     console.error("Error:", error);
     return Promise.reject(error);
+  }
+};
+export const getAnimalByID = async (
+  id: number,
+  bearerToken: string
+): Promise<PetInfo> => {
+  try {
+    const BASE_URL = `https://api.petfinder.com/v2/animals/${id}`;
+    const response = await fetch(BASE_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+
+    const petData = await response.json();
+    if (petData) {
+      return petData.animal;
+    } else {
+      console.error("Error: Inavlid response");
+      return Promise.reject(
+        `Error: Request failed with status ${response.status}`
+      );
+    }
+  } catch (e) {
+    console.error("Error:", e);
+    return Promise.reject(e);
   }
 };
