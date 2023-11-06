@@ -63,7 +63,7 @@ export const getAnimals = async (
   page: number = 1
 ) => {
   try {
-    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&=page${page}`;
+    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&page=${page}`;
 
     const queryParams = [];
 

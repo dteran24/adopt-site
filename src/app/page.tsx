@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [pictures, setPictures] = useState<PetInfo[]>();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,6 +19,7 @@ const Home = () => {
         if (token) {
           const petData = await getPictures(token);
           setPictures(petData);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -40,8 +42,8 @@ const Home = () => {
           </span>
         </div>
       </div>
-
-      {pictures ? <CardGroup pictures={pictures} /> : ""}
+      {loading ? "Loading..." : pictures ? <CardGroup pictures={pictures} /> :" Data not Found"}
+      
       <Info />
     </main>
   );

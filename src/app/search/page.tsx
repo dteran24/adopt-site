@@ -1,15 +1,15 @@
 "use client";
 import Items from "../components/search/items";
 import Dropdown from "../components/search/dropdownmenu";
-import data from "../models/data.json";
 import combinedPetsData from "../models/combinedPetsData.json";
 import { useEffect, useState } from "react";
 import ActiveFilter from "../components/search/activefilters";
-import { FilterOptions, URLParameters } from "../models/pet";
+import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
 import { getToken } from "../actions";
 
 const Search = () => {
   const [type, setType] = useState("Dog");
+  const [pageNumber, setPageNumber] = useState(1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
     breed: "",
@@ -24,16 +24,11 @@ const Search = () => {
     type: type,
     location: "dallas, texas",
     limit: 20,
-    page: 1,
+    page: pageNumber,
   });
-
   useEffect(() => {
-    console.log("Getting token from sessionStorage");
     const storedToken = sessionStorage.getItem("token");
-    console.log("stored", storedToken);
-
     if (storedToken) {
-      console.log("setting PArams");
       setParameters({
         token: storedToken,
         filter: categoryValues,
@@ -71,8 +66,10 @@ const Search = () => {
       token: tokenData,
       filter: categoryValues,
       type: type,
+      page: pageNumber,
     });
-  }, [type, categoryValues, tokenData]);
+    console.log("Changing...", pageNumber);
+  }, [type, categoryValues, tokenData, pageNumber]);
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
@@ -102,7 +99,6 @@ const Search = () => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
-  console.log("SearchPage", parameters);
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
@@ -128,7 +124,10 @@ const Search = () => {
             ))}
           </ul>
         </div>
-        {tokenData ? <Items paramters={parameters!} /> : "No token"}
+        <div className="flex flex-col">
+          {tokenData ? <Items paramters={parameters!}  setPage={setPageNumber}/> : "No token"}
+         
+        </div>
       </div>
     </main>
   );
