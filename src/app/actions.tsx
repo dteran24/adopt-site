@@ -1,4 +1,4 @@
-import { FilterOptions, PetInfo } from "./models/pet";
+import { FilterOptions, Organization, PetInfo } from "./models/pet";
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID; // Replace with your actual client ID
 const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET; // Replace with your actual client secret
@@ -138,5 +138,47 @@ export const getAnimalByID = async (
   } catch (e) {
     console.error("Error:", e);
     return Promise.reject(e);
+  }
+};
+
+export const getOrganization = async (
+  orgID: string,
+  token: string
+): Promise<Organization> => {
+  try {
+    const BASE_URL = `https://api.petfinder.com/v2/organizations/${orgID}`;
+    const response = await fetch(BASE_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const orgData = await response.json();
+    if (orgData) {
+      return orgData.organization;
+    } else {
+      console.error("Error: Inavlid response");
+      return Promise.reject(
+        `Error: Request failed with status ${response.status}`
+      );
+    }
+  } catch (e) {
+    console.error("Error:", e);
+    return Promise.reject(e);
+  }
+};
+export const photoHandler = (animalData: PetInfo) => {
+  if (animalData.photos.length !== 0) {
+    if (animalData.photos[0].full) {
+      return animalData.photos[0].full;
+    } else if (animalData.photos[0].large) {
+      return animalData.photos[0].large;
+    } else if (animalData.photos[0].medium) {
+      return animalData.photos[0].medium;
+    } else if (animalData.photos[0].small) {
+      return animalData.photos[0].small;
+    }
+  } else {
+    return "https://cdn.stocksnap.io/img-thumbs/960w/husky-animal_GF7YFWSR88.jpg";
   }
 };

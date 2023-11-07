@@ -10,7 +10,7 @@
         "Dachshund"
       ]
     },
-    { "title": "age", "item": ["Puppy", "Young", "Adult", "Senior"] },
+    { "title": "age", "item": ["Baby", "Young", "Adult", "Senior"] },
     { "title": "size", "item": ["Small", "Medium", "Large"] },
     { "title": "gender", "item": ["Male", "Female"] },
     { "title": "color", "item": ["Black", "White", "Brown", "Gray", "Spotted"] }
@@ -22,7 +22,7 @@
     },
     {
       "title": "age",
-      "item": ["Kitten", "Young", "Adult", "Senior"]
+      "item": ["Baby", "Young", "Adult", "Senior"]
     },
     {
       "title": "size",
