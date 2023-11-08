@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "dl5zpyw5k3jeb.cloudfront.net",
       },
+      {
+        protocol: "https",
+        hostname: "static.vecteezy.com",
+      },
     ],
   },
 };
