@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { PetInfo } from "../models/pet";
 import Link from "next/link";
+import { photoHandler } from "../actions";
 
 interface props {
   animal: PetInfo;
@@ -38,20 +39,4 @@ const Card = (cardProps: props) => {
   );
 };
 export default Card;
-const photoHandler = (animalData: PetInfo) => {
-  if (animalData.photos.length !== 0) {
-    if (animalData.photos[0].full) {
-      return animalData.photos[0].full;
-    } else if (animalData.photos[0].large) {
-      return animalData.photos[0].large;
-    } else if (animalData.photos[0].medium) {
-      return animalData.photos[0].medium;
-    } else if (animalData.photos[0].small) {
-      return animalData.photos[0].small;
-    }
-  } else {
-    return "https://cdn.stocksnap.io/img-thumbs/960w/husky-animal_GF7YFWSR88.jpg";
-  }
-  // Handle the case where there are no photos or none of the sizes are available.
-  // Replace with a default image URL or handle it according to your use case.
-};
+

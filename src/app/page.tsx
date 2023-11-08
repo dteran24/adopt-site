@@ -9,11 +9,10 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [pictures, setPictures] = useState<PetInfo[]>();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
+  useEffect(() => {   
     const fetchData = async () => {
       try {
         const token = await getToken();
-        console.log("token", token);
         sessionStorage.setItem("token", token);
         if (token) {
           const petData = await getPictures(token);
@@ -27,7 +26,6 @@ const Home = () => {
 
     fetchData();
   }, []);
-
   return (
     <main className="flex flex-col bg-white">
       <div className="w-full h-96 bg-cover bg-center bg-[url(https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)]">
@@ -41,7 +39,7 @@ const Home = () => {
           </span>
         </div>
       </div>
-      {loading ? "Loading..." : pictures ? <CardGroup pictures={pictures} /> :" Data not Found"}
+      {loading ? <p className="text-black text-center text-4xl">loading...</p>: pictures ? <CardGroup pictures={pictures}/>:"" }
       
       <Info />
     </main>

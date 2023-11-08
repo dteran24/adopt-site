@@ -179,6 +179,6 @@ export const photoHandler = (animalData: PetInfo) => {
       return animalData.photos[0].small;
     }
   } else {
-    return "https://cdn.stocksnap.io/img-thumbs/960w/husky-animal_GF7YFWSR88.jpg";
+    return "https://static.vecteezy.com/system/resources/previews/000/079/896/original/paw-print-vector-icon.jpg";
   }
 };

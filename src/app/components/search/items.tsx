@@ -28,7 +28,6 @@ const Items = (props: Pets) => {
     };
     getData();
   }, [paramters]);
-  console.log("paramters", paramters);
   return (
     <div className="bg-slate-100 text-black w-full">
       {loading ? (
@@ -64,18 +63,6 @@ const Items = (props: Pets) => {
       ) : (
         "No Results Found!"
       )}
-
-      {/* {animals?.length! > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5">
-          {animals?.map((animal: PetInfo, index: number) => (
-            <div key={index} className="flex justify-center">
-              <Card animal={animal} />
-            </div>
-          ))}
-        </div>
-      ) : (
-          "No results Found"
-      )} */}
     </div>
   );
 };

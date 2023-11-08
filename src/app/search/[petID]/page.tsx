@@ -5,6 +5,12 @@ import { Organization, PetInfo } from "../../models/pet";
 import { getAnimalByID, getOrganization, photoHandler } from "../../actions";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  AiOutlineMail,
+  AiOutlinePhone,
+  AiOutlineFacebook,
+} from "react-icons/ai";
+import { GiEarthAmerica } from "react-icons/gi";
 
 const PetDetail = () => {
   const extractNumbersFromUrl = (path: string) => {
@@ -15,7 +21,9 @@ const PetDetail = () => {
   const [animal, setAnimal] = useState<PetInfo>();
   const [photo, setPhoto] = useState<string>();
   const [org, setOrg] = useState<Organization>();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     const token = sessionStorage.getItem("token");
     const getAnimal = async () => {
       const response = await getAnimalByID(petID!, token!);
@@ -33,22 +41,26 @@ const PetDetail = () => {
           setPhoto(image);
         }
       }
+      setLoading(false);
     };
 
     getAnimal();
   }, []);
   console.log(animal);
   console.log(org);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
-    <main className="flex justify-around min-h-screen w-full bg-slate-100 text-black items-center">
+    <main className="flex justify-around min-h-screen w-full bg-slate-100 text-black">
       <div className="bg-white rounded p-5 flex flex-col w-1/2 my-5">
-        <h1 className="text-4xl mb-5">{animal?.name}</h1>
-        <span className="mb-5">
+        <h1 className="text-4xl mb-2">{animal?.name}</h1>
+        <span className="">
           {animal?.breeds.primary} - {animal?.contact.address.city},
           {animal?.contact.address.state}
         </span>
-        <hr />
-        <h1 className="text-4xl my-5">About</h1>
+        <hr className="my-5" />
+        <h1 className="text-4xl mb-2">About</h1>
         <h2 className="text-2xl my-2">Characteristics</h2>
         {animal?.tags.length && animal.tags.length > 0 ? (
           <ul className="">
@@ -88,31 +100,104 @@ const PetDetail = () => {
         ) : (
           "No info provided."
         )}
-        <hr />
-        <h1 className="text-4xl my-5">Meet {animal?.name}</h1>
+        <hr className="my-5" />
+        <h1 className="text-4xl mb-2">Meet {animal?.name}</h1>
         <p className="w-full">{animal?.description}</p>
       </div>
-      <div className="">
+      <div className="my-5 w-4/12">
         <div>
           <Image
-            className="rounded"
+            className="rounded w-full"
             src={photo!}
             alt="animal"
-            width={300}
-            height={300}
+            width={400}
+            height={400}
           />
           <Link href={""}>
-            <button className="bg-lime-500 p-5 w-full rounded">Like</button>
+            <button className="bg-lime-500 p-5 rounded w-full mt-2">
+              Like
+            </button>
           </Link>
         </div>
-        <div className="text-black">
-          <h1 className="text-xl text-center">{org?.name}</h1>
+      
+        <div className="text-black bg-white rounded mt-10 p-5">
+          <h1 className="text-xl text-center mb-2">{org?.name}</h1>
           <div>
-            <h1 className="text-lg">Contact Information</h1>
-            <span>{org?.email}</span> <span>{org?.phone}</span>
-            <h1 className="text-lg">Address</h1>
-            <span>{`${org?.address.address1} ${org?.address.city}, ${org?.address.state} ${org?.address.postcode}`}</span>
-            <span>Website: {org?.website}</span>
+            <h1 className="text-lg mb-2">Contact Information</h1>
+            <div className="flex justify-between">
+              {org?.email ? (
+                <Link href={`mailto:${org.email}`}>
+                <span className="flex items-center gap-x-1">
+                  {" "}
+                  <AiOutlineMail className="text-lime-500"/> {org?.email}{" "}
+                </span>
+                </Link>
+              ) : (
+                ""
+              )}
+              {org?.phone ? (
+                <Link href={`tel:${org.phone}`}>
+                <span className="flex items-center gap-x-1">
+                  {" "}
+                  <AiOutlinePhone className="text-lime-500" /> {org?.phone}{" "}
+                </span>
+                </Link>
+              ) : (
+                ""
+              )}
+            </div>
+            <hr className="my-2"/>
+            <h1 className="text-lg mb-2">Address</h1>
+            <div className="flex">
+              {org?.address.address1 ? org?.address.address1 : ""}
+              {org?.address.city ? org?.address.city : ""},{" "}
+              {org?.address.state ? org?.address.state : ""}{" "}
+              {org?.address.postcode ? org?.address.postcode : ""}
+            </div>
+            <hr className="my-2"/>
+            <h1 className="text-lg mb-2">Links</h1>
+            <div className="flex gap-x-2">
+              {org?.website ? (
+                <Link href={org?.website} target="_blank">
+                  <button className="rounded flex items-center bg-lime-500 p-2">
+                    <GiEarthAmerica />
+                    Website
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+              {org?.social_media.facebook ? (
+                <Link href={org?.social_media.facebook} target="_blank">
+                  <button className="rounded flex items-center bg-lime-500 p-2">
+                    <AiOutlineFacebook />
+                    Facebook
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+              {org?.social_media.instagram ? (
+                <Link href={org?.social_media.instagram} target="_blank">
+                  <button className="rounded flex items-center bg-lime-500 p-2">
+                    <GiEarthAmerica />
+                    Instagram
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+              {org?.social_media.twitter ? (
+                <Link href={org?.social_media.twitter} target="_blank">
+                  <button className="rounded flex items-center bg-lime-500 p-2">
+                    <GiEarthAmerica />
+                    Twitter
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       </div>
