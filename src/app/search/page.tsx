@@ -8,14 +8,14 @@ import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
 import { getToken, upperCase } from "../actions";
 import { useSearchParams, useRouter } from "next/navigation";
 
-
 const Search = () => {
   const typeParams = useSearchParams();
   const router = useRouter();
   const animal = typeParams.get("type");
-  
+  const page = typeParams.get("page");
+
   const [type, setType] = useState(animal ? animal : "");
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
     breed: "",
@@ -84,7 +84,7 @@ const Search = () => {
     if (urlType != type && urlType) {
       setType(urlType);
     }
-  },[typeParams])
+  }, [typeParams]);
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
@@ -109,8 +109,6 @@ const Search = () => {
       selectedData = combinedPetsData.cats;
       break;
   }
-
-
 
   return (
     <main

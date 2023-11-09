@@ -29,13 +29,17 @@ const Items = (props: Pets) => {
     };
     getData();
   }, [paramters]);
+
   return (
     <div className="bg-slate-100 text-black w-full">
       {loading ? (
         "loading..."
       ) : animals?.length ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5" id="grid">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5"
+            id="grid"
+          >
             {animals?.map((animal: PetInfo, index: number) => (
               <div key={index} className="flex justify-center">
                 <Card animal={animal} />
@@ -43,20 +47,24 @@ const Items = (props: Pets) => {
             ))}
           </div>
           <div className="text-black mt-5 flex justify-center mb-5 gap-x-32">
-            <a href="#grid">
-              <button
-                className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
-                onClick={() => setPage((prev) => prev - 1)}
-              >
-                <FaLessThan className="mx-auto"/>
-              </button>
-            </a>
+            {paramters.page && paramters.page <= 1 ? (
+              ""
+            ) : (
+              <a href="#grid">
+                <button
+                  className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
+                  onClick={() => setPage((prev) => prev - 1)}
+                >
+                  <FaLessThan className="mx-auto" />
+                </button>
+              </a>
+            )}
             <a href="#grid">
               <button
                 className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
                 onClick={() => setPage((prev) => prev + 1)}
               >
-                <FaGreaterThan className="mx-auto"/>
+                <FaGreaterThan className="mx-auto" />
               </button>
             </a>
           </div>
