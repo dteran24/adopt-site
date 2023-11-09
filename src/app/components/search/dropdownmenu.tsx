@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState, useRef } from "react";
+import useOnClickOutside from "use-onclickoutside";
 type DropdownProps = {
   items: string[];
   setAnimal?: React.Dispatch<React.SetStateAction<string>>;
@@ -21,27 +22,36 @@ const Dropdown = (props: DropdownProps) => {
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(category ? "Any" : animal);
-
-  useEffect(() => {
+  const dropDownRef = useRef(null);
+    useEffect(() => {
     if (animal && setDefaultCategoryValues) {
       setDefaultCategoryValues();
       setValue(category ? "Any" : animal);
     }
   }, [animal]);
 
+  useEffect(() => {
+    if (animal && setAnimal) {
+      setValue(animal)
+    }
+  }, [animal])
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
   const selectValue = (e: HTMLOptionElement) => {
-    toggleDropdown();
-    setValue(e.value);
     if (setAnimal) {
       setAnimal(e.value);
     }
     if (category && handleDropdownChange) {
       handleDropdownChange(category, e.value);
     }
+    setValue(e.value);
+    setIsOpen(false);
   };
+  useOnClickOutside(dropDownRef, () => {
+    setIsOpen(false);
+  })
   return (
     <div className="relative inline-block text-left text-center">
       <button
@@ -65,7 +75,10 @@ const Dropdown = (props: DropdownProps) => {
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+        <div
+          className="absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
+          ref={dropDownRef}
+        >
           <div className="py-1">
             {items.map((value, index) => {
               return (

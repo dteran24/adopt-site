@@ -11,11 +11,11 @@ type ActiveFilterProps = {
 
 const ActiveFilter = (props: ActiveFilterProps) => {
   const { setAnimal, animal } = props;
-  const animals = ["Dog", "Cat"];
+  const animals = ["dog", "cat"];
 
   const animalMapping: { [key: string]: JSX.Element } = {
-    Dog: <PiDogLight className="w-12 h-12" />,
-    Cat: <PiCatLight className="w-12 h-12" />,
+    dog: <PiDogLight className="w-12 h-12" />,
+    cat: <PiCatLight className="w-12 h-12" />,
   };
 
   const selectedIcon = animalMapping[animal];

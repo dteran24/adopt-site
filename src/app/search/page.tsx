@@ -5,10 +5,16 @@ import combinedPetsData from "../models/combinedPetsData.json";
 import { useEffect, useState } from "react";
 import ActiveFilter from "../components/search/activefilters";
 import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
-import { getToken } from "../actions";
+import { getToken, upperCase } from "../actions";
+import { useSearchParams, useRouter } from "next/navigation";
+
 
 const Search = () => {
-  const [type, setType] = useState("Dog");
+  const typeParams = useSearchParams();
+  const router = useRouter();
+  const animal = typeParams.get("type");
+  
+  const [type, setType] = useState(animal ? animal : "");
   const [pageNumber, setPageNumber] = useState(1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
@@ -23,9 +29,16 @@ const Search = () => {
     filter: categoryValues,
     type: type,
     location: "dallas, texas",
-    limit: 20,
     page: pageNumber,
   });
+  const updateURL = (newType: string) => {
+    setType(newType);
+    router.replace(`/search?type=${newType}&page=${pageNumber}`);
+  };
+
+  const handleTypeChange = () => {
+    updateURL(type);
+  };
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     if (storedToken) {
@@ -57,19 +70,21 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Updating parameters");
-    console.log("Token Data:", tokenData);
-    console.log("Type:", type);
-    console.log("Category Values:", categoryValues);
-
+    handleTypeChange();
     setParameters({
       token: tokenData,
       filter: categoryValues,
       type: type,
       page: pageNumber,
     });
-    console.log("Changing...", pageNumber);
   }, [type, categoryValues, tokenData, pageNumber]);
+
+  useEffect(() => {
+    const urlType = typeParams.get("type");
+    if (urlType != type && urlType) {
+      setType(urlType);
+    }
+  },[typeParams])
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
@@ -87,17 +102,15 @@ const Search = () => {
 
   let selectedData;
   switch (type) {
-    case "Dog":
+    case "dog":
       selectedData = combinedPetsData.dogs;
       break;
-    case "Cat":
+    case "cat":
       selectedData = combinedPetsData.cats;
       break;
   }
 
-  const upperCase = (word: string) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  };
+
 
   return (
     <main
@@ -125,8 +138,11 @@ const Search = () => {
           </ul>
         </div>
         <div className="flex flex-col">
-          {tokenData ? <Items paramters={parameters!}  setPage={setPageNumber}/> : "No token"}
-         
+          {tokenData ? (
+            <Items paramters={parameters!} setPage={setPageNumber} />
+          ) : (
+            "No token"
+          )}
         </div>
       </div>
     </main>

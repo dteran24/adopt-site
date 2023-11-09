@@ -3,6 +3,7 @@ import { PetInfo, URLParameters } from "../../models/pet";
 import Card from "../card";
 import { getAnimals } from "@/app/actions";
 import { useEffect, useState } from "react";
+import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
 interface Pets {
   paramters: URLParameters;
@@ -41,21 +42,21 @@ const Items = (props: Pets) => {
               </div>
             ))}
           </div>
-          <div className="text-black mt-5 flex justify-around">
+          <div className="text-black mt-5 flex justify-center mb-5 gap-x-32">
             <a href="#grid">
               <button
-                className="rounded bg-lime-500 p-2 hover:bg-lime-600"
+                className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
                 onClick={() => setPage((prev) => prev - 1)}
               >
-                Previous
+                <FaLessThan className="mx-auto"/>
               </button>
             </a>
             <a href="#grid">
               <button
-                className="rounded bg-lime-500 p-2 hover:bg-lime-600"
+                className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
                 onClick={() => setPage((prev) => prev + 1)}
               >
-                Next
+                <FaGreaterThan className="mx-auto"/>
               </button>
             </a>
           </div>

@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Dialog, Disclosure } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -8,6 +8,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/20/solid";
+import { FaDog, FaCat } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import useOnClickOutside from "use-onclickoutside";
@@ -16,14 +17,14 @@ const animals = [
   {
     name: "Dogs",
     description: "Get a better understanding of your traffic",
-    href: "/search",
-    icon: ChartPieIcon,
+    href: "/search?type=dog&page=1",
+    icon: FaDog,
   },
   {
     name: "Cats",
     description: "Speak directly to your customers",
-    href: "/search",
-    icon: CursorArrowRaysIcon,
+    href: "/search?type=cat&page=1",
+    icon: FaCat,
   },
 ];
 
@@ -37,12 +38,9 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
 
   useOnClickOutside(dropdownRef, () => {
-    console.log("outside click")
-    setOpenMenu(prev => false);
+    console.log("outside click");
+    setOpenMenu((prev) => false);
   });
-
-  console.log(menu)
-
   return (
     <header className="bg-white">
       <nav
@@ -72,7 +70,7 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:gap-x-12 relative">
           <button
             className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 "
-            onClick={() => setOpenMenu(prev => !prev)}
+            onClick={() => setOpenMenu((prev) => !prev)}
           >
             Adopt
             <ChevronDownIcon
@@ -81,10 +79,16 @@ export default function Navbar() {
             />
           </button>
           {menu ? (
-            <ul className="absolute top-5 -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5" ref={dropdownRef}>
+            <ul
+              className="absolute top-5 -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+              ref={dropdownRef}
+            >
               <div className="p-4">
                 {animals.map((item) => (
-                  <li key={item.name} onClick={() => setOpenMenu(prev => false)}>
+                  <li
+                    key={item.name}
+                    onClick={() => setOpenMenu((prev) => false)}
+                  >
                     <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50">
                       <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <item.icon

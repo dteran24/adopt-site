@@ -182,3 +182,6 @@ export const photoHandler = (animalData: PetInfo) => {
     return "https://static.vecteezy.com/system/resources/previews/000/079/896/original/paw-print-vector-icon.jpg";
   }
 };
+export const upperCase = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
