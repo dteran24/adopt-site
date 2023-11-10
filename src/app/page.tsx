@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [pictures, setPictures] = useState<PetInfo[]>();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {   
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const token = await getToken();
@@ -17,7 +17,9 @@ const Home = () => {
         if (token) {
           const petData = await getPictures(token);
           setPictures(petData);
-          setLoading(false);
+          if (petData) {
+            setLoading(false);
+          }
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,7 +41,7 @@ const Home = () => {
           </span>
         </div>
       </div>
-      {loading ? <p className="text-black text-center text-4xl">loading...</p>: pictures ? <CardGroup pictures={pictures}/>:"" }
+      <CardGroup pictures={pictures} loading={loading} />
       
       <Info />
     </main>

@@ -6,7 +6,6 @@ import { photoHandler } from "../actions";
 
 interface props {
   animal: PetInfo;
-  fakeAnimal?: string;
 }
 
 const Card = (cardProps: props) => {
