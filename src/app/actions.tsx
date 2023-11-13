@@ -62,55 +62,54 @@ export const getAnimals = async (
   location: string = "dallas, texas",
   page: number = 1
 ) => {
-  try {
-    const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&page=${page}`;
+  if (bearerToken) {
+    try {
+      const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&page=${page}`;
 
-    const queryParams = [];
+      const queryParams = [];
+      if (filter) {
+        if (filter.breed != "Any") {
+          queryParams.push(`breed=${filter.breed}`);
+        }
+        if (filter.age != "Any") {
+          queryParams.push(`age=${filter.age}`);
+        }
+        if (filter.size != "Any") {
+          queryParams.push(`size=${filter.size}`);
+        }
+        if (filter.gender != "Any") {
+          queryParams.push(`gender=${filter.gender}`);
+        }
+        if (filter.color != "Any") {
+          queryParams.push(`color=${filter.color}`);
+        }
+      }
 
-    // Check if the 'filter' object contains values and add them to the query parameters.    if (filter.breed) {
-    console.log("token in actions: ", bearerToken);
-    if (filter) {
-      if (filter.breed != "Any") {
-        queryParams.push(`breed=${filter.breed}`);
+      const fullURL =
+        queryParams.length > 0
+          ? `${BASE_URL}&${queryParams.join("&")}`
+          : BASE_URL;
+
+            const response = await fetch(fullURL, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      });
+
+      const petData = await response.json();
+      if (petData) {
+        return petData.animals;
+      } else {
+        console.error("Error: Inavlid response");
+        return Promise.reject(
+          `Error: Request failed with status ${response.status}`
+        );
       }
-      if (filter.age != "Any") {
-        queryParams.push(`age=${filter.age}`);
-      }
-      if (filter.size != "Any") {
-        queryParams.push(`size=${filter.size}`);
-      }
-      if (filter.gender != "Any") {
-        queryParams.push(`gender=${filter.gender}`);
-      }
-      if (filter.color != "Any") {
-        queryParams.push(`color=${filter.color}`);
-      }
+    } catch (error) {
+      console.error("Error:", error);
+      return Promise.reject(error);
     }
-
-    const fullURL =
-      queryParams.length > 0
-        ? `${BASE_URL}&${queryParams.join("&")}`
-        : BASE_URL;
-
-    const response = await fetch(fullURL, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
-    });
-
-    const petData = await response.json();
-    if (petData) {
-      return petData.animals;
-    } else {
-      console.error("Error: Inavlid response");
-      return Promise.reject(
-        `Error: Request failed with status ${response.status}`
-      );
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    return Promise.reject(error);
   }
 };
 export const getAnimalByID = async (

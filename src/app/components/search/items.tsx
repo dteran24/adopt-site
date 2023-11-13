@@ -6,35 +6,16 @@ import { useEffect, useState } from "react";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
 interface Pets {
-  paramters: URLParameters;
+  parameters: URLParameters;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  animals: PetInfo[];
 }
 
 const Items = (props: Pets) => {
-  const { paramters, setPage } = props;
-  const [animals, setAnimals] = useState<PetInfo[]>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getData = async () => {
-      const animalsData = await getAnimals(
-        paramters.token,
-        paramters.filter,
-        paramters.type,
-        paramters.location,
-        paramters.page
-      );
-      setAnimals(animalsData);
-      setLoading(false);
-    };
-    getData();
-  }, [paramters]);
-
+  const { parameters, setPage, animals } = props;
   return (
     <div className="bg-slate-100 text-black w-full">
-      {loading ? (
-        "loading..."
-      ) : animals?.length ? (
+      {animals?.length != 0 ? (
         <>
           <div
             className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 gap-y-10 px-5 mx-auto mt-5"
@@ -47,7 +28,7 @@ const Items = (props: Pets) => {
             ))}
           </div>
           <div className="text-black mt-5 flex justify-center mb-5 gap-x-32">
-            {paramters.page && paramters.page <= 1 ? (
+            {parameters.page && parameters.page <= 1 ? (
               ""
             ) : (
               <a href="#grid">

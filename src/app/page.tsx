@@ -14,7 +14,7 @@ const Home = () => {
       try {
         const token = await getToken();
         sessionStorage.setItem("token", token);
-        if (token) {
+                if (token) {
           const petData = await getPictures(token);
           setPictures(petData);
           if (petData) {

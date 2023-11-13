@@ -5,8 +5,9 @@ import combinedPetsData from "../models/combinedPetsData.json";
 import { useEffect, useState } from "react";
 import ActiveFilter from "../components/search/activefilters";
 import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
-import { getToken, upperCase } from "../actions";
+import { getAnimals, getToken, upperCase } from "../actions";
 import { useSearchParams, useRouter } from "next/navigation";
+import Loader from "../components/loader";
 
 const Search = () => {
   const typeParams = useSearchParams();
@@ -14,7 +15,8 @@ const Search = () => {
   const animal = typeParams.get("type");
   const page = typeParams.get("page");
 
-  const [type, setType] = useState(animal ? animal : "");
+  const [type, setType] = useState(animal ? animal : "dog");
+  const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
@@ -31,6 +33,8 @@ const Search = () => {
     location: "dallas, texas",
     page: pageNumber,
   });
+  const [animals, setAnimals] = useState<PetInfo[]>();
+
   const updateURL = (newType: string) => {
     setType(newType);
     router.replace(`/search?type=${newType}&page=${pageNumber}`);
@@ -86,6 +90,23 @@ const Search = () => {
     }
   }, [typeParams]);
 
+  useEffect(() => {
+    const getData = async () => {
+      const animalsData = await getAnimals(
+        parameters.token,
+        parameters.filter,
+        parameters.type,
+        parameters.location,
+        parameters.page
+      );
+      if (animalsData) {
+        setAnimals(animalsData);
+        setLoading(false);
+      }
+    };
+    getData();
+  }, [parameters]);
+
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
   };
@@ -109,40 +130,45 @@ const Search = () => {
       selectedData = combinedPetsData.cats;
       break;
   }
-
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
       id="items"
     >
-      <ActiveFilter setAnimal={setType} animal={type} />
-      <div className="flex flex-col sm:flex-row">
-        <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
-          <ul className="px-5 pt-5 text-center">
-            {selectedData?.map((filter, index) => (
-              <li className="flex flex-col mb-5 lg:mb-20" key={index}>
-                <span className="mb-3 text-lg font-bold">
-                  {upperCase(filter.title)}
-                </span>
-                <Dropdown
-                  items={filter.item}
-                  category={filter.title}
-                  handleDropdownChange={handleDropdownChange}
-                  setDefaultCategoryValues={setDefaultCategoryValues}
-                  animal={type}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-col">
-          {tokenData ? (
-            <Items paramters={parameters!} setPage={setPageNumber} />
-          ) : (
-            "No token"
-          )}
-        </div>
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <ActiveFilter setAnimal={setType} animal={type} />
+          <div className="flex flex-col sm:flex-row">
+            <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
+              <ul className="px-5 pt-5 text-center">
+                {selectedData?.map((filter, index) => (
+                  <li className="flex flex-col mb-5 lg:mb-20" key={index}>
+                    <span className="mb-3 text-lg font-bold">
+                      {upperCase(filter.title)}
+                    </span>
+                    <Dropdown
+                      items={filter.item}
+                      category={filter.title}
+                      handleDropdownChange={handleDropdownChange}
+                      setDefaultCategoryValues={setDefaultCategoryValues}
+                      animal={type}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col">
+              <Items
+                parameters={parameters!}
+                  setPage={setPageNumber}
+                  animals={animals!}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </main>
   );
 };

@@ -35,7 +35,7 @@ const CardGroup = (props: cardGroupProps) => {
           ))
         )}
         <li className="flex items-center mx-auto xl:ms-5">
-          <Link href="/search">
+          <Link href="/search?type=dog&page=1">
             <button className="hover:cursor-pointer hover:text-lime-600 text-white lg:text-lime-500 text-lg bg-lime-500 lg:bg-slate-100 rounded-lg lg:rounded-none p-4 lg:p-0">
               <ArrowRightIcon className="hidden lg:block" /> View More
             </button>

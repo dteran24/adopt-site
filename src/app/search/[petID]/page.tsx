@@ -11,6 +11,7 @@ import {
   AiOutlineFacebook,
 } from "react-icons/ai";
 import { GiEarthAmerica } from "react-icons/gi";
+import Loader from "@/app/components/loader";
 
 const PetDetail = () => {
   const extractNumbersFromUrl = (path: string) => {
@@ -46,10 +47,11 @@ const PetDetail = () => {
 
     getAnimal();
   }, []);
-  console.log(animal);
-  console.log(org);
+
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+     <Loader/>
+    );
   }
   return (
     <main className="flex justify-around min-h-screen w-full bg-slate-100 text-black">
@@ -119,7 +121,7 @@ const PetDetail = () => {
             </button>
           </Link>
         </div>
-      
+
         <div className="text-black bg-white rounded mt-10 p-5">
           <h1 className="text-xl text-center mb-2">{org?.name}</h1>
           <div>
@@ -127,26 +129,26 @@ const PetDetail = () => {
             <div className="flex justify-between">
               {org?.email ? (
                 <Link href={`mailto:${org.email}`}>
-                <span className="flex items-center gap-x-1">
-                  {" "}
-                  <AiOutlineMail className="text-lime-500"/> {org?.email}{" "}
-                </span>
+                  <span className="flex items-center gap-x-1">
+                    {" "}
+                    <AiOutlineMail className="text-lime-500" /> {org?.email}{" "}
+                  </span>
                 </Link>
               ) : (
                 ""
               )}
               {org?.phone ? (
                 <Link href={`tel:${org.phone}`}>
-                <span className="flex items-center gap-x-1">
-                  {" "}
-                  <AiOutlinePhone className="text-lime-500" /> {org?.phone}{" "}
-                </span>
+                  <span className="flex items-center gap-x-1">
+                    {" "}
+                    <AiOutlinePhone className="text-lime-500" /> {org?.phone}{" "}
+                  </span>
                 </Link>
               ) : (
                 ""
               )}
             </div>
-            <hr className="my-2"/>
+            <hr className="my-2" />
             <h1 className="text-lg mb-2">Address</h1>
             <div className="flex">
               {org?.address.address1 ? org?.address.address1 : ""}
@@ -154,7 +156,7 @@ const PetDetail = () => {
               {org?.address.state ? org?.address.state : ""}{" "}
               {org?.address.postcode ? org?.address.postcode : ""}
             </div>
-            <hr className="my-2"/>
+            <hr className="my-2" />
             <h1 className="text-lg mb-2">Links</h1>
             <div className="flex gap-x-2">
               {org?.website ? (
