@@ -54,8 +54,8 @@ const PetDetail = () => {
     );
   }
   return (
-    <main className="flex justify-around min-h-screen w-full bg-slate-100 text-black">
-      <div className="bg-white rounded p-5 flex flex-col w-1/2 my-5">
+    <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-slate-100 text-black">
+      <div className="bg-white rounded p-5 flex flex-col w-100 sm:w-1/2 my-5 mx-2">
         <h1 className="text-4xl mb-2">{animal?.name}</h1>
         <span className="">
           {animal?.breeds.primary} - {animal?.contact.address.city},
@@ -106,7 +106,7 @@ const PetDetail = () => {
         <h1 className="text-4xl mb-2">Meet {animal?.name}</h1>
         <p className="w-full">{animal?.description}</p>
       </div>
-      <div className="my-5 w-4/12">
+      <div className="my-5 sm:w-4/12 w-full px-2 sm:px-0">
         <div>
           <Image
             className="rounded w-full"
@@ -126,7 +126,7 @@ const PetDetail = () => {
           <h1 className="text-xl text-center mb-2">{org?.name}</h1>
           <div>
             <h1 className="text-lg mb-2">Contact Information</h1>
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-wrap sm:flex-nowrap">
               {org?.email ? (
                 <Link href={`mailto:${org.email}`}>
                   <span className="flex items-center gap-x-1">

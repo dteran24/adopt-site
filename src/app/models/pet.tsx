@@ -145,3 +145,7 @@ export interface Organization {
     };
   };
 }
+export interface searchBarParams{
+  animal: string;
+  location: string;
+}

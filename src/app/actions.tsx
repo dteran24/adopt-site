@@ -59,12 +59,17 @@ export const getAnimals = async (
   bearerToken: string,
   filter?: FilterOptions,
   type: string = "dog",
-  location: string = "dallas, texas",
+  location?: string,
   page: number = 1
 ) => {
   if (bearerToken) {
+    if (type === "Dogs") {
+      type = "dog";
+    } else if (type === "Cats") {
+      type = "cat";
+    }
     try {
-      const BASE_URL = `https://api.petfinder.com/v2/animals?location=${location}&type=${type}&limit=12&page=${page}`;
+      const BASE_URL = `https://api.petfinder.com/v2/animals?type=${type}&limit=12&page=${page}`;
 
       const queryParams = [];
       if (filter) {
@@ -84,13 +89,17 @@ export const getAnimals = async (
           queryParams.push(`color=${filter.color}`);
         }
       }
+      if (location) {
+        queryParams.push(`location=${location}`);
+      }
 
       const fullURL =
         queryParams.length > 0
           ? `${BASE_URL}&${queryParams.join("&")}`
           : BASE_URL;
 
-            const response = await fetch(fullURL, {
+      console.log(fullURL);
+      const response = await fetch(fullURL, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${bearerToken}`,

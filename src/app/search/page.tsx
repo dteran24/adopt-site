@@ -14,8 +14,11 @@ const Search = () => {
   const router = useRouter();
   const animal = typeParams.get("type");
   const page = typeParams.get("page");
+  const location = typeParams.get("location");
 
-  const [type, setType] = useState(animal ? animal : "dog");
+  const defaultLocation = location !== undefined ? location : "";
+
+  const [type, setType] = useState(animal ? animal : "Dogs");
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState("");
@@ -30,19 +33,22 @@ const Search = () => {
     token: "",
     filter: categoryValues,
     type: type,
-    location: "dallas, texas",
+    location: defaultLocation!,
     page: pageNumber,
   });
   const [animals, setAnimals] = useState<PetInfo[]>();
 
   const updateURL = (newType: string) => {
     setType(newType);
-    router.replace(`/search?type=${newType}&page=${pageNumber}`);
+    router.replace(
+      `/search?type=${newType}&location=${location}&page=${pageNumber}`
+    );
   };
 
   const handleTypeChange = () => {
     updateURL(type);
   };
+
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     if (storedToken) {
@@ -50,6 +56,7 @@ const Search = () => {
         token: storedToken,
         filter: categoryValues,
         type: type,
+        location: defaultLocation!,
       });
       setTokenData(storedToken);
     } else {
@@ -62,6 +69,7 @@ const Search = () => {
               token: data,
               filter: categoryValues,
               type: type,
+              location: defaultLocation!,
             });
             setTokenData(data);
           }
@@ -72,6 +80,12 @@ const Search = () => {
       getTokenData();
     }
   }, []);
+  useEffect(() => {
+    const urlType = typeParams.get("type");
+    if (urlType != type && urlType) {
+      setType(urlType);
+    }
+  }, [typeParams, type, pageNumber]);
 
   useEffect(() => {
     handleTypeChange();
@@ -80,15 +94,9 @@ const Search = () => {
       filter: categoryValues,
       type: type,
       page: pageNumber,
+      location: defaultLocation!,
     });
-  }, [type, categoryValues, tokenData, pageNumber]);
-
-  useEffect(() => {
-    const urlType = typeParams.get("type");
-    if (urlType != type && urlType) {
-      setType(urlType);
-    }
-  }, [typeParams]);
+  }, [type, categoryValues, tokenData, pageNumber, location]);
 
   useEffect(() => {
     const getData = async () => {
@@ -119,17 +127,19 @@ const Search = () => {
       gender: "Any",
     };
     setCategoryValues(defaultValues);
+    setPageNumber(1);
   };
 
   let selectedData;
   switch (type) {
-    case "dog":
+    case "Dogs":
       selectedData = combinedPetsData.dogs;
       break;
-    case "cat":
+    case "Cats":
       selectedData = combinedPetsData.cats;
       break;
   }
+
   return (
     <main
       className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
@@ -162,8 +172,8 @@ const Search = () => {
             <div className="flex flex-col">
               <Items
                 parameters={parameters!}
-                  setPage={setPageNumber}
-                  animals={animals!}
+                setPage={setPageNumber}
+                animals={animals!}
               />
             </div>
           </div>

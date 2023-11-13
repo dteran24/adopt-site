@@ -14,7 +14,7 @@ const Home = () => {
       try {
         const token = await getToken();
         sessionStorage.setItem("token", token);
-                if (token) {
+        if (token) {
           const petData = await getPictures(token);
           setPictures(petData);
           if (petData) {
@@ -32,7 +32,7 @@ const Home = () => {
     <main className="flex flex-col bg-white">
       <div className="w-full h-96 bg-cover bg-center bg-[url(https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)]">
         <div className=" flex flex-col items-center justify-center">
-          <SearchBar />
+          <SearchBar/>
         </div>
         <div className="flex flex-col justify-end h-64 pb-12 text-white text-center">
           <span className="font-bold text-4xl">Find your new best friend</span>
@@ -42,7 +42,7 @@ const Home = () => {
         </div>
       </div>
       <CardGroup pictures={pictures} loading={loading} />
-      
+
       <Info />
     </main>
   );

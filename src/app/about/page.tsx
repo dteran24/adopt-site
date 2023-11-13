@@ -9,9 +9,9 @@ const About = () => {
   ];
   return (
     <main className="bg-white px-8 pt-6">
-      <section className="text-black flex mb-6">
+      <section className="text-black flex flex-col lg:flex-row mb-6">
         <div className="flex flex-col max-w-2xl">
-          <h1 className="text-6xl font-bold mb-16">
+          <h1 className="lg:text-6xl sm:mb-16 font-bold mb-10 text-3xl">
             We're helping find homes for animals all over the United States.
           </h1>
           <p className="text-slate-500">
@@ -27,7 +27,7 @@ const About = () => {
           </p>
         </div>
         <div className="mx-auto">
-          <div className="flex justify-between mb-6">
+          <div className="justify-between mb-6 hidden xl:flex">
             <Image
               className="rounded"
               src="https://images.pexels.com/photos/5122188/pexels-photo-5122188.jpeg?auto=compress&cs=tinysrgb&w=1200"
@@ -60,7 +60,7 @@ const About = () => {
           />
         </div>
       </section>
-      <section className="text-black mb-6 flex flex-row justify-between">
+      <section className="text-black mb-6 flex flex-col sm:flex-row justify-between">
         <div className="flex flex-col max-w-2xl">
           <h1 className="text-3xl font-bold mb-6">Our Mission</h1>
           <p className="text-slate-500">
@@ -92,7 +92,7 @@ const About = () => {
       </section>
       <section className="w-full pb-10">
         <Image
-          className="rounded text-center w-1/2 mx-auto"
+          className="rounded text-center sm:w-1/2 w-full mx-auto"
           src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           alt=""
           width={1000}
