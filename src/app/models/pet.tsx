@@ -149,3 +149,12 @@ export interface searchBarParams{
   animal: string;
   location: string;
 }
+
+export interface Breed {
+  name: string;
+  _links: {
+      type: {
+          href: string;
+      };
+  };
+}

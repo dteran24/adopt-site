@@ -23,6 +23,7 @@ const PetDetail = () => {
   const [photo, setPhoto] = useState<string>();
   const [org, setOrg] = useState<Organization>();
   const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     setLoading(true);
     const token = sessionStorage.getItem("token");
@@ -103,8 +104,8 @@ const PetDetail = () => {
           "No info provided."
         )}
         <hr className="my-5" />
-        <h1 className="text-4xl mb-2">Meet {animal?.name}</h1>
-        <p className="w-full">{animal?.description}</p>
+        {/* <h1 className="text-4xl mb-2">Meet {animal?.name}</h1>
+        <p className="w-full">{animal?.description}</p> */}
       </div>
       <div className="my-5 sm:w-4/12 w-full px-2 sm:px-0">
         <div>

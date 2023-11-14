@@ -80,6 +80,7 @@ const Search = () => {
       getTokenData();
     }
   }, []);
+
   useEffect(() => {
     const urlType = typeParams.get("type");
     if (urlType != type && urlType) {
@@ -142,7 +143,7 @@ const Search = () => {
 
   return (
     <main
-      className="flex flex-col justify-start min-h-screen w-full bg-slate-100"
+      className="flex flex-col min-h-screen w-full bg-slate-100"
       id="items"
     >
       {loading ? (
@@ -150,7 +151,7 @@ const Search = () => {
       ) : (
         <>
           <ActiveFilter setAnimal={setType} animal={type} />
-          <div className="flex flex-col sm:flex-row">
+          <div className="flex flex-col sm:flex-row justify-around">
             <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
               <ul className="px-5 pt-5 text-center">
                 {selectedData?.map((filter, index) => (

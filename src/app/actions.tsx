@@ -1,4 +1,4 @@
-import { FilterOptions, Organization, PetInfo } from "./models/pet";
+import { Breed, FilterOptions, Organization, PetInfo } from "./models/pet";
 
 const clientId = process.env.NEXT_PUBLIC_CLIENT_ID; // Replace with your actual client ID
 const clientSecret = process.env.NEXT_PUBLIC_CLIENT_SECRET; // Replace with your actual client secret
@@ -72,24 +72,24 @@ export const getAnimals = async (
       const BASE_URL = `https://api.petfinder.com/v2/animals?type=${type}&limit=12&page=${page}`;
 
       const queryParams = [];
-      if (filter) {
-        if (filter.breed != "Any") {
+            if (filter) {
+        if (filter.breed != ("Any" || "")) {
           queryParams.push(`breed=${filter.breed}`);
         }
-        if (filter.age != "Any") {
+        if (filter.age != ("Any" || "")) {
           queryParams.push(`age=${filter.age}`);
         }
-        if (filter.size != "Any") {
+        if (filter.size != ("Any" || "")) {
           queryParams.push(`size=${filter.size}`);
         }
-        if (filter.gender != "Any") {
+        if (filter.gender != ("Any" || "")) {
           queryParams.push(`gender=${filter.gender}`);
         }
-        if (filter.color != "Any") {
+        if (filter.color != ("Any" || "")) {
           queryParams.push(`color=${filter.color}`);
         }
       }
-      if (location) {
+      if (location != "null") {
         queryParams.push(`location=${location}`);
       }
 
@@ -175,6 +175,30 @@ export const getOrganization = async (
     return Promise.reject(e);
   }
 };
+
+export const getBreedList = async( token: string, type: string): Promise<Breed[]> => {
+  try {
+    const BASE_URL = `https://api.petfinder.com/v2/types/${type}/breeds`;
+    const response = await fetch(BASE_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const breedData = await response.json();
+    if (breedData) {
+      return breedData.breeds;
+    } else {
+      console.error("Error: Inavlid response");
+      return Promise.reject(
+        `Error: Request failed with status ${response.status}`
+      );
+    }
+  } catch (e) {
+    console.error("Error:", e);
+    return Promise.reject(e);
+  }
+}
 export const photoHandler = (animalData: PetInfo) => {
   if (animalData.photos.length !== 0) {
     if (animalData.photos[0].full) {
