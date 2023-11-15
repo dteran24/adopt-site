@@ -72,24 +72,25 @@ export const getAnimals = async (
       const BASE_URL = `https://api.petfinder.com/v2/animals?type=${type}&limit=12&page=${page}`;
 
       const queryParams = [];
-            if (filter) {
-        if (filter.breed != ("Any" || "")) {
+      if (filter) {
+        if (filter.breed != "") {
           queryParams.push(`breed=${filter.breed}`);
         }
-        if (filter.age != ("Any" || "")) {
+        if (filter.age != "") {
           queryParams.push(`age=${filter.age}`);
         }
-        if (filter.size != ("Any" || "")) {
+        if (filter.size != "") {
           queryParams.push(`size=${filter.size}`);
         }
-        if (filter.gender != ("Any" || "")) {
+        if (filter.gender != "") {
           queryParams.push(`gender=${filter.gender}`);
         }
-        if (filter.color != ("Any" || "")) {
+        if (filter.color != "") {
           queryParams.push(`color=${filter.color}`);
         }
       }
-      if (location != "null") {
+  
+      if (location != "") {
         queryParams.push(`location=${location}`);
       }
 
@@ -98,7 +99,8 @@ export const getAnimals = async (
           ? `${BASE_URL}&${queryParams.join("&")}`
           : BASE_URL;
 
-      console.log(fullURL);
+      console.log("URL", fullURL);
+      console.log("filter", filter);
       const response = await fetch(fullURL, {
         method: "GET",
         headers: {

@@ -145,16 +145,17 @@ export interface Organization {
     };
   };
 }
-export interface searchBarParams{
-  animal: string;
+export interface searchBarParams {
+  type: string;
+  breed: string;
   location: string;
 }
 
 export interface Breed {
   name: string;
   _links: {
-      type: {
-          href: string;
-      };
+    type: {
+      href: string;
+    };
   };
 }

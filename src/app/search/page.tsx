@@ -15,6 +15,7 @@ const Search = () => {
   const animal = typeParams.get("type");
   const page = typeParams.get("page");
   const location = typeParams.get("location");
+  const breedParam = typeParams.get("breed");
 
   const defaultLocation = location !== undefined ? location : "";
 
@@ -23,7 +24,7 @@ const Search = () => {
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
-    breed: "",
+    breed: breedParam ? breedParam : "",
     age: "",
     size: "",
     color: "",
@@ -41,7 +42,7 @@ const Search = () => {
   const updateURL = (newType: string) => {
     setType(newType);
     router.replace(
-      `/search?type=${newType}&location=${location}&page=${pageNumber}`
+      `/search?type=${newType}&location=${location}&page=${pageNumber}&breed=${categoryValues.breed}`
     );
   };
 
@@ -80,7 +81,6 @@ const Search = () => {
       getTokenData();
     }
   }, []);
-
   useEffect(() => {
     const urlType = typeParams.get("type");
     if (urlType != type && urlType) {
@@ -140,17 +140,18 @@ const Search = () => {
       selectedData = combinedPetsData.cats;
       break;
   }
-
+  console.log("paramteters", parameters);
   return (
-    <main
-      className="flex flex-col min-h-screen w-full bg-slate-100"
-      id="items"
-    >
+    <main className="flex flex-col min-h-screen w-full bg-slate-100" id="items">
       {loading ? (
         <Loader />
       ) : (
         <>
-          <ActiveFilter setAnimal={setType} animal={type} />
+          <ActiveFilter
+            setAnimal={setType}
+            animal={type}
+            setDefaultCategoryValues={setDefaultCategoryValues}
+          />
           <div className="flex flex-col sm:flex-row justify-around">
             <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
               <ul className="px-5 pt-5 text-center">
@@ -163,8 +164,8 @@ const Search = () => {
                       items={filter.item}
                       category={filter.title}
                       handleDropdownChange={handleDropdownChange}
-                      setDefaultCategoryValues={setDefaultCategoryValues}
                       animal={type}
+                      breedParam={breedParam ? breedParam : ""}
                     />
                   </li>
                 ))}

@@ -10,7 +10,8 @@ type SearchBarProps = {
 
 const SearchBar = (props: SearchBarProps) => {
   const [searchParams, setSearchParams] = useState<searchBarParams>({
-    animal: "",
+    type: "",
+    breed: "",
     location: "",
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -18,31 +19,28 @@ const SearchBar = (props: SearchBarProps) => {
   const { breedList } = props;
 
   const filteredBreeds = breedList.filter((breed) =>
-    breed.name.toLowerCase().includes(searchParams.animal.toLowerCase())
+    breed.name.toLowerCase().includes(searchParams.breed.toLowerCase())
   );
 
-  const animalHandler = (animal: string) => {
-    if (
-      animal.toLowerCase() === "dog" ||
-      animal.toLowerCase() === "dogs" ||
-      animal.toLowerCase() === "puppy"
-    ) {
-      return "Dogs";
-    }
-    if (
-      animal.toLowerCase() === "cat" ||
-      animal.toLowerCase() === "cats" ||
-      animal.toLowerCase() === "kitten"
-    ) {
-      return "Cats";
-    } else {
-      return animal;
-    }
-  };
+  const findTypeWithDogOrCat = (breeds: Breed[]) => {
+    const breedWithDogOrCat = breeds.find((breed) =>
+      /\/v2\/types\/(dog|cat)/.test(breed._links.type.href)
+    );
+    
+    return breedWithDogOrCat!._links.type.href.includes("dog")
+      ? "Dogs"
+      : "Cats"
+  }
+
   useOnClickOutside(dropDownRef, () => {
     setIsOpen(false);
   });
-  console.log(breedList);
+  const dropDownHandler = (e: HTMLOptionElement) => {
+    const animalType = findTypeWithDogOrCat(filteredBreeds);
+    setSearchParams((prev) => ({ ...prev, breed: e.value, type: animalType! }));
+    setIsOpen(false);
+  };
+
   return (
     <form className="mt-16 flex px-5 sm:px-0 text-black">
       <div className="bg-white rounded-lg flex items-center ">
@@ -54,10 +52,11 @@ const SearchBar = (props: SearchBarProps) => {
             onChange={(e) =>
               setSearchParams((prev) => ({
                 ...prev,
-                animal: e.target.value,
+                breed: e.target.value,
               }))
             }
             onClick={() => setIsOpen(true)}
+            value={searchParams.breed}
           />
           {isOpen && (
             <div
@@ -72,7 +71,7 @@ const SearchBar = (props: SearchBarProps) => {
                           key={index}
                           value={value.name}
                           className="text-black text-left hover:cursor-pointer hover:bg-slate-100"
-                          onClick={() => setIsOpen(false)}
+                          onClick={(e) => dropDownHandler(e.currentTarget)}
                         >
                           {value.name}
                         </option>
@@ -93,14 +92,11 @@ const SearchBar = (props: SearchBarProps) => {
                 location: e.target.value,
               }))
             }
+            value={searchParams.location}
           />
         </div>
         <Link
-          href={`/search?type=${
-            searchParams.animal ? searchParams.animal : "Dogs"
-          }&location=${
-            searchParams.location ? searchParams.location : "null"
-          }&page=1`}
+          href={`/search?type=${searchParams.type}&breed=${searchParams.breed}&location${searchParams.location}&page=1`}
         >
           <button className="rounded p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 m-2 flex items-center text-black font-semibold">
             <MagnifyingGlassIcon className="text-black w-5 h-5 me-1" />

@@ -18,7 +18,7 @@ const Items = (props: Pets) => {
       {animals?.length != 0 ? (
         <>
           <div
-            className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-4 gap-y-10 px-5 mx-auto mt-5"
+            className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 xl:grid-cols-3 2xl: grid-cols0=-4 gap-y-10 px-5 mx-auto mt-5"
             id="grid"
           >
             {animals?.map((animal: PetInfo, index: number) => (
