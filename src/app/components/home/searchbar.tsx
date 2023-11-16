@@ -40,7 +40,7 @@ const SearchBar = (props: SearchBarProps) => {
     setSearchParams((prev) => ({ ...prev, breed: e.value, type: animalType! }));
     setIsOpen(false);
   };
-
+  
   return (
     <form className="mt-16 flex px-5 sm:px-0 text-black">
       <div className="bg-white rounded-lg flex items-center ">
@@ -96,7 +96,7 @@ const SearchBar = (props: SearchBarProps) => {
           />
         </div>
         <Link
-          href={`/search?type=${searchParams.type}&breed=${searchParams.breed}&location${searchParams.location}&page=1`}
+          href={`/search?type=${searchParams.type}&breed=${searchParams.breed ? searchParams.breed : "Any"}&location${searchParams.location}&page=1`}
         >
           <button className="rounded p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 m-2 flex items-center text-black font-semibold">
             <MagnifyingGlassIcon className="text-black w-5 h-5 me-1" />

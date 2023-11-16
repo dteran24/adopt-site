@@ -51,9 +51,6 @@ const Dropdown = (props: DropdownProps) => {
   useOnClickOutside(dropDownRef, () => {
     setIsOpen(false);
   });
-  if (category === "breed") {
-    console.log("value", value);
-  }
   return (
     <div className="relative inline-block text-left text-center">
       <button

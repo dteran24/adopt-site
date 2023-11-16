@@ -1,5 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 const Login = () => {
+
+
   return (
     <main className="lg:flex bg-white">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
@@ -12,15 +15,16 @@ const Login = () => {
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
+          <Link href="/account/add">
           <p className="mt-1 text-center text-sm text-gray-500 ">
             Not a member?
-            <a
-              href="#"
+            <span
               className="font-semibold leading-6 text-lime-500 hover:text-lime-400 ms-1"
             >
-              Create an account
-            </a>
+                Create an account
+                </span>
           </p>
+          </Link>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

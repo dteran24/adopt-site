@@ -133,7 +133,6 @@ const Search = () => {
       gender: "Any",
     }));
     setPageNumber(1);
-    
   };
 
   let selectedData;
@@ -145,8 +144,7 @@ const Search = () => {
       selectedData = combinedPetsData.cats;
       break;
   }
-  console.log("paramteters", parameters);
-  console.log("resetBreed", breed);
+
   return (
     <main className="flex flex-col min-h-screen w-full bg-slate-100" id="items">
       {loading ? (
@@ -178,11 +176,15 @@ const Search = () => {
               </ul>
             </div>
             <div className="flex flex-col">
-              <Items
-                parameters={parameters!}
-                setPage={setPageNumber}
-                animals={animals!}
-              />
+              {animals ? (
+                <Items
+                  parameters={parameters!}
+                  setPage={setPageNumber}
+                  animals={animals}
+                />
+              ) : (
+                "..."
+              )}
             </div>
           </div>
         </>

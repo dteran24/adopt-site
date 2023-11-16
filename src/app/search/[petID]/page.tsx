@@ -12,6 +12,8 @@ import {
 } from "react-icons/ai";
 import { GiEarthAmerica } from "react-icons/gi";
 import Loader from "@/app/components/loader";
+import { FaRegHeart } from "react-icons/fa";
+import { FcLike } from "react-icons/fc";
 
 const PetDetail = () => {
   const extractNumbersFromUrl = (path: string) => {
@@ -23,7 +25,8 @@ const PetDetail = () => {
   const [photo, setPhoto] = useState<string>();
   const [org, setOrg] = useState<Organization>();
   const [loading, setLoading] = useState(false);
-  
+  const [like, setLike] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     const token = sessionStorage.getItem("token");
@@ -49,10 +52,8 @@ const PetDetail = () => {
     getAnimal();
   }, []);
 
-  if (loading) {
-    return (
-     <Loader/>
-    );
+    if (loading) {
+    return <Loader />;
   }
   return (
     <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-slate-100 text-black">
@@ -116,11 +117,22 @@ const PetDetail = () => {
             width={400}
             height={400}
           />
-          <Link href={""}>
-            <button className="bg-lime-500 p-5 rounded w-full mt-2">
-              Like
-            </button>
-          </Link>
+          <button
+            className="bg-lime-500 p-5 rounded w-full mt-2 flex items-center justify-center gap-x-4"
+            onClick={() => setLike((prev) => !prev)}
+          >
+            {like ? (
+              <>
+                <FcLike className="text-2xl" />
+                <span className="text-xl font-semibold">Liked!</span>
+              </>
+            ) : (
+              <>
+                <FaRegHeart className="text-2xl" />
+                <span className="text-xl font-semibold">Like</span>
+              </>
+            )}
+          </button>
         </div>
 
         <div className="text-black bg-white rounded mt-10 p-5">
