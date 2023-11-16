@@ -20,11 +20,12 @@ const Search = () => {
   const defaultLocation = location !== undefined ? location : "";
 
   const [type, setType] = useState(animal ? animal : "Dogs");
+  const [breed, setBreed] = useState(breedParam ? breedParam : "");
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState("");
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
-    breed: breedParam ? breedParam : "",
+    breed: breed,
     age: "",
     size: "",
     color: "",
@@ -42,7 +43,9 @@ const Search = () => {
   const updateURL = (newType: string) => {
     setType(newType);
     router.replace(
-      `/search?type=${newType}&location=${location}&page=${pageNumber}&breed=${categoryValues.breed}`
+      `/search?type=${newType}&location=${location}&page=${pageNumber}&breed=${
+        categoryValues.breed === "Any" ? "" : categoryValues.breed
+      }`
     );
   };
 
@@ -120,15 +123,17 @@ const Search = () => {
     setCategoryValues({ ...categoryValues, [category]: value });
   };
   const setDefaultCategoryValues = () => {
-    const defaultValues = {
+    setBreed("Any");
+    setCategoryValues((prev) => ({
+      ...prev,
       breed: "Any",
       age: "Any",
       size: "Any",
       color: "Any",
       gender: "Any",
-    };
-    setCategoryValues(defaultValues);
+    }));
     setPageNumber(1);
+    
   };
 
   let selectedData;
@@ -141,6 +146,7 @@ const Search = () => {
       break;
   }
   console.log("paramteters", parameters);
+  console.log("resetBreed", breed);
   return (
     <main className="flex flex-col min-h-screen w-full bg-slate-100" id="items">
       {loading ? (
@@ -165,7 +171,7 @@ const Search = () => {
                       category={filter.title}
                       handleDropdownChange={handleDropdownChange}
                       animal={type}
-                      breedParam={breedParam ? breedParam : ""}
+                      breed={breed}
                     />
                   </li>
                 ))}

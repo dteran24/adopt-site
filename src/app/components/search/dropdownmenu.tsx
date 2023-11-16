@@ -9,6 +9,7 @@ type DropdownProps = {
   category?: string;
   handleDropdownChange?: (category: string, value: string) => void;
   setDefaultCategoryValues?: () => void;
+  breed: string;
 };
 
 const Dropdown = (props: DropdownProps) => {
@@ -19,29 +20,27 @@ const Dropdown = (props: DropdownProps) => {
     handleDropdownChange,
     animal,
     setDefaultCategoryValues,
+    breed,
   } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState(category ? "Any" : animal);
+  const [value, setValue] = useState(
+    category === "breed" ? breed : category ? "Any" : animal
+  );
   const dropDownRef = useRef(null);
-    useEffect(() => {
-    if (animal && setDefaultCategoryValues) {
-      setDefaultCategoryValues();
-      setValue(category ? "Any" : animal);
-    }
-  }, [animal]);
 
   useEffect(() => {
-    if (animal && setAnimal) {
-      setValue(animal)
+    if (category === "breed") {
+      setValue(breed);
     }
-  }, [animal])
+  }, [animal]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
   const selectValue = (e: HTMLOptionElement) => {
-    if (setAnimal) {
+    if (setAnimal && setDefaultCategoryValues) {
       setAnimal(e.value);
+      setDefaultCategoryValues();
     }
     if (category && handleDropdownChange) {
       handleDropdownChange(category, e.value);
@@ -51,7 +50,10 @@ const Dropdown = (props: DropdownProps) => {
   };
   useOnClickOutside(dropDownRef, () => {
     setIsOpen(false);
-  })
+  });
+  if (category === "breed") {
+    console.log("value", value);
+  }
   return (
     <div className="relative inline-block text-left text-center">
       <button

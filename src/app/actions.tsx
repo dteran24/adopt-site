@@ -73,19 +73,19 @@ export const getAnimals = async (
 
       const queryParams = [];
       if (filter) {
-        if (filter.breed != "") {
+        if (filter.breed !== "" && filter.breed !== "Any") {
           queryParams.push(`breed=${filter.breed}`);
         }
-        if (filter.age != "") {
+        if (filter.age !== "" && filter.age !== "Any") {
           queryParams.push(`age=${filter.age}`);
         }
-        if (filter.size != "") {
+        if (filter.size !== "" && filter.size !== "Any") {
           queryParams.push(`size=${filter.size}`);
         }
-        if (filter.gender != "") {
+        if (filter.gender !== "" && filter.gender !== "Any") {
           queryParams.push(`gender=${filter.gender}`);
         }
-        if (filter.color != "") {
+        if (filter.color !== "" && filter.color !== "Any") {
           queryParams.push(`color=${filter.color}`);
         }
       }

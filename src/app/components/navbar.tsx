@@ -17,13 +17,13 @@ const animals = [
   {
     name: "Dogs",
     description: "Get a better understanding of your traffic",
-    href: "/search?type=Dogs&page=1",
+    href: "/search?type=Dogs&page=1&location=",
     icon: FaDog,
   },
   {
     name: "Cats",
     description: "Speak directly to your customers",
-    href: "/search?type=Cats&page=1",
+    href: "/search?type=Cats&page=1&location=",
     icon: FaCat,
   },
 ];

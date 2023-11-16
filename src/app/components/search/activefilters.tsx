@@ -2,15 +2,14 @@
 import { PiDogLight, PiCatLight } from "react-icons/pi";
 import Dropdown from "./dropdownmenu";
 
-
 type ActiveFilterProps = {
   animal: string;
   setAnimal?: React.Dispatch<React.SetStateAction<string>>;
-  
+  setDefaultCategoryValues: () => void;
 };
 
 const ActiveFilter = (props: ActiveFilterProps) => {
-  const { setAnimal, animal } = props;
+  const { setAnimal, animal, setDefaultCategoryValues } = props;
   const animals = ["Dogs", "Cats"];
 
   const animalMapping: { [key: string]: JSX.Element } = {
@@ -24,7 +23,7 @@ const ActiveFilter = (props: ActiveFilterProps) => {
     <div className="text-black flex justify-around w-full items-center mt-3">
       <div className="flex items-center gap-x-5">
         {selectedIcon}
-        <Dropdown items={animals} setAnimal={setAnimal} animal={animal} />
+        <Dropdown items={animals} setAnimal={setAnimal} animal={animal} setDefaultCategoryValues={setDefaultCategoryValues} />
       </div>
     </div>
   );
