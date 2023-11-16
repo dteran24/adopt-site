@@ -1,32 +1,33 @@
 import { hashPassword } from "@/app/lib/auth";
 import { connectToDatabase } from "@/app/lib/db";
+import { User } from "@/app/models/pet";
 import { NextApiResponse, NextApiRequest } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST") {
-    const data = req.body;
-    const { email, password } = data;
+export const POST = async (req: Request) => {
+  const { name, email, password }: Partial<User> = await req.json();
 
-    if (!email || !email.includes("@") || !password || password.trim() < 7) {
-      res
-        .status(422)
-        .json({
-          message: "Invalid Input = Password must contain 7 characters.",
-        });
-      return;
-    }
-    const client = await connectToDatabase();
-    const hashedPassword = hashPassword(password);
-
-    const db = client.db();
-
-    const result = await db.collection("users").insertOne({
-      email: email,
-      passsword: hashedPassword,
-    });
-
-    res.status(201).json({ message: "Created User!" });
+  if (
+    !email ||
+    !email.includes("@") ||
+    !password ||
+    password.trim().length < 7
+  ) {
+    return NextResponse.json(
+      { message: "Invalid Input = Password must contain 7 characters." },
+      { status: 422 }
+    );
   }
-};
+  const client = await connectToDatabase();
+  const hashedPassword = hashPassword(password);
 
-export default handler;
+  const db = client?.db();
+
+  const result = await db?.collection("users").insertOne({
+    name: name,
+    email: email,
+    password: hashedPassword,
+  });
+
+  return NextResponse.json({ message: "Created User!" }, { status: 201 });
+};

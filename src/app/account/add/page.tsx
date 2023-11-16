@@ -8,21 +8,21 @@ const CreateAccount = () => {
     password: "",
   });
 
-  const submitHandler = async (e: React.FormEvent<HTMLInputElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const result = await createUser(
         userData.name,
-        userData.password,
-        userData.name
+        userData.email,
+        userData.password
         );
-        console.log(result);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const createUser = async (email: string, password: string, name: string) => {
+  const createUser = async (name: string, email: string, password: string) => {
+    console.log("calling create user")
     const response = await fetch("/api/auth", {
       method: "POST",
       body: JSON.stringify({ email, password, name }),
@@ -30,8 +30,8 @@ const CreateAccount = () => {
         "Content-Type": "application/json",
       },
     });
-
-    const data = response.json();
+    const data = response.json()
+    console.log(data);
     if (!response.ok) {
       throw new Error(data.message || "Something went Wrong");
     }
@@ -41,7 +41,7 @@ const CreateAccount = () => {
     <main className="min-h-screen flex justify-center bg-white text-black">
       <div className="mt-20 h-3/4 bg-slate-100 p-10 rounded">
         <h1 className="mb-20 text-4xl font-semibold">Create an account</h1>
-        <form onSubmit={() => submitHandler}>
+        <form onSubmit={submitHandler}>
           <div className="mb-6">
             <label
               htmlFor="text"
