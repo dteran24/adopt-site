@@ -19,15 +19,30 @@ export const POST = async (req: Request) => {
     );
   }
   const client = await connectToDatabase();
-  const hashedPassword = hashPassword(password);
+  const hashedPassword = await hashPassword(password);
 
   const db = client?.db();
+  const existingUser = await db?.collection("users").findOne({ email: email });
 
-  const result = await db?.collection("users").insertOne({
-    name: name,
-    email: email,
-    password: hashedPassword,
-  });
-
-  return NextResponse.json({ message: "Created User!" }, { status: 201 });
+  if (existingUser) {
+    client?.close();
+    return NextResponse.json(
+      { message: "User exists already" },
+      { status: 422 }
+    );
+  }
+  try {
+    await db?.collection("users").insertOne({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
+    client?.close();
+    return NextResponse.json({ message: "Created User!" }, { status: 201 });
+  } catch (e) {
+    client?.close();
+    console.log(e);
+    return NextResponse.json({message: "Something went Wrong"}, {status: 500})
+    
+  }
 };

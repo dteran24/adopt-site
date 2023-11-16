@@ -15,14 +15,13 @@ const CreateAccount = () => {
         userData.name,
         userData.email,
         userData.password
-        );
+      );
     } catch (err) {
       console.log(err);
     }
   };
 
   const createUser = async (name: string, email: string, password: string) => {
-    console.log("calling create user")
     const response = await fetch("/api/auth", {
       method: "POST",
       body: JSON.stringify({ email, password, name }),
@@ -30,11 +29,14 @@ const CreateAccount = () => {
         "Content-Type": "application/json",
       },
     });
-    const data = response.json()
-    console.log(data);
+    const data = response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Something went Wrong");
+      data.then((response) => {
+        throw new Error(response.message);
+      });
     }
+
+    data.then((response) => console.log(response));
   };
 
   return (
