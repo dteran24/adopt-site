@@ -12,6 +12,7 @@ import { FaDog, FaCat } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import useOnClickOutside from "use-onclickoutside";
+import { useSession, signOut } from "next-auth/react";
 
 const animals = [
   {
@@ -41,6 +42,14 @@ export default function Navbar() {
     console.log("outside click");
     setOpenMenu((prev) => false);
   });
+
+  const { data: session, status } = useSession();
+  const logoutHandler = () => {
+    signOut();
+  };
+
+  console.log(session);
+  console.log(status);
   return (
     <header className="bg-white">
       <nav
@@ -126,16 +135,34 @@ export default function Navbar() {
           >
             Contact
           </Link>
+          {session && (
+            <Link
+              href="/account/profile"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Profile
+            </Link>
+          )}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            href="/account/login"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            <button className="flex items-center bg-white border-2 border-lime-500 p-2 rounded-lg hover:bg-lime-500 text-black ">
-              <UserCircleIcon className="w-5 h-5 me-1" /> Log in
+          {!session && (
+            <Link
+              href="/account/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              <button className="flex items-center bg-white border-2 border-lime-500 p-2 rounded-lg hover:bg-lime-500 text-black ">
+                <UserCircleIcon className="w-5 h-5 me-1" /> Log in
+              </button>
+            </Link>
+          )}
+          {session && (
+            <button
+              className="flex items-center bg-white border-2 border-lime-500 p-2 rounded-lg hover:bg-lime-500 text-black "
+              onClick={logoutHandler}
+            >
+              <UserCircleIcon className="w-5 h-5 me-1" /> Log out
             </button>
-          </Link>
+          )}
         </div>
       </nav>
       <Dialog
@@ -147,7 +174,11 @@ export default function Navbar() {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/"
+              className="-m-1.5 p-1.5"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span className="sr-only">Adopt Me</span>
               <Image
                 className="h-8 w-auto"

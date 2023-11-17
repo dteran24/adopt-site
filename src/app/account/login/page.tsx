@@ -1,11 +1,46 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { signIn, getSession } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import Loader from "@/app/components/loader";
+import { useRouter } from "next/navigation";
 const Login = () => {
-
-
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const emailValue = emailRef.current?.value || "";
+    const passwordValue = passwordRef.current?.value || "";
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: emailValue,
+      password: passwordValue,
+    });
+    if (!result?.error) {
+      
+      router.replace("/")
+    }
+    console.log(result);
+  };
+  
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session) {
+        router.replace("/");
+      } else {
+        setLoading(false);
+      }
+    });
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <main className="lg:flex bg-white">
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
+    <main className="lg:flex lg:items-center bg-white min-h-screen">
+      <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-10 w-auto"
@@ -16,19 +51,22 @@ const Login = () => {
             Sign in to your account
           </h2>
           <Link href="/account/add">
-          <p className="mt-1 text-center text-sm text-gray-500 ">
-            Not a member?
-            <span
-              className="font-semibold leading-6 text-lime-500 hover:text-lime-400 ms-1"
-            >
+            <p className="mt-1 text-center text-sm text-gray-500 ">
+              Not a member?
+              <span className="font-semibold leading-6 text-lime-500 hover:text-lime-400 ms-1">
                 Create an account
-                </span>
-          </p>
+              </span>
+            </p>
           </Link>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form
+            className="space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={submitHandler}
+          >
             <div>
               <label
                 htmlFor="email"
@@ -42,6 +80,7 @@ const Login = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  ref={emailRef}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
                 />
@@ -71,6 +110,7 @@ const Login = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
+                  ref={passwordRef}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
                 />
@@ -148,9 +188,9 @@ const Login = () => {
         </div>
       </div>
       <Image
-        className="invisible lg:visible object-cover object-center"
+        className="invisible lg:visible object-cover object-center pe-5 rounded"
         width={750}
-        height={500}
+        height={400}
         src="https://cdn.stocksnap.io/img-thumbs/960w/man-dog_KOEZ5EORMG.jpg"
         alt=""
       />

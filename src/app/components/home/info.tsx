@@ -40,7 +40,7 @@ const Info = () => {
       <h1 className="text-4xl text-center text-black">
         Questions for adoption?
       </h1>
-      <div className="flex flex-col md:flex-row justify-center py-8 items-center">
+      <div className="flex flex-col lg:flex-row justify-center py-8 items-center">
         {cardInfo.map((info, index) => {
           return (
             <div key={index} className="text-black mb-10">
@@ -49,7 +49,7 @@ const Info = () => {
                 <h2 className="text-lime-500 text-2xl">{info.title}</h2>
                 <span>{info.subtitle}</span>
                 <Link href={info.link} target="_blank">
-                  <button className="hover:cursor-pointer hover:bg-lime-500 hover:text-white text-lime-500 border-2 border-lime-500 rounded-3xl p-2">
+                  <button className="w-64 hover:cursor-pointer hover:bg-lime-500 hover:text-white text-lime-500 border-2 border-lime-500 rounded-3xl p-2">
                     Learn More
                   </button>
                 </Link>
