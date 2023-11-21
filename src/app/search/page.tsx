@@ -8,6 +8,7 @@ import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
 import { getAnimals, getToken, upperCase } from "../actions";
 import { useSearchParams, useRouter } from "next/navigation";
 import Loader from "../components/loader";
+import { FaLessThan, FaGreaterThan } from "react-icons/fa";
 
 const Search = () => {
   const typeParams = useSearchParams();
@@ -156,35 +157,57 @@ const Search = () => {
             animal={type}
             setDefaultCategoryValues={setDefaultCategoryValues}
           />
-          <div className="flex flex-col sm:flex-row justify-around">
-            <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
-              <ul className="px-5 pt-5 text-center">
-                {selectedData?.map((filter, index) => (
-                  <li className="flex flex-col mb-5 lg:mb-20" key={index}>
-                    <span className="mb-3 text-lg font-bold">
-                      {upperCase(filter.title)}
-                    </span>
-                    <Dropdown
-                      items={filter.item}
-                      category={filter.title}
-                      handleDropdownChange={handleDropdownChange}
-                      animal={type}
-                      breed={breed}
-                    />
-                  </li>
-                ))}
-              </ul>
+          <div className="flex flex-col">
+            <div className="flex justify-around">
+              <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
+                <ul className="px-5 pt-5 text-center">
+                  {selectedData?.map((filter, index) => (
+                    <li className="flex flex-col mb-5 lg:mb-20" key={index}>
+                      <span className="mb-3 text-lg font-bold">
+                        {upperCase(filter.title)}
+                      </span>
+                      <Dropdown
+                        items={filter.item}
+                        category={filter.title}
+                        handleDropdownChange={handleDropdownChange}
+                        animal={type}
+                        breed={breed}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div id="grid">
+                {animals ? (
+                  <>
+                    <Items parameters={parameters!} animals={animals}/>
+                  </>
+                ) : (
+                  "..."
+                )}
+              </div>
             </div>
-            <div className="flex flex-col">
-              {animals ? (
-                <Items
-                  parameters={parameters!}
-                  setPage={setPageNumber}
-                  animals={animals}
-                />
+            <div className="text-black my-5 flex justify-center gap-x-32">
+              {parameters.page && parameters.page <= 1 ? (
+                ""
               ) : (
-                "..."
+                <a href="#grid">
+                  <button
+                    className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
+                    onClick={() => setPageNumber((prev) => prev - 1)}
+                  >
+                    <FaLessThan className="mx-auto" />
+                  </button>
+                </a>
               )}
+              <a href="#grid">
+                <button
+                  className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
+                  onClick={() => setPageNumber((prev) => prev + 1)}
+                >
+                  <FaGreaterThan className="mx-auto" />
+                </button>
+              </a>
             </div>
           </div>
         </>

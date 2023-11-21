@@ -32,8 +32,8 @@ const Footer = () => {
     tiktok: <BsTiktok className="text-xl" />,
   };
   return (
-    <footer className="flex flex-col bg-slate-100 text-black py-5">
-      <ul className="sm:w-1/2 sm:mx-auto flex justify-around  my-5">
+    <footer className="flex flex-col bg-slate-100 text-black py-1">
+      <ul className="sm:w-1/2 sm:mx-auto flex justify-around  my-2">
         {sections.map((item, index) => {
           return (
             <Link href={item.url} key={index}>
@@ -44,7 +44,7 @@ const Footer = () => {
           );
         })}
       </ul>
-      <ul className="sm:w-1/4 sm:mx-auto flex justify-around my-5">
+      <ul className="sm:w-1/4 sm:mx-auto flex justify-around my-2">
         {icons.map((icon, index) => {
           return (
             <li
@@ -56,7 +56,7 @@ const Footer = () => {
           );
         })}
       </ul>
-      <span className="text-center mt-5">
+      <span className="text-center mt-2">
         © 2020 Your Company, Inc. All rights reserved.
       </span>
     </footer>

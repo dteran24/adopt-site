@@ -41,9 +41,9 @@ const CreateAccount = () => {
   };
 
   return (
-    <main className="min-h-screen flex justify-center bg-white text-black">
-      <div className="mt-20 h-3/4 bg-slate-100 p-10 rounded">
-        <h1 className="mb-20 text-4xl font-semibold">Create an account</h1>
+    <main className="min-h-screen flex justify-center bg-white text-black p-5">
+      <div className="h-3/4 bg-slate-100 p-8 rounded">
+        <h1 className="mb-10 text-3xl font-semibold">Create an account</h1>
         <form className="flex flex-col" onSubmit={submitHandler}>
           <div className="mb-6">
             <label

@@ -30,7 +30,7 @@ const Dropdown = (props: DropdownProps) => {
 
   useEffect(() => {
     if (category === "breed") {
-      setValue(breed);
+      setValue(breed ? breed: "Any");
     }
     if (!category) {
       setValue(animal);

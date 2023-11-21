@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 const ChangePassword = () => {
   const [loading, setLoading] = useState(true);
+ 
   const oldPasswordRef = useRef<HTMLInputElement | null>(null);
   const newPasswordRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();

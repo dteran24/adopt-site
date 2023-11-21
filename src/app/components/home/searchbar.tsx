@@ -42,9 +42,9 @@ const SearchBar = (props: SearchBarProps) => {
   };
   
   return (
-    <form className="mt-16 flex px-5 sm:px-0 text-black">
-      <div className="bg-white rounded-lg flex items-center ">
-        <div className="relative flex items-center flex-1 flex-col sm:flex-row">
+    <form className="mt-16 flex gap-x-2 px-5 sm:px-0 text-black">
+      <div className="sm:bg-white rounded-lg flex items-center ">
+        <div className="relative flex items-center flex-1 flex-col gap-y-2 sm:flex-row">
           <input
             className=" sm:w-full rounded-md border-0 px-3.5 py-2 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-500 sm:text-sm sm:leading-6"
             type="text"
@@ -98,12 +98,20 @@ const SearchBar = (props: SearchBarProps) => {
         <Link
           href={`/search?type=${searchParams.type}&breed=${searchParams.breed ? searchParams.breed : "Any"}&location${searchParams.location}&page=1`}
         >
-          <button className="rounded p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 m-2 flex items-center text-black font-semibold">
+          <button className="hidden rounded-md p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 flex items-center text-black font-semibold">
             <MagnifyingGlassIcon className="text-black w-5 h-5 me-1" />
             <span className="hidden sm:contents">Search</span>
           </button>
         </Link>
       </div>
+      <Link
+          href={`/search?type=${searchParams.type}&breed=${searchParams.breed ? searchParams.breed : "Any"}&location${searchParams.location}&page=1`}
+        >
+          <button className="h-full rounded-md p-2 hover:cursor-pointer hover:bg-lime-500 border-hidden bg-lime-400 flex items-center text-black font-semibold">
+            <MagnifyingGlassIcon className="text-black w-8 h-8 me-1" />
+            <span className="hidden sm:contents">Search</span>
+          </button>
+        </Link>
     </form>
   );
 };

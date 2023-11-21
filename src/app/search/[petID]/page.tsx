@@ -14,6 +14,7 @@ import { GiEarthAmerica } from "react-icons/gi";
 import Loader from "@/app/components/loader";
 import { FaRegHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
+import { getSession } from "next-auth/react";
 
 const PetDetail = () => {
   const extractNumbersFromUrl = (path: string) => {
@@ -26,6 +27,7 @@ const PetDetail = () => {
   const [org, setOrg] = useState<Organization>();
   const [loading, setLoading] = useState(false);
   const [like, setLike] = useState(false);
+  const [inSession, setInSession] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -48,24 +50,27 @@ const PetDetail = () => {
       }
       setLoading(false);
     };
+    getSession().then((session) =>
+      session ? setInSession(true) : setInSession(false)
+    );
 
     getAnimal();
-  }, []);
+  }, [petID]);
 
-    if (loading) {
+  if (loading) {
     return <Loader />;
   }
   return (
     <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-slate-100 text-black">
       <div className="bg-white rounded p-5 flex flex-col w-100 sm:w-1/2 my-5 mx-2">
-        <h1 className="text-4xl mb-2">{animal?.name}</h1>
+        <h1 className="text-4xl mb-2 font-semibold">{animal?.name}</h1>
         <span className="">
           {animal?.breeds.primary} - {animal?.contact.address.city},
           {animal?.contact.address.state}
         </span>
         <hr className="my-5" />
-        <h1 className="text-4xl mb-2">About</h1>
-        <h2 className="text-2xl my-2">Characteristics</h2>
+        <h1 className="text-4xl mb-2 font-semibold">About</h1>
+        <h2 className="text-2xl my-2 font-medium">Characteristics</h2>
         {animal?.tags.length && animal.tags.length > 0 ? (
           <ul className="">
             {animal?.tags.map((tags, index) => {
@@ -75,13 +80,13 @@ const PetDetail = () => {
         ) : (
           "No info provided."
         )}
-        <h2 className="text-2xl my-2">Coat Length</h2>
+        <h2 className="text-2xl my-2 font-medium">Coat Length</h2>
         {animal?.coat ? <span>{animal.coat}</span> : "No info provided."}
-        <h2 className="text-2xl my-2">House Trained</h2>
+        <h2 className="text-2xl my-2 font-medium">House Trained</h2>
         <span>
           {animal?.attributes.house_trained ? "Yes" : "No info provided."}
         </span>
-        <h2 className="text-2xl my-2">Health</h2>
+        <h2 className="text-2xl my-2 font-medium">Health</h2>
         <span>
           {animal?.attributes.shots_current
             ? "Shots up to date"
@@ -92,7 +97,7 @@ const PetDetail = () => {
             ? "spayed / nuetered"
             : " Not nuetered /spayed"}
         </span>
-        <h2 className="text-2xl my-2">Good with</h2>
+        <h2 className="text-2xl my-2 font-medium">Good with</h2>
         {animal?.environment.cats &&
         animal.environment.dogs &&
         animal.environment.children ? (
@@ -109,16 +114,16 @@ const PetDetail = () => {
         <p className="w-full">{animal?.description}</p> */}
       </div>
       <div className="my-5 sm:w-4/12 w-full px-2 sm:px-0">
-        <div>
+        <div className="flex flex-col">
           <Image
-            className="rounded w-full"
+            className="rounded w-3/4 h-auto mx-auto"
             src={photo!}
             alt="animal"
-            width={400}
-            height={400}
+            width={300}
+            height={300}
           />
           <button
-            className="bg-lime-500 p-5 rounded w-full mt-2 flex items-center justify-center gap-x-4"
+            className="w-3/4 bg-lime-500 p-5 rounded mt-2 flex items-center justify-center gap-x-4 mx-auto"
             onClick={() => setLike((prev) => !prev)}
           >
             {like ? (
@@ -138,7 +143,7 @@ const PetDetail = () => {
         <div className="text-black bg-white rounded mt-10 p-5">
           <h1 className="text-xl text-center mb-2">{org?.name}</h1>
           <div>
-            <h1 className="text-lg mb-2">Contact Information</h1>
+            <h1 className="text-lg mb-2 font-medium">Contact Information</h1>
             <div className="flex justify-between flex-wrap sm:flex-nowrap">
               {org?.email ? (
                 <Link href={`mailto:${org.email}`}>
@@ -162,7 +167,7 @@ const PetDetail = () => {
               )}
             </div>
             <hr className="my-2" />
-            <h1 className="text-lg mb-2">Address</h1>
+            <h1 className="text-lg mb-2 font-medium">Address</h1>
             <div className="flex">
               {org?.address.address1 ? org?.address.address1 : ""}
               {org?.address.city ? org?.address.city : ""},{" "}
@@ -170,8 +175,8 @@ const PetDetail = () => {
               {org?.address.postcode ? org?.address.postcode : ""}
             </div>
             <hr className="my-2" />
-            <h1 className="text-lg mb-2">Links</h1>
-            <div className="flex gap-x-2">
+            <h1 className="text-lg mb-2 font-medium">Links</h1>
+            <div className="flex flex-wrap sm:flex-nowrap gap-1 sm:gap-x-2">
               {org?.website ? (
                 <Link href={org?.website} target="_blank">
                   <button className="rounded flex items-center bg-lime-500 p-2">
