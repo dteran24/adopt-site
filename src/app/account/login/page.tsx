@@ -20,12 +20,11 @@ const Login = () => {
       password: passwordValue,
     });
     if (!result?.error) {
-      
-      router.replace("/")
+      router.replace("/");
     }
     console.log(result);
   };
-  
+
   useEffect(() => {
     getSession().then((session) => {
       if (session) {
@@ -95,14 +94,14 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                   <a
                     href="#"
                     className="font-semibold text-lime-500 hover:text-lime-400"
                   >
                     Forgot password?
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="mt-2">
                 <input
@@ -124,7 +123,7 @@ const Login = () => {
               >
                 Sign in
               </button>
-              <div className="relative flex text-black flex-col text-center mt-4">
+              {/* <div className="relative flex text-black flex-col text-center mt-4">
                 <hr className="  w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
                 <span className="absolute px-3 font-medium text-gray-900 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -mt-5 bg-white">
                   or continue with
@@ -182,7 +181,7 @@ const Login = () => {
                     </i>
                   </button>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </form>
         </div>

@@ -1,12 +1,13 @@
 import { verifyPassword } from "@/app/lib/auth";
 import { connectToDatabase } from "@/app/lib/db";
+import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  // secret:"NotASecret",
   pages: { signIn: "/account/login" },
   providers: [
     CredentialsProvider({
@@ -37,6 +38,8 @@ const handler = NextAuth({
       },
     }),
   ],
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

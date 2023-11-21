@@ -1,8 +1,7 @@
 import { hashPassword } from "@/app/lib/auth";
 import { connectToDatabase } from "@/app/lib/db";
 import { User } from "@/app/models/pet";
-import { NextApiResponse, NextApiRequest } from "next";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const { name, email, password }: Partial<User> = await req.json();
@@ -41,7 +40,6 @@ export const POST = async (req: Request) => {
     return NextResponse.json({ message: "Created User!" }, { status: 201 });
   } catch (e) {
     client?.close();
-    console.log(e);
     return NextResponse.json({message: "Something went Wrong"}, {status: 500})
     
   }

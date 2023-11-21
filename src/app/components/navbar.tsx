@@ -39,17 +39,14 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
 
   useOnClickOutside(dropdownRef, () => {
-    console.log("outside click");
     setOpenMenu((prev) => false);
   });
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const logoutHandler = () => {
     signOut();
   };
 
-  console.log(session);
-  console.log(status);
   return (
     <header className="bg-white">
       <nav
@@ -137,7 +134,7 @@ export default function Navbar() {
           </Link>
           {session && (
             <Link
-              href="/account/profile"
+              href="/account"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Profile

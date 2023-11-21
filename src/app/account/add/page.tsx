@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const CreateAccount = () => {
   const [userData, setUserData] = useState({
@@ -7,15 +8,16 @@ const CreateAccount = () => {
     email: "",
     password: "",
   });
-
+  const router = useRouter();
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await createUser(
+      await createUser(
         userData.name,
         userData.email,
         userData.password
       );
+      router.replace("/login");
     } catch (err) {
       console.log(err);
     }
