@@ -32,7 +32,11 @@ const Dropdown = (props: DropdownProps) => {
     if (category === "breed") {
       setValue(breed);
     }
+    if (!category) {
+      setValue(animal);
+    }
   }, [animal]);
+
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
