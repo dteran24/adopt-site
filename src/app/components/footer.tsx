@@ -13,19 +13,22 @@ const Footer = () => {
     { title: "Contact Us", url: "/contact" },
     { title: "Adopt a Pet", url: "/search" },
   ];
-  const icons = ["facebook", "instagram", "twitter", "snapchat", "tiktok"];
+  const icons = [
+    { site: "facebook", url: "https://www.facebook.com/Petfinder/" },
+    { site: "instagram", url: "https://www.instagram.com/petfinder/?hl=en" },
+    { site: "twitter", url: "https://twitter.com/petfinder?lang=en" },
+    { site: "tiktok", url: "https://www.tiktok.com/@petfinderofficial" },
+  ];
   const iconMapping: {
     [key: string]: JSX.Element;
     facebook: JSX.Element;
     instagram: JSX.Element;
     twitter: JSX.Element;
-    snapchat: JSX.Element;
     tiktok: JSX.Element;
   } = {
     facebook: <BsFacebook className="text-xl" />,
     instagram: <BsInstagram className="text-xl" />,
     twitter: <BsTwitter className="text-xl" />,
-    snapchat: <BsSnapchat className="text-xl" />,
     tiktok: <BsTiktok className="text-xl" />,
   };
   return (
@@ -48,7 +51,7 @@ const Footer = () => {
               key={index}
               className="hover:cursor-pointer hover:text-lime-500"
             >
-              {iconMapping[icon]}
+              {iconMapping[icon.site]}
             </li>
           );
         })}

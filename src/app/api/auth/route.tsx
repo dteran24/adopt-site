@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
     password.trim().length < 7
   ) {
     return NextResponse.json(
-      { message: "Invalid Input = Password must contain 7 characters." },
+      { message: "Password must contain 7 characters." },
       { status: 422 }
     );
   }

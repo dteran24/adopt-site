@@ -8,16 +8,12 @@ const CreateAccount = () => {
     email: "",
     password: "",
   });
+  const [err, setErr] = useState(false);
   const router = useRouter();
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await createUser(
-        userData.name,
-        userData.email,
-        userData.password
-      );
-      router.replace("/login");
+      await createUser(userData.name, userData.email, userData.password);
     } catch (err) {
       console.log(err);
     }
@@ -34,8 +30,11 @@ const CreateAccount = () => {
     const data = response.json();
     if (!response.ok) {
       data.then((response) => {
-        throw new Error(response.message);
+        setErr(response.message);
+        // throw new Error(response.message);
       });
+    } else {
+      router.replace("/account/login");
     }
 
     data.then((response) => console.log(response));
@@ -45,7 +44,7 @@ const CreateAccount = () => {
     <main className="min-h-screen flex justify-center bg-white text-black">
       <div className="mt-20 h-3/4 bg-slate-100 p-10 rounded">
         <h1 className="mb-20 text-4xl font-semibold">Create an account</h1>
-        <form onSubmit={submitHandler}>
+        <form className="flex flex-col" onSubmit={submitHandler}>
           <div className="mb-6">
             <label
               htmlFor="text"
@@ -107,12 +106,15 @@ const CreateAccount = () => {
               }
             />
           </div>
-          <button
-            type="submit"
-            className="text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            Submit
-          </button>
+          
+            <button
+              type="submit"
+              className="w-full lg:w-24 text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              Submit
+            </button>
+          {err && <span className="text-rose-500 mt-2">{err}</span>}
+
         </form>
       </div>
     </main>
