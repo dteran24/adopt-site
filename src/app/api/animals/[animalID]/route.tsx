@@ -86,8 +86,9 @@ export const DELETE = async (req: NextApiRequest) => {
     }
     await userCollection?.updateOne(
       { email: userEmail },
-      { $pull: { animalsLiked: { "animals.id": Number(id) } } }
+      { $pull: { animalsLiked: { "animal.id": Number(id) } } }
     );
+
     return NextResponse.json({ message: "Animal removed!" }, { status: 200 });
   } catch (e) {
     console.log(e);
