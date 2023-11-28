@@ -15,6 +15,7 @@ import Loader from "@/app/components/loader";
 import { FaRegHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const PetDetail = () => {
   const extractNumbersFromUrl = (path: string) => {
@@ -28,6 +29,76 @@ const PetDetail = () => {
   const [loading, setLoading] = useState(false);
   const [like, setLike] = useState(false);
   const [inSession, setInSession] = useState(false);
+  const linksToAdd: string[] = [
+    org?.website!,
+    org?.social_media.facebook!,
+    org?.social_media.instagram!,
+    org?.social_media.twitter!,
+  ];
+  const router = useRouter();
+  let socialLinks = [];
+
+  const addLink = (links: string[]) => {
+    if (links && links.length > 0) {
+      for (let link of links) {
+        if (link != null || link != "") {
+          socialLinks.push(link);
+        }
+      }
+    }
+  };
+  const addAnimal = async (animal: PetInfo) => {
+    const response = await fetch("/api/animals", {
+      method: "POST",
+      body: JSON.stringify({ animal }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = response.json();
+    console.log("response", response);
+    console.log("data", data);
+  };
+  const deleteAnimal = async (id: number) => {
+    const response = await fetch(`/api/animals/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    console.log("response", response);
+    console.log("data", data);
+  };
+  const checkLiked = async (id: number) => {
+    const response = await fetch(`/api/animals/${id}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await response.json();
+
+    setLike(data.liked);
+  };
+  const likeHandler = () => {
+    if (inSession) {
+      setLike((prev) => !prev);
+    } else {
+      router.replace("/account/login");
+    }
+    // if (like && animal) {
+    //   addAnimal(animal);
+    // } else if (animal && !like) {
+    //   deleteAnimal(animal?.id);
+    // }
+  };
+  addLink(linksToAdd);
+
+  useEffect(() => {
+    if (like && animal) {
+      addAnimal(animal);
+    } else if (!like && animal) {
+      deleteAnimal(animal?.id);
+    }
+  }, [like, animal]);
 
   useEffect(() => {
     setLoading(true);
@@ -48,21 +119,22 @@ const PetDetail = () => {
           setPhoto(image);
         }
       }
-      setLoading(false);
     };
+
     getSession().then((session) =>
       session ? setInSession(true) : setInSession(false)
     );
-
+    checkLiked(petID!);
     getAnimal();
+    setLoading(false);
   }, [petID]);
-
+  console.log(like);
   if (loading) {
     return <Loader />;
   }
   return (
-    <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-slate-100 text-black">
-      <div className="bg-white rounded p-5 flex flex-col w-100 sm:w-1/2 my-5 mx-2">
+    <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-white text-black">
+      <div className="bg-white rounded p-5 flex flex-col w-100 sm:w-1/2 my-5 mx-2 h-3/4">
         <h1 className="text-4xl mb-2 font-semibold">{animal?.name}</h1>
         <span className="">
           {animal?.breeds.primary} - {animal?.contact.address.city},
@@ -103,28 +175,27 @@ const PetDetail = () => {
         animal.environment.children ? (
           <>
             <span>{animal?.environment.cats ? "Cats" : ""}</span>
-            <span>{animal?.environment.dogs ? "dogs" : ""}</span>
-            <span>{animal?.environment.children ? "children" : ""}</span>
+            <span>{animal?.environment.dogs ? "Dogs" : ""}</span>
+            <span>{animal?.environment.children ? "Children" : ""}</span>
           </>
         ) : (
           "No info provided."
         )}
-        <hr className="my-5" />
-        {/* <h1 className="text-4xl mb-2">Meet {animal?.name}</h1>
-        <p className="w-full">{animal?.description}</p> */}
+        {/* <hr className="my-5" /> */}
       </div>
       <div className="my-5 sm:w-4/12 w-full px-2 sm:px-0">
         <div className="flex flex-col">
           <Image
-            className="rounded w-3/4 h-auto mx-auto"
+            className="rounded w-full h-auto mx-auto"
             src={photo!}
             alt="animal"
             width={300}
             height={300}
           />
+
           <button
-            className="w-3/4 bg-lime-500 p-5 rounded mt-2 flex items-center justify-center gap-x-4 mx-auto"
-            onClick={() => setLike((prev) => !prev)}
+            className="w-full bg-lime-500 p-5 rounded mt-2 flex items-center justify-center gap-x-4 mx-auto"
+            onClick={likeHandler}
           >
             {like ? (
               <>
@@ -140,8 +211,8 @@ const PetDetail = () => {
           </button>
         </div>
 
-        <div className="text-black bg-white rounded mt-10 p-5">
-          <h1 className="text-xl text-center mb-2">{org?.name}</h1>
+        <div className="text-black bg-white rounded my-10">
+          <h1 className="text-xl text-center mb-2 font-medium">{org?.name}</h1>
           <div>
             <h1 className="text-lg mb-2 font-medium">Contact Information</h1>
             <div className="flex justify-between flex-wrap sm:flex-nowrap">
@@ -175,7 +246,9 @@ const PetDetail = () => {
               {org?.address.postcode ? org?.address.postcode : ""}
             </div>
             <hr className="my-2" />
-            <h1 className="text-lg mb-2 font-medium">Links</h1>
+            <h1 className="text-lg mb-2 font-medium">
+              {socialLinks.length > 0 ? "Links" : ""}
+            </h1>
             <div className="flex flex-wrap sm:flex-nowrap gap-1 sm:gap-x-2">
               {org?.website ? (
                 <Link href={org?.website} target="_blank">

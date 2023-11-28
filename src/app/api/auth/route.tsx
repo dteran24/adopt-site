@@ -34,6 +34,7 @@ export const POST = async (req: Request) => {
     await db?.collection("users").insertOne({
       name: name,
       email: email,
+      animalsLiked:[],
       password: hashedPassword,
     });
     client?.close();

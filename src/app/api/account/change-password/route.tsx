@@ -1,16 +1,14 @@
 import { hashPassword, verifyPassword } from "@/app/lib/auth";
 import { connectToDatabase } from "@/app/lib/db";
 import { getServerSession } from "next-auth/next";
-import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
 export const PATCH = async (req: Request) => {
   try {
-    console.log("CALLING PATCH");
     const session = await getServerSession(authOptions);
     const { newPassword, oldPassword } = await req.json();
-    console.log("session", session)
+
     if (!session) {
       return NextResponse.json(
         {
@@ -20,7 +18,6 @@ export const PATCH = async (req: Request) => {
       );
     }
     const userEmail = session.user?.email;
-    console.log("session", session);
     const client = await connectToDatabase();
     const userCollection = client?.db().collection("users");
     const user = await userCollection?.findOne({ email: userEmail });

@@ -187,25 +187,25 @@ const Search = () => {
                 )}
               </div>
             </div>
-            <div className="text-black my-5 flex justify-center gap-x-32">
+            <div className="text-black my-10 flex justify-center ms-72 gap-x-64">
               {parameters.page && parameters.page <= 1 ? (
                 ""
               ) : (
                 <a href="#grid">
                   <button
-                    className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
+                    className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
                     onClick={() => setPageNumber((prev) => prev - 1)}
                   >
-                    <FaLessThan className="mx-auto" />
+                    <FaLessThan className="mx-auto text-lg" />
                   </button>
                 </a>
               )}
               <a href="#grid">
                 <button
-                  className="rounded bg-lime-500 p-2 hover:bg-lime-600 w-12"
+                  className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
                   onClick={() => setPageNumber((prev) => prev + 1)}
                 >
-                  <FaGreaterThan className="mx-auto" />
+                  <FaGreaterThan className="mx-auto text-lg" />
                 </button>
               </a>
             </div>
