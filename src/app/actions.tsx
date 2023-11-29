@@ -201,6 +201,7 @@ export const getBreedList = async( token: string, type: string): Promise<Breed[]
     return Promise.reject(e);
   }
 }
+
 export const photoHandler = (animalData: PetInfo) => {
   if (animalData.photos.length !== 0) {
     if (animalData.photos[0].full) {

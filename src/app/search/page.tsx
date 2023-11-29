@@ -4,11 +4,12 @@ import Dropdown from "../components/search/dropdownmenu";
 import combinedPetsData from "../models/combinedPetsData.json";
 import { useEffect, useState } from "react";
 import ActiveFilter from "../components/search/activefilters";
-import { FilterOptions, PetInfo, URLParameters } from "../models/pet";
-import { getAnimals, getToken, upperCase } from "../actions";
+import { Breed, FilterOptions, PetInfo, URLParameters } from "../models/pet";
+import { getAnimals, getBreedList, getToken, upperCase } from "../actions";
 import { useSearchParams, useRouter } from "next/navigation";
 import Loader from "../components/loader";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa";
+import { fetchData } from "next-auth/client/_utils";
 
 const Search = () => {
   const typeParams = useSearchParams();
@@ -21,6 +22,7 @@ const Search = () => {
   const defaultLocation = location !== undefined ? location : "";
 
   const [type, setType] = useState(animal ? animal : "Dogs");
+  const [breedList, setBreedList] = useState<Breed[]>();
   const [breed, setBreed] = useState(breedParam ? breedParam : "");
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
@@ -53,6 +55,18 @@ const Search = () => {
   const handleTypeChange = () => {
     updateURL(type);
   };
+  
+  const fetchBreeds = async (token: string, type: string) => {
+    const response = await getBreedList(
+      token,
+      type.toLowerCase().replace("s", "")
+    );
+    if (response) {
+      setBreedList(response);
+    }
+
+    console.log(response);
+  };
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
@@ -64,11 +78,11 @@ const Search = () => {
         location: defaultLocation!,
       });
       setTokenData(storedToken);
+      fetchBreeds(storedToken, type);
     } else {
       const getTokenData = async () => {
         try {
           let data = await getToken();
-          console.log("Token from API:", data);
           if (data) {
             setParameters({
               token: data,
@@ -77,14 +91,16 @@ const Search = () => {
               location: defaultLocation!,
             });
             setTokenData(data);
+            fetchBreeds(data, type);
           }
         } catch (error) {
           console.error("Error getting token:", error);
         }
       };
+
       getTokenData();
     }
-  }, []);
+  }, [type]);
   useEffect(() => {
     const urlType = typeParams.get("type");
     if (urlType != type && urlType) {
@@ -167,6 +183,7 @@ const Search = () => {
                         {upperCase(filter.title)}
                       </span>
                       <Dropdown
+                        breedList ={breedList}
                         items={filter.item}
                         category={filter.title}
                         handleDropdownChange={handleDropdownChange}
@@ -180,7 +197,7 @@ const Search = () => {
               <div id="grid">
                 {animals ? (
                   <>
-                    <Items parameters={parameters!} animals={animals}/>
+                    <Items parameters={parameters!} animals={animals} />
                   </>
                 ) : (
                   "..."

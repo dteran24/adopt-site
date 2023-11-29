@@ -30,18 +30,18 @@ const PetDetail = () => {
   const [like, setLike] = useState(false);
   const [inSession, setInSession] = useState(false);
   const linksToAdd: string[] = [
-    org?.website!,
-    org?.social_media.facebook!,
-    org?.social_media.instagram!,
-    org?.social_media.twitter!,
+    org?.website ? org.website : "",
+    org?.social_media.facebook ? org.social_media.facebook : "",
+    org?.social_media.instagram ? org?.social_media.instagram : "",
+    org?.social_media.twitter ? org.social_media.twitter : "",
   ];
   const router = useRouter();
-  let socialLinks = [];
+  let socialLinks: string[] = [];
 
   const addLink = (links: string[]) => {
     if (links && links.length > 0) {
       for (let link of links) {
-        if (link != null || link != "") {
+        if (link !== "") {
           socialLinks.push(link);
         }
       }
@@ -128,7 +128,7 @@ const PetDetail = () => {
     getAnimal();
     setLoading(false);
   }, [petID]);
-  console.log(like);
+
   if (loading) {
     return <Loader />;
   }

@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { NextApiRequest } from "next";
-import { PetInfo } from "@/app/models/pet";
 
 export const GET = async (req: NextApiRequest) => {
   try {
