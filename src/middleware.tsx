@@ -1,15 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getToken } from "./app/actions";
 
-export const middleware = async (request: Request) => {
-  const token = await getToken();
+export const middleware = async (request: NextRequest) => {
   const response = NextResponse.next();
+  if (response.cookies.has("token")) {
+    return response
+  }
+  const token = await getToken();
   response.cookies.set({
     name: "token",
     value: token,
   });
-  let cookie = response.cookies.get("token");
-  console.log(cookie);
   return response;
 };
 export const config = {

@@ -1,4 +1,4 @@
-import { getPictures, getBreedList, getToken, extractTokenFromResponse } from "./actions";
+import { getPictures, getBreedList, extractTokenFromResponse } from "./actions";
 import HomeComponent from "./components/pages/home";
 import { headers } from "next/headers";
 const fetchData = async () => {
