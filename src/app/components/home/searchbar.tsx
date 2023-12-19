@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import useOnClickOutside from "use-onclickoutside";
 type SearchBarProps = {
-  breedList: Breed[];
+  breedList?: Breed[];
 };
 
 const SearchBar = (props: SearchBarProps) => {
@@ -18,7 +18,7 @@ const SearchBar = (props: SearchBarProps) => {
   const dropDownRef = useRef(null);
   const { breedList } = props;
 
-  const filteredBreeds = breedList.filter((breed) =>
+  const filteredBreeds = breedList?.filter((breed) =>
     breed.name.toLowerCase().includes(searchParams.breed.toLowerCase())
   );
 
@@ -36,7 +36,7 @@ const SearchBar = (props: SearchBarProps) => {
     setIsOpen(false);
   });
   const dropDownHandler = (e: HTMLOptionElement) => {
-    const animalType = findTypeWithDogOrCat(filteredBreeds);
+    const animalType = findTypeWithDogOrCat(filteredBreeds!);
     setSearchParams((prev) => ({ ...prev, breed: e.value, type: animalType! }));
     setIsOpen(false);
   };
@@ -64,7 +64,7 @@ const SearchBar = (props: SearchBarProps) => {
               ref={dropDownRef}
             >
               <div className="py-1 max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                {filteredBreeds.length
+                {filteredBreeds?.length
                   ? filteredBreeds.map((value, index) => {
                       return (
                         <option

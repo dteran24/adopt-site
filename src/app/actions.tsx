@@ -220,3 +220,9 @@ export const photoHandler = (animalData: PetInfo) => {
 export const upperCase = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
+
+export const extractTokenFromResponse = (responseString: string): string | null => {
+  const match = responseString.match(/token=(.*?);/);
+  return match ? match[1] : null;
+};
+
