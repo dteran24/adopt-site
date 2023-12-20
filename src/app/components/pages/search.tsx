@@ -46,6 +46,7 @@ const SearchComponent = (props: searchProps) => {
     page: pageNumber,
   });
   const [animals, setAnimals] = useState<PetInfo[]>();
+  const [resetBttn, setResetBttn] = useState(false);
 
   const updateURL = (newType: string) => {
     setType(newType);
@@ -73,7 +74,6 @@ const SearchComponent = (props: searchProps) => {
   };
 
   useEffect(() => {
-  
     if (tokenData) {
       setParameters({
         token: tokenData,
@@ -121,6 +121,7 @@ const SearchComponent = (props: searchProps) => {
       page: pageNumber,
       location: defaultLocation!,
     });
+    displayResetButton();
   }, [type, categoryValues, tokenData, pageNumber, location]);
 
   useEffect(() => {
@@ -142,6 +143,7 @@ const SearchComponent = (props: searchProps) => {
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
+    
   };
   const setDefaultCategoryValues = () => {
     setBreed("Any");
@@ -156,6 +158,20 @@ const SearchComponent = (props: searchProps) => {
     setPageNumber(1);
   };
 
+  const displayResetButton = () => {
+    if (
+      categoryValues.age != ("Any" || "") ||
+      categoryValues.breed != ("Any" || "") ||
+      categoryValues.size != ("Any" || "") ||
+      categoryValues.color != ("Any" || "") ||
+      categoryValues.gender != ("Any" || "")
+    ) {
+      setResetBttn(true);
+    } else {
+      setResetBttn(false);
+    }
+  };
+
   let selectedData;
   switch (type) {
     case "Dogs":
@@ -165,7 +181,8 @@ const SearchComponent = (props: searchProps) => {
       selectedData = combinedPetsData.cats;
       break;
   }
-
+  console.log(categoryValues);
+  console.log(resetBttn);
   return (
     <main className="flex flex-col min-h-screen w-full bg-slate-100" id="items">
       {loading ? (
@@ -192,10 +209,19 @@ const SearchComponent = (props: searchProps) => {
                         category={filter.title}
                         handleDropdownChange={handleDropdownChange}
                         animal={type}
+                        categoryValues={categoryValues}
                         breed={breed}
                       />
                     </li>
                   ))}
+                  {resetBttn && (
+                    <button
+                      className="bg-slate-300 p-2 rounded text-black"
+                      onClick={() => setDefaultCategoryValues()}
+                    >
+                      Reset Filters
+                    </button>
+                  )}
                 </ul>
               </div>
               <div id="grid">

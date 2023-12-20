@@ -1,5 +1,5 @@
 "use client";
-import { Breed } from "@/app/models/pet";
+import { Breed, FilterOptions } from "@/app/models/pet";
 import React, { useEffect, useState, useRef } from "react";
 import useOnClickOutside from "use-onclickoutside";
 type DropdownProps = {
@@ -11,6 +11,7 @@ type DropdownProps = {
   setDefaultCategoryValues?: () => void;
   breed: string;
   breedList?: Breed[];
+  categoryValues: FilterOptions;
 };
 
 const Dropdown = (props: DropdownProps) => {
@@ -23,6 +24,7 @@ const Dropdown = (props: DropdownProps) => {
     setDefaultCategoryValues,
     breed,
     breedList,
+    categoryValues,
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(
@@ -36,12 +38,25 @@ const Dropdown = (props: DropdownProps) => {
 
   useEffect(() => {
     if (category === "breed") {
-      setValue(breed ? breed : "Any");
+      setValue(categoryValues.breed ? categoryValues.breed : "Any");
     }
+    if (category === "age") {
+      setValue(categoryValues.age ? categoryValues.age : "Any");
+    }
+    if (category === "size") {
+      setValue(categoryValues.size ? categoryValues.size : "Any");
+    }
+    if (category === "color") {
+      setValue(categoryValues.color ? categoryValues.color : "Any");
+    }
+    if (category === "gender") {
+      setValue(categoryValues.gender ? categoryValues.gender : "Any");
+    }
+
     if (!category) {
       setValue(animal);
     }
-  }, [animal]);
+  }, [animal, breed, categoryValues]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -61,7 +76,10 @@ const Dropdown = (props: DropdownProps) => {
     setIsOpen(false);
   });
   return (
-    <div className="relative inline-block text-left text-center" ref={dropDownRef}>
+    <div
+      className="relative inline-block text-left text-center"
+      ref={dropDownRef}
+    >
       {category === "breed" && isOpen ? (
         <input
           className="bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center w-44 justify-between"
