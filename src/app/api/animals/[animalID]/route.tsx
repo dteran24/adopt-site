@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { NextApiRequest } from "next";
-
+// Check if specific animal is in user liked list
 export const GET = async (req: NextApiRequest) => {
   try {
     const session = await getServerSession(authOptions);
@@ -44,6 +44,7 @@ export const GET = async (req: NextApiRequest) => {
   }
 };
 
+//Remove animal in liked list
 export const DELETE = async (req: NextApiRequest) => {
   try {
     const session = await getServerSession(authOptions);

@@ -4,6 +4,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import { PetInfo } from "@/app/models/pet";
 
+//Add animal to liked list
 export const POST = async (req: Request) => {
   try {
     const session = await getServerSession(authOptions);
@@ -31,9 +32,11 @@ export const POST = async (req: Request) => {
         { status: 404 }
       );
     }
-    const userWithAnimal = await userCollection?.findOne({email: userEmail,'animalsLiked.animal.id': animal.id,})
+    const userWithAnimal = await userCollection?.findOne({
+      email: userEmail,
+      "animalsLiked.animal.id": animal.id,
+    });
     const animalExists = !!userWithAnimal;
-   
 
     if (animalExists) {
       client?.close();
@@ -57,6 +60,7 @@ export const POST = async (req: Request) => {
     );
   }
 };
+//Remove animal from liked list
 export const DELETE = async (req: Request) => {
   try {
     const session = await getServerSession(authOptions);
@@ -83,9 +87,11 @@ export const DELETE = async (req: Request) => {
         { status: 404 }
       );
     }
-    const userWithAnimal = await userCollection?.findOne({email: userEmail,'animalsLiked.animal.id': animalID.id,})
+    const userWithAnimal = await userCollection?.findOne({
+      email: userEmail,
+      "animalsLiked.animal.id": animalID.id,
+    });
     const animalExists = !!userWithAnimal;
-   
 
     if (!animalExists) {
       client?.close();
@@ -104,9 +110,12 @@ export const DELETE = async (req: Request) => {
     return NextResponse.json({ message: "Error " + e }, { status: 500 });
   }
 };
+
+// Get all animals from liked list
 export const GET = async (req: Request) => {
   try {
     const session = await getServerSession(authOptions);
+    console.log("server session", session);
 
     if (!session) {
       return NextResponse.json(
@@ -131,8 +140,12 @@ export const GET = async (req: Request) => {
     }
 
     const animalsLiked = user.animalsLiked;
+    const userName = user.name;
     client?.close();
-    return NextResponse.json({ animalsLiked }, { status: 200 });
+    return NextResponse.json(
+      { userName: userName, animalsLiked: animalsLiked },
+      { status: 200 }
+    );
   } catch (e) {
     console.log(e);
     return NextResponse.json({ message: "Error " + e }, { status: 500 });

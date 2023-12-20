@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const CreateAccount = () => {
   const [userData, setUserData] = useState({
@@ -9,6 +10,7 @@ const CreateAccount = () => {
     password: "",
   });
   const [err, setErr] = useState(false);
+  const [userCreated, setUserCreated] = useState(false);
   const router = useRouter();
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,11 +36,23 @@ const CreateAccount = () => {
         // throw new Error(response.message);
       });
     } else {
-      router.replace("/account/login");
+      setUserCreated(true);
+      setErr(false);
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: email,
+        password: password,
+      });
+
+      if (!result?.error) {
+        router.replace("/");
+        
+        }
+      }
+
+      data.then((response) => console.log(response));
     }
 
-    data.then((response) => console.log(response));
-  };
 
   return (
     <main className="min-h-screen flex justify-center bg-white text-black p-5">
@@ -106,15 +120,17 @@ const CreateAccount = () => {
               }
             />
           </div>
-          
-            <button
-              type="submit"
-              className="w-full lg:w-24 text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-            >
-              Submit
-            </button>
-          {err && <span className="text-rose-500 mt-2">{err}</span>}
 
+          <button
+            type="submit"
+            className="w-full lg:w-24 text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Submit
+          </button>
+          {err && <span className="text-rose-500 mt-2">{err}</span>}
+          {userCreated && (
+            <span className="text-green-500 mt-2">User Created!</span>
+          )}
         </form>
       </div>
     </main>

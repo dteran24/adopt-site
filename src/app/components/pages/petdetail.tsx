@@ -73,16 +73,7 @@ const PetDetailComponent = (props: PetDetailProps) => {
     console.log("response", response);
     console.log("data", data);
   };
-  const checkLiked = async (id: number) => {
-    const response = await fetch(`/api/animals/${id}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
 
-    const data = await response.json();
-
-    setLike(data.liked);
-  };
   const likeHandler = () => {
     if (inSession) {
       setLike((prev) => !prev);
@@ -125,13 +116,25 @@ const PetDetailComponent = (props: PetDetailProps) => {
       }
       setLoading(false);
     };
+    const checkLiked = async (id: number) => {
+      if (inSession) {
+        const response = await fetch(`/api/animals/${id}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+
+        setLike(data.liked);
+      }
+    };
 
     getAnimal();
     getSession().then((session) =>
       session ? setInSession(true) : setInSession(false)
     );
     checkLiked(petID!);
-  }, [petID, token]);
+  }, [inSession, petID, token]);
 
   if (loading) {
     return <Loader />;
@@ -147,34 +150,34 @@ const PetDetailComponent = (props: PetDetailProps) => {
         </span>
         <hr className="my-5" />
         <h1 className="text-4xl mb-2 font-semibold">About</h1>
-        <h2 className="text-2xl my-2 font-medium">Characteristics</h2>
+        <h2 className="text-2xl font-medium">Characteristics</h2>
         {animal?.tags.length && animal.tags.length > 0 ? (
           <ul className="">
-            {animal?.tags.map((tags, index) => {
-              return <li key={index}>{tags}</li>;
+            {animal?.tags.map((tag, index) => {
+              return <li key={index}>{tag}</li>;
             })}
           </ul>
         ) : (
           "No info provided."
         )}
-        <h2 className="text-2xl my-2 font-medium">Coat Length</h2>
+        <h2 className="text-2xl font-medium">Coat Length</h2>
         {animal?.coat ? <span>{animal.coat}</span> : "No info provided."}
-        <h2 className="text-2xl my-2 font-medium">House Trained</h2>
+        <h2 className="text-2xl font-medium">House Trained</h2>
         <span>
           {animal?.attributes.house_trained ? "Yes" : "No info provided."}
         </span>
-        <h2 className="text-2xl my-2 font-medium">Health</h2>
+        <h2 className="text-2xl font-medium">Health</h2>
         <span>
           {animal?.attributes.shots_current
-            ? "Shots up to date"
-            : "Shots not up to date"}
+            ? "Shots are up to date."
+            : "Shots are not up to date."}
         </span>{" "}
         <span>
           {animal?.attributes.spayed_neutered
-            ? "spayed / nuetered"
-            : " Not nuetered /spayed"}
+            ? "Spayed or nuetered."
+            : " Not nuetered or spayed."}
         </span>
-        <h2 className="text-2xl my-2 font-medium">Good with</h2>
+        <h2 className="text-2xl font-medium">Good with</h2>
         {animal?.environment.cats &&
         animal.environment.dogs &&
         animal.environment.children ? (
