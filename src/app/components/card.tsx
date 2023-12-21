@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import { PetInfo } from "../models/pet";
 import Link from "next/link";

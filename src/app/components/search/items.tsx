@@ -1,17 +1,13 @@
 "use client";
 import { PetInfo, URLParameters } from "../../models/pet";
 import Card from "../card";
-import { getAnimals } from "@/app/actions";
-import { useEffect, useState } from "react";
-import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
-interface Pets {
-  parameters: URLParameters;
+type Pets = {
   animals: PetInfo[];
 }
 
 const Items = (props: Pets) => {
-  const { parameters, animals } = props;
+  const { animals } = props;
   return (
     <div className="bg-slate-100 text-black w-full">
       {animals?.length != 0 ? (

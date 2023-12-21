@@ -182,9 +182,9 @@ const PetDetailComponent = (props: PetDetailProps) => {
         animal.environment.dogs &&
         animal.environment.children ? (
           <>
-            <span>{animal?.environment.cats ? "Cats" : ""}</span>
-            <span>{animal?.environment.dogs ? "Dogs" : ""}</span>
-            <span>{animal?.environment.children ? "Children" : ""}</span>
+            <span>{animal?.environment.cats ? "Cats " : ""}</span>
+            <span>{animal?.environment.dogs ? "Dogs " : ""}</span>
+            <span>{animal?.environment.children ? "Children " : ""}</span>
           </>
         ) : (
           "No info provided."
