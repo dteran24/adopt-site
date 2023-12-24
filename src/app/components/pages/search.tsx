@@ -195,7 +195,7 @@ const SearchComponent = (props: searchProps) => {
             setDefaultCategoryValues={setDefaultCategoryValues}
           />
           <div className="flex flex-col">
-            <div className="flex justify-around">
+            <div className="flex flex-col sm:justify-around sm:flex-row">
               <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
                 <ul className="px-5 pt-5 text-center">
                   {selectedData?.map((filter, index) => (
@@ -227,14 +227,14 @@ const SearchComponent = (props: searchProps) => {
               <div id="grid">
                 {animals ? (
                   <>
-                    <Items parameters={parameters!} animals={animals} />
+                    <Items animals={animals} />
                   </>
                 ) : (
                   "..."
                 )}
               </div>
             </div>
-            <div className="text-black my-10 flex justify-center ms-72 gap-x-64">
+            <div className="text-black my-10 flex justify-center sm:ms-72 gap-x-64">
               {parameters.page && parameters.page <= 1 ? (
                 ""
               ) : (
