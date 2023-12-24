@@ -75,17 +75,18 @@ const ProfileComponent = (props: ProfileProps) => {
             ? animalList?.map((item: any) => {
                 const animal: PetInfo = item.animal;
                 const photo = photoHandler(animal);
-              return (
-                <Link href={`search/${animal.id}`} key={animal.id}>
-                  <div className="bg-lime-500 rounded my-5">
+                return (
+                  <div className="bg-lime-500 rounded my-5" key={animal.id}>
                     <div className="flex items-center sm:items-start justify-between p-5">
-                      <Image
-                        className="rounded h-28 w-28 sm:h-60 sm:w-60 md:h-80 md:w-80 lg:h-120 lg:w-120 object-cover object-center"
-                        src={photo!}
-                        width={300}
-                        height={300}
-                        alt="pet"
-                      />
+                      <Link href={`search/${animal.id}`}>
+                        <Image
+                          className="rounded h-28 w-28 sm:h-60 sm:w-60 md:h-80 md:w-80 lg:h-120 lg:w-120 object-cover object-center"
+                          src={photo!}
+                          width={300}
+                          height={300}
+                          alt="pet"
+                        />
+                      </Link>
                       <div className="flex flex-col w-full">
                         <div className="flex w-full justify-around sm:justify-between">
                           <h2 className="justify-center font-bold text-xl sm:ms-40 md:ms-72 lg:ms-96">
@@ -161,7 +162,6 @@ const ProfileComponent = (props: ProfileProps) => {
                       </div>
                     </div>
                   </div>
-                  </Link>
                 );
               })
             : "No animals liked"}

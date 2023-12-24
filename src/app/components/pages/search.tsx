@@ -27,16 +27,16 @@ const SearchComponent = (props: searchProps) => {
 
   const [type, setType] = useState(animal ? animal : "Dogs");
   const [breedList, setBreedList] = useState<Breed[]>();
-  const [breed, setBreed] = useState(breedParam ? breedParam : "");
+  const [breed, setBreed] = useState(breedParam ? breedParam : "Any");
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
   const [tokenData, setTokenData] = useState(token);
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
     breed: breed,
-    age: "",
-    size: "",
-    color: "",
-    gender: "",
+    age: "Any",
+    size: "Any",
+    color: "Any",
+    gender: "Any",
   });
   const [parameters, setParameters] = useState<URLParameters>({
     token: "",
@@ -69,8 +69,6 @@ const SearchComponent = (props: searchProps) => {
     if (response) {
       setBreedList(response);
     }
-
-    console.log(response);
   };
 
   useEffect(() => {
@@ -216,7 +214,7 @@ const SearchComponent = (props: searchProps) => {
                   ))}
                   {resetBttn && (
                     <button
-                      className="bg-slate-300 p-2 rounded text-black"
+                      className="bg-slate-300 p-2 rounded text-black mb-5"
                       onClick={() => setDefaultCategoryValues()}
                     >
                       Reset Filters
