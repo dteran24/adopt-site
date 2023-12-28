@@ -30,6 +30,7 @@ const SearchComponent = (props: searchProps) => {
   const [breed, setBreed] = useState(breedParam ? breedParam : "Any");
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(page ? Number(page) : 1);
+  const [maxPage, setMaxPage] = useState();
   const [tokenData, setTokenData] = useState(token);
   const [categoryValues, setCategoryValues] = useState<FilterOptions>({
     breed: breed,
@@ -48,6 +49,7 @@ const SearchComponent = (props: searchProps) => {
   const [animals, setAnimals] = useState<PetInfo[]>();
   const [resetBttn, setResetBttn] = useState(false);
 
+  //update url when type changes
   const updateURL = (newType: string) => {
     setType(newType);
     router.replace(
@@ -61,6 +63,7 @@ const SearchComponent = (props: searchProps) => {
     updateURL(type);
   };
 
+  //get breed list for animal type
   const fetchBreeds = async (token: string, type: string) => {
     const response = await getBreedList(
       token,
@@ -70,7 +73,7 @@ const SearchComponent = (props: searchProps) => {
       setBreedList(response);
     }
   };
-
+//inital load get token if it does not exsit if it does get param values
   useEffect(() => {
     if (tokenData) {
       setParameters({
@@ -103,6 +106,8 @@ const SearchComponent = (props: searchProps) => {
       getTokenData();
     }
   }, [type]);
+
+  //update url when params change
   useEffect(() => {
     const urlType = typeParams.get("type");
     if (urlType != type && urlType) {
@@ -122,6 +127,7 @@ const SearchComponent = (props: searchProps) => {
     displayResetButton();
   }, [type, categoryValues, tokenData, pageNumber, location]);
 
+  //get petdata when params change
   useEffect(() => {
     const getData = async () => {
       const animalsData = await getAnimals(
@@ -132,7 +138,8 @@ const SearchComponent = (props: searchProps) => {
         parameters.page
       );
       if (animalsData) {
-        setAnimals(animalsData);
+        setMaxPage(animalsData.pagination.total_pages);
+        setAnimals(animalsData.animals);
         setLoading(false);
       }
     };
@@ -142,6 +149,7 @@ const SearchComponent = (props: searchProps) => {
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
   };
+  //reset values when type cahnges
   const setDefaultCategoryValues = () => {
     setBreed("Any");
     setCategoryValues((prev) => ({
@@ -154,7 +162,7 @@ const SearchComponent = (props: searchProps) => {
     }));
     setPageNumber(1);
   };
-
+//reset bttn show when not default
   const displayResetButton = () => {
     if (
       categoryValues.age != ("Any" || "") ||
@@ -170,6 +178,8 @@ const SearchComponent = (props: searchProps) => {
   };
 
   let selectedData;
+
+  //used mostly for labels
   switch (type) {
     case "Dogs":
       selectedData = combinedPetsData.dogs;
@@ -243,7 +253,7 @@ const SearchComponent = (props: searchProps) => {
                   </button>
                 </a>
               )}
-              {parameters.page && parameters.page <= 1 ? (
+              {maxPage == 1 || parameters.page == maxPage ? (
                 ""
               ) : (
                 <a href="#grid">

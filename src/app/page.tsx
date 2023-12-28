@@ -1,7 +1,6 @@
 import { getPictures, getBreedList, extractTokenFromResponse } from "./actions";
 import HomeComponent from "./components/pages/home";
 import { headers } from "next/headers";
-import type { Metadata } from "next";
 const fetchData = async () => {
   try {
     const response = headers().get("set-cookie");
@@ -20,10 +19,9 @@ const fetchData = async () => {
       return data;
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    throw new Error(`Error Fetching Data: ${error}`);
   }
 };
-
 
 const Home = async () => {
   let response = await fetchData();

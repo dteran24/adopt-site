@@ -9,9 +9,9 @@ type DropdownProps = {
   category?: string;
   handleDropdownChange?: (category: string, value: string) => void;
   setDefaultCategoryValues?: () => void;
-  breed: string;
+  breed?: string;
   breedList?: Breed[];
-  categoryValues: FilterOptions;
+  categoryValues?: FilterOptions;
 };
 
 const Dropdown = (props: DropdownProps) => {
@@ -35,22 +35,22 @@ const Dropdown = (props: DropdownProps) => {
   const filteredBreeds = breedList?.filter((breed) =>
     breed.name.toLowerCase().includes(searchParams.toLowerCase())
   );
-
+//set Values to Any if there is no filter value
   useEffect(() => {
     if (category === "breed") {
-      setValue(categoryValues.breed ? categoryValues.breed : "Any");
+      setValue(categoryValues?.breed ? categoryValues.breed : "Any");
     }
     if (category === "age") {
-      setValue(categoryValues.age ? categoryValues.age : "Any");
+      setValue(categoryValues?.age ? categoryValues.age : "Any");
     }
     if (category === "size") {
-      setValue(categoryValues.size ? categoryValues.size : "Any");
+      setValue(categoryValues?.size ? categoryValues.size : "Any");
     }
     if (category === "color") {
-      setValue(categoryValues.color ? categoryValues.color : "Any");
+      setValue(categoryValues?.color ? categoryValues.color : "Any");
     }
     if (category === "gender") {
-      setValue(categoryValues.gender ? categoryValues.gender : "Any");
+      setValue(categoryValues?.gender ? categoryValues.gender : "Any");
     }
 
     if (!category) {
@@ -72,6 +72,7 @@ const Dropdown = (props: DropdownProps) => {
     setValue(e.value);
     setIsOpen(false);
   };
+  //closes dropdown when clicking outside
   useOnClickOutside(dropDownRef, () => {
     setIsOpen(false);
   });

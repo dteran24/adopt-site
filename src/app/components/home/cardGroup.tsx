@@ -3,7 +3,6 @@ import Card from "../card";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { PetInfo } from "@/app/models/pet";
-import { useState } from "react";
 import LoadingGroup from "./loadingGroup";
 
 type cardGroupProps = {

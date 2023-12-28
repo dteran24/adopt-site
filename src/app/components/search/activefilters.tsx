@@ -16,7 +16,7 @@ const ActiveFilter = (props: ActiveFilterProps) => {
     Dogs: <PiDogLight className="w-12 h-12" />,
     Cats: <PiCatLight className="w-12 h-12" />,
   };
-
+//change icon depending on type
   const selectedIcon = animalMapping[animal];
 
   return (

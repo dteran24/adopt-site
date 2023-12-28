@@ -110,9 +110,8 @@ export const getAnimals = async (
 
       const petData = await response.json();
       if (petData) {
-        return petData.animals;
+        return petData;
       } else {
-        console.error("Error: Inavlid response");
         return Promise.reject(
           `Error: Request failed with status ${response.status}`
         );
