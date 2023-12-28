@@ -141,7 +141,6 @@ const SearchComponent = (props: searchProps) => {
 
   const handleDropdownChange = (category: string, value: string) => {
     setCategoryValues({ ...categoryValues, [category]: value });
-    
   };
   const setDefaultCategoryValues = () => {
     setBreed("Any");
@@ -179,8 +178,7 @@ const SearchComponent = (props: searchProps) => {
       selectedData = combinedPetsData.cats;
       break;
   }
-  console.log(categoryValues);
-  console.log(resetBttn);
+
   return (
     <main className="flex flex-col min-h-screen w-full bg-slate-100" id="items">
       {loading ? (
@@ -193,7 +191,7 @@ const SearchComponent = (props: searchProps) => {
             setDefaultCategoryValues={setDefaultCategoryValues}
           />
           <div className="flex flex-col">
-            <div className="flex flex-col sm:justify-around sm:flex-row">
+            <div className="flex flex-col sm:justify-between sm:flex-row">
               <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
                 <ul className="px-5 pt-5 text-center">
                   {selectedData?.map((filter, index) => (
@@ -245,14 +243,18 @@ const SearchComponent = (props: searchProps) => {
                   </button>
                 </a>
               )}
-              <a href="#grid">
-                <button
-                  className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
-                  onClick={() => setPageNumber((prev) => prev + 1)}
-                >
-                  <FaGreaterThan className="mx-auto text-lg" />
-                </button>
-              </a>
+              {parameters.page && parameters.page <= 1 ? (
+                ""
+              ) : (
+                <a href="#grid">
+                  <button
+                    className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
+                    onClick={() => setPageNumber((prev) => prev + 1)}
+                  >
+                    <FaGreaterThan className="mx-auto text-lg" />
+                  </button>
+                </a>
+              )}
             </div>
           </div>
         </>

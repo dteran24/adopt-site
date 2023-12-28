@@ -89,11 +89,12 @@ const PetDetailComponent = (props: PetDetailProps) => {
   addLink(linksToAdd);
 
   useEffect(() => {
-    console.log("TRIGGERING USEEFFECT LIKE STATUS IS", like)
-    if (like && animal) {
-      addAnimal(animal);
-    } else if (!like && animal) {
-      deleteAnimal(animal?.id);
+    if (inSession) {
+      if (like && animal) {
+        addAnimal(animal);
+      } else if (!like && animal) {
+        deleteAnimal(animal?.id);
+      }
     }
   }, [like]);
 

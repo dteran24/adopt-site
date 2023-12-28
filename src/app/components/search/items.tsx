@@ -24,8 +24,8 @@ const Items = (props: Pets) => {
           </div>
        
         </>
-      ) : (
-        "No Results Found!"
+      ) : (<div className="flex justify-center items-center mt-10 md:h-96 md:w-96 md:me-72 text-lg font-semibold">No Results Found!</div>
+        
       )}
     </div>
   );
