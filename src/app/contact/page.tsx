@@ -4,8 +4,8 @@ import { Metadata } from "next";
 import ContactComponent from "../components/pages/contact";
 
 export const metadata: Metadata = {
-  title: "Search a Pet",
-  description: "Look for a pet that needs a home.",
+  title: "Contact us",
+  description: "Contact us for any questions and assistance.",
 };
 const Contact = () => {
   
