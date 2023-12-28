@@ -6,6 +6,10 @@ import Footer from "./components/footer";
 import AuthProvider from "./lib/authprovider";
 
 const inter = Inter({ subsets: ["latin"] });
+export const metadata: Metadata = {
+  title: "Adopt a Pet",
+  description: "A place to find a best friend",
+};
 
 export default function RootLayout({
   children,

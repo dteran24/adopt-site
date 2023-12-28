@@ -3,7 +3,7 @@ import CardGroup from "../../components/home/cardGroup";
 import Info from "../../components/home/info";
 import SearchBar from "../../components/home/searchbar";
 import { Breed, PetInfo } from "../../models/pet";
-import { useRef, useState } from "react";
+
 
 type HomeProps = {
     breedList?: Breed[];

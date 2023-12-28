@@ -1,9 +1,9 @@
 import { getPictures, getBreedList, extractTokenFromResponse } from "./actions";
 import HomeComponent from "./components/pages/home";
 import { headers } from "next/headers";
+import type { Metadata } from "next";
 const fetchData = async () => {
   try {
-    
     const response = headers().get("set-cookie");
     let cookieToken = extractTokenFromResponse(response!);
     if (cookieToken) {
@@ -23,6 +23,8 @@ const fetchData = async () => {
     console.error("Error fetching data:", error);
   }
 };
+
+
 const Home = async () => {
   let response = await fetchData();
 
