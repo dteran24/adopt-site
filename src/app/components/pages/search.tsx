@@ -210,7 +210,7 @@ const SearchComponent = (props: searchProps) => {
             setDefaultCategoryValues={setDefaultCategoryValues}
           />
           {error ? (
-            <div className="text-black">Something went wrong...</div>
+            <div className="text-black m-5 text-lg">Something went wrong...</div>
           ) : (
             <div className="flex flex-col">
               <div className="flex flex-col sm:justify-between sm:flex-row">
