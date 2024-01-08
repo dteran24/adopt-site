@@ -34,7 +34,7 @@ export const getToken = async (): Promise<string> => {
 export const getPictures = async (bearerToken: string): Promise<PetInfo[]> => {
   try {
     const apiEndpoint =
-      "https://api.petfinder.com/v2/animals?location=dallas, texas&distance=50&sort=distance&limit=3";
+      "https://api.petfinder.com/v2/animals?limit=3&sort=random";
     const response = await fetch(apiEndpoint, {
       method: "GET",
       headers: {
@@ -69,7 +69,7 @@ export const getAnimals = async (
       type = "cat";
     }
     try {
-      const BASE_URL = `https://api.petfinder.com/v2/animals?type=${type}&limit=12&page=${page}`;
+      const BASE_URL = `https://api.petfinder.com/v2/animals?type=${type}&limit=12&page=${page}&sort=random`;
 
       const queryParams = [];
       if (filter) {
