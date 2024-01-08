@@ -11,7 +11,7 @@ const Footer = () => {
     { title: "Home", url: "/" },
     { title: "About", url: "/about" },
     { title: "Contact Us", url: "/contact" },
-    { title: "Adopt a Pet", url: "/search" },
+    { title: "Adopt a Pet", url: "/search?type=&breed=Any&location&page=1" },
   ];
   const icons = [
     { site: "facebook", url: "https://www.facebook.com/Petfinder/" },
@@ -57,7 +57,7 @@ const Footer = () => {
         })}
       </ul>
       <span className="text-center mt-2">
-        © 2020 Your Company, Inc. All rights reserved.
+        © 2024 Adopt A Pet, Inc. All rights reserved.
       </span>
     </footer>
   );

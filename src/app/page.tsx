@@ -1,6 +1,7 @@
 import { getPictures, getBreedList, extractTokenFromResponse } from "./actions";
 import HomeComponent from "./components/pages/home";
 import { headers } from "next/headers";
+export const dynamic = 'force-dynamic';
 const fetchData = async () => {
   try {
     const response = headers().get("set-cookie");

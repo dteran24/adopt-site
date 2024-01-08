@@ -107,17 +107,15 @@ export const getAnimals = async (
           Authorization: `Bearer ${bearerToken}`,
         },
       });
-
-      const petData = await response.json();
-      if (petData) {
+    
+      if (response.status === 200) {
+        const petData = await response.json();
         return petData;
-      } else {
-        return Promise.reject(
-          `Error: Request failed with status ${response.status}`
-        );
+      
       }
     } catch (error) {
       console.error("Error:", error);
+      
       return Promise.reject(error);
     }
   }

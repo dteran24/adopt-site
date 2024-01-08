@@ -1,10 +1,14 @@
 import { connectToDatabase } from "@/app/lib/db";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
+
+
+type CombineRequest = Request & NextApiRequest;
+// type CombineResponse = Response & NextApiResponse;
 // Check if specific animal is in user liked list
-export const GET = async (req: NextApiRequest) => {
+export const GET = async (req: CombineRequest ) => {
   try {
     const session = await getServerSession(authOptions);
 
@@ -45,7 +49,7 @@ export const GET = async (req: NextApiRequest) => {
 };
 
 //Remove animal in liked list
-export const DELETE = async (req: NextApiRequest) => {
+export const DELETE = async (req: CombineRequest) => {
   try {
     const session = await getServerSession(authOptions);
 

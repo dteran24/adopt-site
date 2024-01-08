@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Breed, FilterOptions } from "@/app/models/pet";
 import React, { useEffect, useState, useRef } from "react";

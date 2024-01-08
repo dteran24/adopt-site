@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Items from "../../components/search/items";
 import Dropdown from "../../components/search/dropdownmenu";
@@ -73,7 +74,7 @@ const SearchComponent = (props: searchProps) => {
       setBreedList(response);
     }
   };
-//inital load get token if it does not exsit if it does get param values
+  //inital load get token if it does not exsit if it does get param values
   useEffect(() => {
     if (tokenData) {
       setParameters({
@@ -137,10 +138,13 @@ const SearchComponent = (props: searchProps) => {
         parameters.location,
         parameters.page
       );
+
       if (animalsData) {
         setMaxPage(animalsData.pagination.total_pages);
         setAnimals(animalsData.animals);
         setLoading(false);
+      } else {
+        throw new Error("API request failed");
       }
     };
     getData();
@@ -162,7 +166,7 @@ const SearchComponent = (props: searchProps) => {
     }));
     setPageNumber(1);
   };
-//reset bttn show when not default
+  //reset bttn show when not default
   const displayResetButton = () => {
     if (
       categoryValues.age != ("Any" || "") ||

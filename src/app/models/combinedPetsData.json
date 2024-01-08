@@ -13,7 +13,26 @@
     { "title": "age", "item": ["Baby", "Young", "Adult", "Senior"] },
     { "title": "size", "item": ["Small", "Medium", "Large"] },
     { "title": "gender", "item": ["Male", "Female"] },
-    { "title": "color", "item": ["Black", "White", "Brown", "Gray", "Spotted"] }
+    {
+      "title": "color",
+      "item": [
+        "Apricot / Beige",
+        "Bicolor",
+        "Black",
+        "Brindle",
+        "Brown / Chocolate",
+        "Golden",
+        "Gray / Blue / Silver",
+        "Harlequin",
+        "Merle (Blue)",
+        "Merle (Red)",
+        "Red / Chestnut / Orange",
+        "Sable",
+        "Tricolor (Brown, Black, & White)",
+        "White / Cream",
+        "Yellow / Tan / Blond / Fawn"
+      ]
+    }
   ],
   "cats": [
     {
@@ -34,7 +53,36 @@
     },
     {
       "title": "color",
-      "item": ["White", "Gray", "Black", "Orange", "Calico"]
+      "item": ["Black",
+      "Black & White / Tuxedo",
+      "Blue Cream",
+      "Blue Point",
+      "Brown / Chocolate",
+      "Buff & White",
+      "Buff / Tan / Fawn",
+      "Calico",
+      "Chocolate Point",
+      "Cream / Ivory",
+      "Cream Point",
+      "Dilute Calico",
+      "Dilute Tortoiseshell",
+      "Flame Point",
+      "Gray & White",
+      "Gray / Blue / Silver",
+      "Lilac Point",
+      "Orange & White",
+      "Orange / Red",
+      "Seal Point",
+      "Smoke",
+      "Tabby (Brown / Chocolate)",
+      "Tabby (Buff / Tan / Fawn)",
+      "Tabby (Gray / Blue / Silver)",
+      "Tabby (Leopard / Spotted)",
+      "Tabby (Orange / Red)",
+      "Tabby (Tiger Striped)",
+      "Torbie",
+      "Tortoiseshell",
+      "White"]
     }
   ]
 }

@@ -1,15 +1,17 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 import { Switch } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, FormEventHandler, useState } from "react";
 
 const ContactComponent = () => {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const submitHandler = () => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setLoading(true);
     setTimeout(() => {
       router.push("/");
@@ -32,8 +34,6 @@ const ContactComponent = () => {
         </div>
         <form
           onSubmit={submitHandler}
-          action="#"
-          method="POST"
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
