@@ -47,12 +47,13 @@ const Footer = () => {
       <ul className="sm:w-1/4 sm:mx-auto flex justify-around my-2">
         {icons.map((icon, index) => {
           return (
-            <li
-              key={index}
-              className="hover:cursor-pointer hover:text-lime-500"
-            >
-              {iconMapping[icon.site]}
-            </li>
+            <Link href={icon.url} key={index} target="_blank">
+              <li
+                className="hover:cursor-pointer hover:text-lime-500"
+              >
+                {iconMapping[icon.site]}
+              </li>
+            </Link>
           );
         })}
       </ul>

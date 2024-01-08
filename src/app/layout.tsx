@@ -9,10 +9,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Adopt a Pet",
   description: "A place to find a best friend",
-  icons: {
-    icon: "",
-    apple:""
-  },
 };
 
 export default function RootLayout({
