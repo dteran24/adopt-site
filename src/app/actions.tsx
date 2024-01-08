@@ -89,7 +89,7 @@ export const getAnimals = async (
           queryParams.push(`color=${filter.color}`);
         }
       }
-  
+
       if (location != "") {
         queryParams.push(`location=${location}`);
       }
@@ -107,15 +107,17 @@ export const getAnimals = async (
           Authorization: `Bearer ${bearerToken}`,
         },
       });
-    
+
       if (response.status === 200) {
         const petData = await response.json();
         return petData;
-      
+      } else {
+        console.error("API request failed with status:", response.status);
+        return Promise.reject(new Error("API request failed"));
       }
     } catch (error) {
       console.error("Error:", error);
-      
+
       return Promise.reject(error);
     }
   }
@@ -175,7 +177,10 @@ export const getOrganization = async (
   }
 };
 
-export const getBreedList = async( token: string, type: string): Promise<Breed[]> => {
+export const getBreedList = async (
+  token: string,
+  type: string
+): Promise<Breed[]> => {
   try {
     const BASE_URL = `https://api.petfinder.com/v2/types/${type}/breeds`;
     const response = await fetch(BASE_URL, {
@@ -197,7 +202,7 @@ export const getBreedList = async( token: string, type: string): Promise<Breed[]
     console.error("Error:", e);
     return Promise.reject(e);
   }
-}
+};
 
 export const photoHandler = (animalData: PetInfo) => {
   if (animalData.photos.length !== 0) {
@@ -218,8 +223,9 @@ export const upperCase = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
-export const extractTokenFromResponse = (responseString: string): string | null => {
+export const extractTokenFromResponse = (
+  responseString: string
+): string | null => {
   const match = responseString.match(/token=(.*?);/);
   return match ? match[1] : null;
 };
-

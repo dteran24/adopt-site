@@ -49,6 +49,7 @@ const SearchComponent = (props: searchProps) => {
   });
   const [animals, setAnimals] = useState<PetInfo[]>();
   const [resetBttn, setResetBttn] = useState(false);
+  const [error, setError] = useState(false);
 
   //update url when type changes
   const updateURL = (newType: string) => {
@@ -131,20 +132,24 @@ const SearchComponent = (props: searchProps) => {
   //get petdata when params change
   useEffect(() => {
     const getData = async () => {
-      const animalsData = await getAnimals(
-        parameters.token,
-        parameters.filter,
-        parameters.type,
-        parameters.location,
-        parameters.page
-      );
+      try {
+        const animalsData = await getAnimals(
+          parameters.token,
+          parameters.filter,
+          parameters.type,
+          parameters.location,
+          parameters.page
+        );
 
-      if (animalsData) {
-        setMaxPage(animalsData.pagination.total_pages);
-        setAnimals(animalsData.animals);
+        if (animalsData) {
+          setMaxPage(animalsData.pagination.total_pages);
+          setAnimals(animalsData.animals);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("API request failed", error);
+        setError(true);
         setLoading(false);
-      } else {
-        throw new Error("API request failed");
       }
     };
     getData();
@@ -204,73 +209,77 @@ const SearchComponent = (props: searchProps) => {
             animal={type}
             setDefaultCategoryValues={setDefaultCategoryValues}
           />
-          <div className="flex flex-col">
-            <div className="flex flex-col sm:justify-between sm:flex-row">
-              <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
-                <ul className="px-5 pt-5 text-center">
-                  {selectedData?.map((filter, index) => (
-                    <li className="flex flex-col mb-5 lg:mb-20" key={index}>
-                      <span className="mb-3 text-lg font-bold">
-                        {upperCase(filter.title)}
-                      </span>
-                      <Dropdown
-                        breedList={breedList}
-                        items={filter.item}
-                        category={filter.title}
-                        handleDropdownChange={handleDropdownChange}
-                        animal={type}
-                        categoryValues={categoryValues}
-                        breed={breed}
-                      />
-                    </li>
-                  ))}
-                  {resetBttn && (
-                    <button
-                      className="bg-slate-300 p-2 rounded text-black mb-5"
-                      onClick={() => setDefaultCategoryValues()}
-                    >
-                      Reset Filters
-                    </button>
+          {error ? (
+            <div className="text-black">Something went wrong...</div>
+          ) : (
+            <div className="flex flex-col">
+              <div className="flex flex-col sm:justify-between sm:flex-row">
+                <div className="w-72 rounded-lg bg-lime-500 m-5 mb-0 mx-auto sm:mx-5">
+                  <ul className="px-5 pt-5 text-center">
+                    {selectedData?.map((filter, index) => (
+                      <li className="flex flex-col mb-5 lg:mb-20" key={index}>
+                        <span className="mb-3 text-lg font-bold">
+                          {upperCase(filter.title)}
+                        </span>
+                        <Dropdown
+                          breedList={breedList}
+                          items={filter.item}
+                          category={filter.title}
+                          handleDropdownChange={handleDropdownChange}
+                          animal={type}
+                          categoryValues={categoryValues}
+                          breed={breed}
+                        />
+                      </li>
+                    ))}
+                    {resetBttn && (
+                      <button
+                        className="bg-slate-300 p-2 rounded text-black mb-5"
+                        onClick={() => setDefaultCategoryValues()}
+                      >
+                        Reset Filters
+                      </button>
+                    )}
+                  </ul>
+                </div>
+                <div id="grid">
+                  {animals ? (
+                    <>
+                      <Items animals={animals} />
+                    </>
+                  ) : (
+                    "..."
                   )}
-                </ul>
+                </div>
               </div>
-              <div id="grid">
-                {animals ? (
-                  <>
-                    <Items animals={animals} />
-                  </>
+              <div className="text-black my-10 flex justify-center sm:ms-72 gap-x-64">
+                {parameters.page && parameters.page <= 1 ? (
+                  ""
                 ) : (
-                  "..."
+                  <a href="#grid">
+                    <button
+                      className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
+                      onClick={() => setPageNumber((prev) => prev - 1)}
+                    >
+                      <FaLessThan className="mx-auto text-lg" />
+                    </button>
+                  </a>
+                )}
+                {maxPage == 1 || parameters.page == maxPage ? (
+                  ""
+                ) : (
+                  <a href="#grid">
+                    <button
+                      className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
+                      onClick={() => setPageNumber((prev) => prev + 1)}
+                    >
+                      <FaGreaterThan className="mx-auto text-lg" />
+                    </button>
+                  </a>
                 )}
               </div>
             </div>
-            <div className="text-black my-10 flex justify-center sm:ms-72 gap-x-64">
-              {parameters.page && parameters.page <= 1 ? (
-                ""
-              ) : (
-                <a href="#grid">
-                  <button
-                    className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
-                    onClick={() => setPageNumber((prev) => prev - 1)}
-                  >
-                    <FaLessThan className="mx-auto text-lg" />
-                  </button>
-                </a>
-              )}
-              {maxPage == 1 || parameters.page == maxPage ? (
-                ""
-              ) : (
-                <a href="#grid">
-                  <button
-                    className="rounded bg-lime-400 p-2 hover:bg-lime-600 w-24"
-                    onClick={() => setPageNumber((prev) => prev + 1)}
-                  >
-                    <FaGreaterThan className="mx-auto text-lg" />
-                  </button>
-                </a>
-              )}
-            </div>
-          </div>
+          )}
         </>
       )}
     </main>
