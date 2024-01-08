@@ -4,7 +4,7 @@ const About = () => {
   const stats = [
     { stat: "5,000", sub: "Happy Families" },
     { stat: "8,000", sub: "Lives Saved" },
-    { stat: "5", sub: "Years of helping find homes" },
+    { stat: "5", sub: "Years of Helping Find Homes" },
   ];
   return (
     <main className="bg-white px-8 pt-6">
@@ -14,7 +14,7 @@ const About = () => {
             We're helping find homes for animals all over the United States.
           </h1>
           <p className="text-slate-500">
-            Welcome to [Your Adoption Site Name], where we're dedicated to
+            Welcome to Adopt a Pet, where we're dedicated to
             connecting loving families with pets in need of forever homes. With
             years of experience in animal welfare, we're committed to ensuring a
             seamless adoption process, guiding you through each step, and
@@ -51,7 +51,7 @@ const About = () => {
             />
           </div>
           <Image
-            className="rounded mx-auto w-full"
+            className="rounded  mx-3 xl:mx-auto w-full"
             src="https://images.pexels.com/photos/8498519/pexels-photo-8498519.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             alt="dog"
             width={500}
@@ -63,7 +63,7 @@ const About = () => {
         <div className="flex flex-col max-w-2xl">
           <h1 className="text-3xl font-bold mb-6">Our Mission</h1>
           <p className="text-slate-500">
-            Our Mission at [Your Adoption Site Name] is simple yet profound: to
+            Our Mission at Adopt a Pet is simple yet profound: to
             provide every pet with a second chance and every family with an
             opportunity to experience the unconditional love and joy that comes
             from pet companionship. We're driven by the belief that adoption not

@@ -7,7 +7,8 @@ import { useEffect, useRef, useState } from "react";
 
 const ChangePassword = () => {
   const [loading, setLoading] = useState(true);
- 
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const oldPasswordRef = useRef<HTMLInputElement | null>(null);
   const newPasswordRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
@@ -26,10 +27,16 @@ const ChangePassword = () => {
     });
     const data = await response.json();
     if (!response.ok) {
-      console.log("data", data)
+      setError(true);
+    } else {
+      setSuccess(true);
+      setTimeout(() => {
+        router.push("/account");
+      },3000)
+      
     }
 
-    router.replace("/account");
+   
 
   };
 
@@ -81,12 +88,16 @@ const ChangePassword = () => {
               ref={newPasswordRef}
             />
           </div>
+          <div className="flex flex-col">
           <button
             type="submit"
             className="text-white bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Submit
           </button>
+            {error && <span className="text-rose-500 mt-2">Passwords do not match!</span>}
+            {success && <span className="mt-2">Password Changed!</span>}
+            </div>
         </form>
       </div>
     </main>

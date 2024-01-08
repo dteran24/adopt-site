@@ -35,8 +35,6 @@ const LoginComponent = (props: LoginProps) => {
         passwordRef.current.value = "";
       }
     }
-
-    console.log(result);
   };
 
   useEffect(() => {

@@ -71,13 +71,13 @@ const ProfileComponent = (props: ProfileProps) => {
             <button className="bg-lime-500 rounded p-2">Change Password</button>
           </Link>
         </div>
-        <div className="flex flex-col mx-8">
+        <div className="flex flex-col mx-8 items-center">
           {animalList?.length ? (
             animalList?.map((item: any) => {
               const animal: PetInfo = item.animal;
               const photo = photoHandler(animal);
               return (
-                <div className="bg-lime-500 rounded my-5" key={animal.id}>
+                <div className="bg-transparent rounded my-5 rounded border-2 border-lime-500 w-full lg:w-3/4" key={animal.id}>
                   <div className="flex items-center sm:items-start justify-between p-5">
                     <Link href={`search/${animal.id}`}>
                       <Image
@@ -90,7 +90,7 @@ const ProfileComponent = (props: ProfileProps) => {
                     </Link>
                     <div className="flex flex-col w-full">
                       <div className="flex w-full justify-around sm:justify-between">
-                        <h2 className="justify-center font-bold text-xl sm:ms-40 md:ms-72 lg:ms-96">
+                        <h2 className="justify-center font-bold text-xl sm:ms-40 md:ms-72 lg:ms-80">
                           {animal.name}
                         </h2>
                         <button onClick={() => deleteAnimal(animal.id)}>
