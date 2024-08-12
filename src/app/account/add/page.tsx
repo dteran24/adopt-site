@@ -46,13 +46,11 @@ const CreateAccount = () => {
 
       if (!result?.error) {
         router.replace("/");
-        
-        }
       }
-
-      data.then((response) => console.log(response));
     }
 
+    data.then((response) => console.log(response));
+  };
 
   return (
     <main className="min-h-screen flex justify-center bg-white text-black p-5">

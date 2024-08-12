@@ -36,9 +36,8 @@ export const POST = async (req: Request) => {
       email: userEmail,
       "animalsLiked.animal.id": animal.id,
     });
-    const animalExists = !!userWithAnimal;
 
-    if (animalExists) {
+    if (userWithAnimal) {
       client?.close();
       return NextResponse.json(
         { message: "Animal already exists!" },
@@ -53,7 +52,6 @@ export const POST = async (req: Request) => {
     client?.close();
     return NextResponse.json({ message: "Animal added!" }, { status: 201 });
   } catch (e) {
-    console.log(e);
     return NextResponse.json(
       { message: "Internal Server Error" },
       { status: 500 }

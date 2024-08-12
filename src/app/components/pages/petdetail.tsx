@@ -17,6 +17,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { debounce } from "@/app/util/debounce";
 
 type PetDetailProps = {
   token: string;
@@ -54,50 +55,74 @@ const PetDetailComponent = (props: PetDetailProps) => {
     }
   };
   const addAnimal = async (animal: PetInfo) => {
-    const response = await fetch("/api/animals", {
-      method: "POST",
-      body: JSON.stringify({ animal }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log("response", response);
-    console.log("data", data);
+    try {
+      const response = await fetch("/api/animals", {
+        method: "POST",
+        body: JSON.stringify({ animal }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to add animal: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      // Handle success, e.g., update state or notify the user
+      console.log("Animal added:", data);
+    } catch (error) {
+      console.error("Error adding animal:", error);
+      // Handle error, e.g., show an error message to the user
+    }
   };
   const deleteAnimal = async (id: number) => {
-    const response = await fetch(`/api/animals/${id}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    console.log("response", response);
-    console.log("data", data);
-  };
+    try {
+      const response = await fetch(`/api/animals/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
 
+      if (!response.ok) {
+        throw new Error(`Failed to delete animal: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      // Handle success, e.g., update state or notify the user
+      console.log("Animal deleted:", data);
+    } catch (error) {
+      console.error("Error deleting animal:", error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
+  const debouncedAddAnimal = debounce(addAnimal, 1000);
+  const debouncedDeleteAnimal = debounce(deleteAnimal, 1000);
   const likeHandler = () => {
     if (inSession) {
-      setLike((prev) => !prev);
-    } else {
-      router.replace("/account/login");
+      // Toggle like state
+      setLike((prevLike) => {
+        const newLike = !prevLike;
+
+        // Trigger API calls based on the updated state
+        if (animal) {
+          if (newLike) {
+            debouncedAddAnimal(animal);
+          } else {
+            debouncedDeleteAnimal(animal.id);
+          }
+        }
+
+        // Return the new like state
+        return newLike;
+      });
+      // if (like && animal) {
+      //   addAnimal(animal);
+      // } else if (animal && !like) {
+      //   deleteAnimal(animal?.id);
+      // }
     }
-    // if (like && animal) {
-    //   addAnimal(animal);
-    // } else if (animal && !like) {
-    //   deleteAnimal(animal?.id);
-    // }
   };
   addLink(linksToAdd);
-
-  useEffect(() => {
-    if (inSession) {
-      if (like && animal) {
-        addAnimal(animal);
-      } else if (!like && animal) {
-        deleteAnimal(animal?.id);
-      }
-    }
-  }, [like]);
 
   useEffect(() => {
     const getAnimal = async () => {
@@ -117,32 +142,58 @@ const PetDetailComponent = (props: PetDetailProps) => {
           setPhoto(image);
         }
       }
-      setLoading(false);
     };
+
     const checkLiked = async (id: number) => {
       if (inSession) {
-        const response = await fetch(`/api/animals/${id}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        try {
+          const response = await fetch(`/api/animals/${id}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
 
-        const data = await response.json();
+          if (!response.ok) {
+            throw new Error(
+              `Failed to fetch liked status: ${response.statusText}`
+            );
+          }
 
-        setLike(data.liked);
+          const data = await response.json();
+          console.log(data);
+
+          if (!data) {
+            throw new Error("No data returned from server.");
+          }
+
+          setLike(data.liked);
+        } catch (error) {
+          console.error("Error checking liked status:", error);
+          // Handle error, e.g., show an error message to the user or set default values
+        }
       }
     };
-
-    getAnimal();
     getSession().then((session) =>
       session ? setInSession(true) : setInSession(false)
     );
+    getAnimal();
     checkLiked(petID!);
+    setLoading(false);
   }, [inSession, petID, token]);
+
+  // useEffect(() => {
+  //   if (inSession) {
+  //     if (like && animal) {
+  //       debouncedAddAnimal(animal);
+  //     } else if (!like && animal) {
+  //       debouncedDeleteAnimal;
+  //     }
+  //   }
+  // }, [like]);
 
   if (loading) {
     return <Loader />;
   }
-
+  console.log(like);
   return (
     <main className="flex flex-col sm:flex-row sm:justify-around min-h-screen w-full bg-white text-black">
       <div className="bg-white rounded p-5 flex flex-col w-100 sm:w-1/2 my-5 mx-2 h-3/4">
