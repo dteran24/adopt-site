@@ -69,11 +69,9 @@ const PetDetailComponent = (props: PetDetailProps) => {
       }
 
       const data = await response.json();
-      // Handle success, e.g., update state or notify the user
       console.log("Animal added:", data);
     } catch (error) {
       console.error("Error adding animal:", error);
-      // Handle error, e.g., show an error message to the user
     }
   };
   const deleteAnimal = async (id: number) => {
@@ -88,11 +86,9 @@ const PetDetailComponent = (props: PetDetailProps) => {
       }
 
       const data = await response.json();
-      // Handle success, e.g., update state or notify the user
       console.log("Animal deleted:", data);
     } catch (error) {
       console.error("Error deleting animal:", error);
-      // Handle error, e.g., show an error message to the user
     }
   };
   const debouncedAddAnimal = debounce(addAnimal, 1000);
@@ -122,69 +118,77 @@ const PetDetailComponent = (props: PetDetailProps) => {
   addLink(linksToAdd);
 
   useEffect(() => {
-    const getAnimal = async () => {
-      setLoading(true);
-      const response = await getAnimalByID(petID!, token!);
-      if (response) {
-        setAnimal(response);
-        const orgResponse = await getOrganization(
-          response.organization_id,
-          token!
-        );
-        if (orgResponse) {
+    // Function to fetch animal data and organization
+    const fetchAnimalData = async () => {
+      try {
+        // Start loading
+        setLoading(true);
+
+        // Fetch animal data
+        const animalResponse = await getAnimalByID(petID!, token!);
+        if (animalResponse) {
+          setAnimal(animalResponse);
+
+          // Fetch organization data
+          const orgResponse = await getOrganization(
+            animalResponse.organization_id,
+            token!
+          );
           setOrg(orgResponse);
-        }
-        const image = photoHandler(response);
-        if (image) {
+
+          // Fetch photo data
+          const image = photoHandler(animalResponse);
           setPhoto(image);
+
+          // Check if the animal is liked
+          if (inSession) {
+            await checkLiked(petID!);
+          }
         }
+      } catch (error) {
+        console.error("Error fetching animal data:", error);
+        // Handle error, e.g., set an error state or show an error message
+      } finally {
+        // Stop loading regardless of success or failure
+        setLoading(false);
       }
     };
 
+    // Function to check if the animal is liked
     const checkLiked = async (id: number) => {
-      if (inSession) {
-        try {
-          const response = await fetch(`/api/animals/${id}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          });
+      try {
+        const response = await fetch(`/api/animals/${id}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
 
-          if (!response.ok) {
-            throw new Error(
-              `Failed to fetch liked status: ${response.statusText}`
-            );
-          }
-
-          const data = await response.json();
-
-          if (!data) {
-            throw new Error("No data returned from server.");
-          } else {
-            setLike(data.liked);
-          }
-        } catch (error) {
-          console.error("Error checking liked status:", error);
-          // Handle error, e.g., show an error message to the user or set default values
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch liked status: ${response.statusText}`
+          );
         }
+
+        const data = await response.json();
+        if (data) {
+          setLike(data.liked);
+        } else {
+          throw new Error("No data returned from server.");
+        }
+      } catch (error) {
+        console.error("Error checking liked status:", error);
+        // Handle error, e.g., set default values
       }
     };
-    getSession().then((session) =>
-      session ? setInSession(true) : setInSession(false)
-    );
-    getAnimal();
-    checkLiked(petID!);
-    setLoading(false);
-  }, [inSession, petID, token]);
 
-  // useEffect(() => {
-  //   if (inSession) {
-  //     if (like && animal) {
-  //       debouncedAddAnimal(animal);
-  //     } else if (!like && animal) {
-  //       debouncedDeleteAnimal;
-  //     }
-  //   }
-  // }, [like]);
+    // Check session status
+    const fetchSession = async () => {
+      const session = await getSession();
+      setInSession(!!session);
+    };
+
+    // Execute the functions
+    fetchSession().then(() => fetchAnimalData());
+  }, [petID, token, inSession]);
 
   if (loading) {
     return <Loader />;
@@ -248,7 +252,7 @@ const PetDetailComponent = (props: PetDetailProps) => {
             src={photo!}
             alt="animal"
             width={300}
-            height={300}
+            height={200}
           />
 
           <button
@@ -273,12 +277,11 @@ const PetDetailComponent = (props: PetDetailProps) => {
           <h1 className="text-xl text-center mb-2 font-medium">{org?.name}</h1>
           <div>
             <h1 className="text-lg mb-2 font-medium">Contact Information</h1>
-            <div className="flex justify-between flex-wrap sm:flex-nowrap">
+            <div className="flex md:justify-between flex-col md:flex-row">
               {org?.email ? (
                 <Link href={`mailto:${org.email}`}>
                   <span className="flex items-center gap-x-1">
-                    {" "}
-                    <AiOutlineMail className="text-lime-500" /> {org?.email}{" "}
+                    <AiOutlineMail className="text-lime-500" /> {org?.email}
                   </span>
                 </Link>
               ) : (
