@@ -115,11 +115,8 @@ const PetDetailComponent = (props: PetDetailProps) => {
         // Return the new like state
         return newLike;
       });
-      // if (like && animal) {
-      //   addAnimal(animal);
-      // } else if (animal && !like) {
-      //   deleteAnimal(animal?.id);
-      // }
+    } else {
+      router.replace("/account/login");
     }
   };
   addLink(linksToAdd);
@@ -159,13 +156,12 @@ const PetDetailComponent = (props: PetDetailProps) => {
           }
 
           const data = await response.json();
-          console.log(data);
 
           if (!data) {
             throw new Error("No data returned from server.");
+          } else {
+            setLike(data.liked);
           }
-
-          setLike(data.liked);
         } catch (error) {
           console.error("Error checking liked status:", error);
           // Handle error, e.g., show an error message to the user or set default values

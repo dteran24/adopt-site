@@ -65,10 +65,12 @@ const ProfileComponent = (props: ProfileProps) => {
   return (
     <>
       <main className="bg-white min-h-screen text-black">
-        <div className="text-center">
-          <h1 className="text-2xl">{`Welcome ${name}!`}</h1>
-          <Link href={"account/change-password"}>
-            <button className="bg-lime-500 rounded p-2">Change Password</button>
+        <div className="text-center flex justify-end">
+          <h1 className="text-2xl grow ms-20">{`Welcome ${name}!`}</h1>
+          <Link className="me-12" href={"account/change-password"}>
+            <button className="rounded p-2 hover:text-lime-500">
+              Change Password
+            </button>
           </Link>
         </div>
         <div className="flex flex-col mx-8 items-center">
@@ -77,7 +79,10 @@ const ProfileComponent = (props: ProfileProps) => {
               const animal: PetInfo = item.animal;
               const photo = photoHandler(animal);
               return (
-                <div className="bg-transparent rounded my-5 rounded border-2 border-lime-500 w-full lg:w-3/4" key={animal.id}>
+                <div
+                  className="bg-transparent rounded my-5 border-2 border-lime-500 w-full lg:w-3/4"
+                  key={animal.id}
+                >
                   <div className="flex items-center sm:items-start justify-between p-5">
                     <Link href={`search/${animal.id}`}>
                       <Image
