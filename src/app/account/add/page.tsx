@@ -48,8 +48,6 @@ const CreateAccount = () => {
         router.replace("/");
       }
     }
-
-    data.then((response) => console.log(response));
   };
 
   return (

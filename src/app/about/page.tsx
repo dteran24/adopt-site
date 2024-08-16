@@ -15,15 +15,15 @@ const About = () => {
             We're helping find homes for animals all over the United States.
           </h1>
           <p className="text-slate-500">
-            Welcome to Adopt a Pet, where we're dedicated to
-            connecting loving families with pets in need of forever homes. With
-            years of experience in animal welfare, we're committed to ensuring a
-            seamless adoption process, guiding you through each step, and
-            providing post-adoption support. We celebrate the unique bond
-            between humans and animals and aim to foster a community of
-            responsible and compassionate pet owners. Join us in changing
-            lives—one adoption at a time. Thank you for considering [Your
-            Adoption Site Name] as your partner in this journey.
+            Welcome to Adopt a Pet, where we're dedicated to connecting loving
+            families with pets in need of forever homes. With years of
+            experience in animal welfare, we're committed to ensuring a seamless
+            adoption process, guiding you through each step, and providing
+            post-adoption support. We celebrate the unique bond between humans
+            and animals and aim to foster a community of responsible and
+            compassionate pet owners. Join us in changing lives—one adoption at
+            a time. Thank you for considering Adopt a Pet as your partner in
+            this journey.
           </p>
         </div>
         <div className="mx-auto">
@@ -64,12 +64,12 @@ const About = () => {
         <div className="flex flex-col max-w-2xl">
           <h1 className="text-3xl font-bold mb-6">Our Mission</h1>
           <p className="text-slate-500">
-            Our Mission at Adopt a Pet is simple yet profound: to
-            provide every pet with a second chance and every family with an
-            opportunity to experience the unconditional love and joy that comes
-            from pet companionship. We're driven by the belief that adoption not
-            only changes the lives of pets but also enriches the lives of those
-            who open their hearts and homes. We are dedicated to rescuing,
+            Our Mission at Adopt a Pet is simple yet profound: to provide every
+            pet with a second chance and every family with an opportunity to
+            experience the unconditional love and joy that comes from pet
+            companionship. We're driven by the belief that adoption not only
+            changes the lives of pets but also enriches the lives of those who
+            open their hearts and homes. We are dedicated to rescuing,
             rehabilitating, and rehoming animals in need, ensuring their
             well-being every step of the way. Through education, advocacy, and
             community involvement, we aspire to create a world where every pet
@@ -97,7 +97,6 @@ const About = () => {
           alt=""
           width={1000}
           height={500}
-          
         />
       </section>
     </main>
